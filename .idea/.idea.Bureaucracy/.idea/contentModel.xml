@@ -11,6 +11,7 @@
         <e p="Bureaucracy.csproj" t="IncludeRecursive" />
         <e p="BureaucracyEvent.cs" t="Include" />
         <e p="BureaucracyFacility.cs" t="Include" />
+        <e p="BureaucracyGameEvents.cs" t="Include" />
         <e p="BureaucracyScenario.cs" t="Include" />
         <e p="Costs.cs" t="Include" />
         <e p="FacilityManager.cs" t="Include" />

@@ -29,6 +29,7 @@ namespace Bureaucracy
         public override void OnEventCompleted()
         {
             nextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
+            BureaucracyGameEvents.OnBudgetAwarded.Fire(Funding.Instance.Funds, Costs.Instance.GetMaintenanceCosts());
         }
 
         private double GetNextBudgetTime()
@@ -42,7 +43,8 @@ namespace Bureaucracy
         public void OnLoad(ConfigNode cn)
         {
             ConfigNode managerNode = cn.GetNode("BUDGET_MANAGER");
-            double.TryParse(managerNode.GetValue("nextBudget"), out double nextBudgetTime);
+            double nextBudgetTime = GetNextBudgetTime();
+            if(managerNode != null) double.TryParse(managerNode.GetValue("nextBudget"), out nextBudgetTime);
             nextBudget = new BudgetEvent(nextBudgetTime, this, false);
             Costs.Instance.OnLoad(cn);
         }

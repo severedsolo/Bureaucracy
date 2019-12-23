@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="" />
+    <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Costs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Costs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RepDecay.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyGameEvents.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Costs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyScenario.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Utilities.cs" root0="FORCE_HIGHLIGHTING" />
@@ -34,22 +48,27 @@
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureacracyFacility.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/KACWrapper.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/FacilityManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyFacility.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Costs.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureacracyScenario.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyScenario.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyFacility.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BureacucracyEvents.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BureacracyEvents.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvents.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyGameEvents.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Costs.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1VLQxrqy5dDiFJO1fP2ZvjzA70A" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -57,6 +76,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TWShift.4" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/KSPDlls/UnityEngine.TextRenderingModule.dll" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -103,14 +123,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577030147780</updated>
-      <workItem from="1577030154032" duration="19407000" />
+      <workItem from="1577030154032" duration="19516000" />
+      <workItem from="1577080568766" duration="2965000" />
+      <workItem from="1577128099207" duration="497000" />
+      <workItem from="1577128686386" duration="263000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="WindowStateProjectService">
     <state x="555" y="180" width="800" height="672" key="#Notifications" timestamp="1577050945529">

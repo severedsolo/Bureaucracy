@@ -58,6 +58,7 @@
     <ItemGroup>
         <Compile Include="BudgetEvent.cs" />
         <Compile Include="BudgetManager.cs" />
+        <Compile Include="BureaucracyGameEvents.cs" />
         <Compile Include="BureaucracyScenario.cs" />
         <Compile Include="BureaucracyFacility.cs" />
         <Compile Include="Bureaucracy.cs" />

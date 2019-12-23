@@ -16,5 +16,10 @@ namespace Bureaucracy
             if (!KacWrapper.ApiReady) return;
             KacWrapper.Kac.CreateAlarm(KacWrapper.Kacapi.AlarmTypeEnum.Raw, alarmName, alarmTime);
         }
+
+        public void FileMessage(string[] s)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

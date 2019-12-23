@@ -1,4 +1,7 @@
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bureaucracy
@@ -36,7 +39,19 @@ namespace Bureaucracy
 
         private double GetWageCosts()
         {
-            throw new System.NotImplementedException();
+            float validCrewCount = 0;
+            List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
+            for (int i = 0; i < crew.Count; i++)
+            {
+                ProtoCrewMember p = crew.ElementAt(i);
+                if(p.type == ProtoCrewMember.KerbalType.Applicant) continue;
+                if(p.type == ProtoCrewMember.KerbalType.Tourist) continue;
+                if(p.type == ProtoCrewMember.KerbalType.Unowned) continue;
+                if(p.rosterStatus == ProtoCrewMember.RosterStatus.Dead || p.rosterStatus == ProtoCrewMember.RosterStatus.Missing) continue;
+                float experienceLevel = Math.Max(0.5f, p.experienceLevel);
+                validCrewCount += experienceLevel;
+            }
+            return validCrewCount * SettingsManager.Instance.kerbalBaseWage;
         }
 
         private double GetFacilityMaintenanceCosts()

@@ -1,12 +1,32 @@
 using System.Collections.Generic;
+using System.Linq;
+using Smooth.Slinq.Test;
 using UnityEngine;
 
 namespace Bureaucracy
 {
+    [KSPAddon(KSPAddon.Startup.Flight, false)]
+    public class TimerScriptFlight : TimerScript
+    {
+        
+    }
+    [KSPAddon(KSPAddon.Startup.SpaceCentre, false)]
+    public class TimerScriptSpaceCentre : TimerScript
+    {
+        
+    }
+    
+    [KSPAddon(KSPAddon.Startup.TrackingStation, false)]
+    public class TimerScriptTrackingStation : TimerScript
+    {
+        
+    }
+
     public class TimerScript : MonoBehaviour
     {
-        Dictionary<double, BureaucracyEvent> events = new Dictionary<double, BureaucracyEvent>();
+        Dictionary<BureaucracyEvent, double> events = new Dictionary<BureaucracyEvent, double>();
         public static TimerScript Instance;
+        private List<KeyValuePair<BureaucracyEvent, double>> eventCache;
 
         private void Awake()
         {
@@ -18,18 +38,25 @@ namespace Bureaucracy
             InvokeRepeating(nameof(CheckTimers), 0.5f, 0.5f);
         }
 
-        public void AddTimer(BureaucracyEvent bureaucracyEvent)
+        public void AddTimer(BureaucracyEvent eventToAdd)
         {
-            events.Add(bureaucracyEvent.CompletionTime, bureaucracyEvent);
+            events.Add(eventToAdd, eventToAdd.CompletionTime);
+        }
+
+        public void RemoveTimer(BureaucracyEvent eventToRemove)
+        {
+            events.Remove(eventToRemove);
         }
 
         private void CheckTimers()
         {
             double time = Planetarium.GetUniversalTime();
-            foreach (var v in events)
+            eventCache = events.ToList();
+            foreach (var v in eventCache)
             {
-                if(v.Key > time) continue;
-                v.Value.OnEventCompleted();
+                if(v.Value > time) continue;
+                v.Key.OnEventCompleted();
+                events.Remove(v.Key);
             }
         }
     }

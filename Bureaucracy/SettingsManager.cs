@@ -23,6 +23,7 @@ namespace Bureaucracy
         public int OtherFacilityCost = 5000;
         public int launchCostSPH = 100;
         public int launchCostVAB = 1000;
+        public int kerbalBaseWage = 1000;
 
         public SettingsManager()
         {

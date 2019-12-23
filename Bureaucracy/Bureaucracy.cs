@@ -2,6 +2,21 @@
 
 namespace Bureaucracy
 {
+    [KSPAddon(KSPAddon.Startup.SpaceCentre, false)]
+    public class BureaucracySpaceCentre : Bureaucracy
+    {
+        
+    }
+    [KSPAddon(KSPAddon.Startup.Flight, false)]
+    public class BureaucracyFlight : Bureaucracy
+    {
+        
+    }
+    [KSPAddon(KSPAddon.Startup.TrackingStation, false)]
+    public class BureaucracyTrackingStation : Bureaucracy
+    {
+        
+    }
     public class Bureaucracy : MonoBehaviour
     {
         private BudgetManager budgetManager = new BudgetManager();
