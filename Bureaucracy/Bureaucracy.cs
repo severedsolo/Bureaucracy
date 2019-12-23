@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Text;
+using UnityEngine;
 
 namespace Bureaucracy
 {
@@ -23,13 +25,13 @@ namespace Bureaucracy
         public SettingsManager settings = new SettingsManager();
         public static Bureaucracy Instance;
         private Utilities utilities = new Utilities();
-        public float constructionPercent = 20;
-        public float sciencePercent = 10;
         private FacilityManager facilityManager = new FacilityManager();
+
 
         private void Awake()
         {
             Instance = this;
+            BureaucracyGameEvents.OnBudgetAwarded.Add(GenerateReport);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Bureaucracy
         {
             DontDestroyOnLoad(this);
             OnBudgetAwarded = new EventData<double, double>("OnBudgetAwarded");
+            GameEvents.OnVesselRollout.Add(Costs.Instance.AddLaunch);
         }
     }
 }

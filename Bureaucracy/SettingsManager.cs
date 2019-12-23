@@ -24,6 +24,7 @@ namespace Bureaucracy
         public int launchCostSPH = 100;
         public int launchCostVAB = 1000;
         public int kerbalBaseWage = 1000;
+        public bool contractInterceptor = true;
 
         public SettingsManager()
         {

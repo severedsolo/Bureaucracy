@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,9 +16,9 @@ namespace Bureaucracy
             Instance = this;
         }
 
-        public void AddLaunch(EditorFacility editor)
+        public void AddLaunch(ShipConstruct ship)
         {
-            if (editor == EditorFacility.SPH) launchCostsSph += SettingsManager.Instance.launchCostSPH;
+            if (ship.shipFacility == EditorFacility.SPH) launchCostsSph += SettingsManager.Instance.launchCostSPH;
             else launchCostsVab += SettingsManager.Instance.launchCostVAB;
         }
 
@@ -69,6 +68,7 @@ namespace Bureaucracy
         public void OnLoad(ConfigNode cn)
         {
             ConfigNode costsNode = cn.GetNode("COSTS");
+            if (costsNode == null) return;
             int.TryParse(costsNode.GetValue("launchCostsVAB"), out launchCostsVab);
             int.TryParse(costsNode.GetValue("launchCostsSPH"), out launchCostsSph);
         }

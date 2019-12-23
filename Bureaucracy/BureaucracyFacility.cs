@@ -5,7 +5,7 @@ namespace Bureaucracy
 {
     public class BureaucracyFacility
     {
-        private int level = 0;
+        private int level = 1;
         private int upkeepCost = 0;
         private string name;
 

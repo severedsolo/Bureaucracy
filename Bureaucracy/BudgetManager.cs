@@ -21,15 +21,13 @@ namespace Bureaucracy
         {
             double funding = GetGrossBudget();
             funding -= costs.GetMaintenanceCosts();
-            float actualFundingPercentage = 1.0f - Bureaucracy.Instance.constructionPercent - Bureaucracy.Instance.sciencePercent;
-            funding *= actualFundingPercentage;
             return funding;
         }
 
         public override void OnEventCompleted()
         {
-            nextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
             BureaucracyGameEvents.OnBudgetAwarded.Fire(Funding.Instance.Funds, Costs.Instance.GetMaintenanceCosts());
+            nextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
         }
 
         private double GetNextBudgetTime()

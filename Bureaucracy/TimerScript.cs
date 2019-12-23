@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Smooth.Slinq.Test;
 using UnityEngine;
 
 namespace Bureaucracy
@@ -35,7 +34,7 @@ namespace Bureaucracy
 
         private void Start()
         {
-            InvokeRepeating(nameof(CheckTimers), 0.5f, 0.5f);
+            InvokeRepeating(nameof(CheckTimers), 0.1f, 0.1f);
         }
 
         public void AddTimer(BureaucracyEvent eventToAdd)
@@ -50,6 +49,7 @@ namespace Bureaucracy
 
         private void CheckTimers()
         {
+            //TODO: Make some kind of gradual timewarp stop
             double time = Planetarium.GetUniversalTime();
             eventCache = events.ToList();
             foreach (var v in eventCache)
@@ -57,6 +57,7 @@ namespace Bureaucracy
                 if(v.Value > time) continue;
                 v.Key.OnEventCompleted();
                 events.Remove(v.Key);
+                if (SettingsManager.Instance.StopTimeWarp) TimeWarp.SetRate(0, true);
             }
         }
     }
