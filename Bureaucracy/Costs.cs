@@ -22,7 +22,13 @@ namespace Bureaucracy
             else launchCostsVab += SettingsManager.Instance.launchCostVAB;
         }
 
-        public double GetMaintenanceCosts()
+        public void ResetLaunchCosts()
+        {
+            launchCostsSph = 0;
+            launchCostsVab = 0;
+        }
+        
+        public double GetTotalMaintenanceCosts()
         {
             double costs = 0;
             costs += GetFacilityMaintenanceCosts();
@@ -31,12 +37,12 @@ namespace Bureaucracy
             return costs;
         }
 
-        private double GetLaunchCosts()
+        public double GetLaunchCosts()
         {
             return launchCostsSph + launchCostsVab;
         }
 
-        private double GetWageCosts()
+        public double GetWageCosts()
         {
             float validCrewCount = 0;
             List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
@@ -53,7 +59,7 @@ namespace Bureaucracy
             return validCrewCount * SettingsManager.Instance.kerbalBaseWage;
         }
 
-        private double GetFacilityMaintenanceCosts()
+        public double GetFacilityMaintenanceCosts()
         {
             double d = 0;
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)

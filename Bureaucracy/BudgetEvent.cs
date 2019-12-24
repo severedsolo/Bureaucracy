@@ -19,7 +19,7 @@ namespace Bureaucracy
             double funding = BudgetManager.Instance.GetNetBudget();
             if (Bureaucracy.Instance.settings.UseItOrLoseIt) Funding.Instance.SetFunds(0, TransactionReasons.Contracts);
             Funding.Instance.AddFunds(funding, TransactionReasons.Contracts);
-            BudgetManager.Instance.GenerateReport()
+            BureaucracyGameEvents.OnBudgetAwarded.Fire(funding, Costs.Instance.GetTotalMaintenanceCosts());
             repDecay.ApplyRepDecay(Bureaucracy.Instance.settings.RepDecayPercent);
             InformParent();
         }

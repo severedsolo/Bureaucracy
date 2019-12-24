@@ -10,6 +10,7 @@ namespace Bureaucracy
         public BudgetManager()
         {
             Instance = this;
+            Bureaucracy.Instance.RegisterManager(this);
         }
         
         public double GetGrossBudget()
@@ -20,13 +21,12 @@ namespace Bureaucracy
         public double GetNetBudget()
         {
             double funding = GetGrossBudget();
-            funding -= costs.GetMaintenanceCosts();
+            funding -= costs.GetTotalMaintenanceCosts();
             return funding;
         }
 
         public override void OnEventCompleted()
         {
-            BureaucracyGameEvents.OnBudgetAwarded.Fire(Funding.Instance.Funds, Costs.Instance.GetMaintenanceCosts());
             nextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
         }
 

@@ -4,13 +4,12 @@
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Costs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Costs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +21,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Report.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/BudgetReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RepDecay.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyGameEvents.cs" root0="FORCE_HIGHLIGHTING" />
@@ -47,9 +48,7 @@
         <option value="$PROJECT_DIR$/Bureaucracy/RepDecay.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureacracyFacility.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/KACWrapper.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/FacilityManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureacracyScenario.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyScenario.cs" />
@@ -59,16 +58,22 @@
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvents.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyGameEvents.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Costs.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Costs.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Report.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BudgetReport.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1VLQxrqy5dDiFJO1fP2ZvjzA70A" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -127,6 +132,7 @@
       <workItem from="1577080568766" duration="2965000" />
       <workItem from="1577128099207" duration="497000" />
       <workItem from="1577128686386" duration="263000" />
+      <workItem from="1577172790794" duration="2246000" />
     </task>
     <servers />
   </component>

@@ -7,12 +7,14 @@
       <e p="Bureaucracy" t="IncludeRecursive">
         <e p="BudgetEvent.cs" t="Include" />
         <e p="BudgetManager.cs" t="Include" />
+        <e p="BudgetReport.cs" t="Include" />
         <e p="Bureaucracy.cs" t="Include" />
         <e p="Bureaucracy.csproj" t="IncludeRecursive" />
         <e p="BureaucracyEvent.cs" t="Include" />
         <e p="BureaucracyFacility.cs" t="Include" />
         <e p="BureaucracyGameEvents.cs" t="Include" />
         <e p="BureaucracyScenario.cs" t="Include" />
+        <e p="ContractInterceptor.cs" t="Include" />
         <e p="Costs.cs" t="Include" />
         <e p="FacilityManager.cs" t="Include" />
         <e p="KACWrapper.cs" t="Include" />
@@ -21,6 +23,7 @@
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
         <e p="RepDecay.cs" t="Include" />
+        <e p="Report.cs" t="Include" />
         <e p="SettingsManager.cs" t="Include" />
         <e p="TimerScript.cs" t="Include" />
         <e p="Utilities.cs" t="Include" />
