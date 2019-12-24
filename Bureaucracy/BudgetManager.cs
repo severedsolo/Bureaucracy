@@ -10,12 +10,16 @@ namespace Bureaucracy
         public BudgetManager()
         {
             Instance = this;
-            Bureaucracy.Instance.RegisterManager(this);
         }
-        
+
+        public override Report GetReport()
+        {
+            return new BudgetReport();
+        }
+
         public double GetGrossBudget()
         {
-            return Reputation.Instance.reputation * SettingsManager.Instance.BudgetMultiplier;
+            return Reputation.Instance.reputation * SettingsClass.Instance.BudgetMultiplier;
         }
 
         public double GetNetBudget()
@@ -32,8 +36,8 @@ namespace Bureaucracy
 
         private double GetNextBudgetTime()
         {
-            double time = SettingsManager.Instance.TimeBetweenBudgets;
-            time *= FlightGlobals.GetHomeBody().rotationPeriod;
+            double time = SettingsClass.Instance.TimeBetweenBudgets;
+            time *= FlightGlobals.GetHomeBody().solarDayLength;
             time += Planetarium.GetUniversalTime();
             return time;
         }

@@ -11,8 +11,8 @@ namespace Bureaucracy
 
         private bool DecayIsValid(bool hardMode)
         {
-            if (hardMode && !SettingsManager.Instance.HardMode) return false;
-            if (!hardMode && !SettingsManager.Instance.RepDecayEnabled) return false;
+            if (hardMode && !SettingsClass.Instance.HardMode) return false;
+            if (!hardMode && !SettingsClass.Instance.RepDecayEnabled) return false;
             return true;
         }
 

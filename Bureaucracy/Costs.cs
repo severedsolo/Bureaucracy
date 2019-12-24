@@ -18,8 +18,8 @@ namespace Bureaucracy
 
         public void AddLaunch(ShipConstruct ship)
         {
-            if (ship.shipFacility == EditorFacility.SPH) launchCostsSph += SettingsManager.Instance.launchCostSPH;
-            else launchCostsVab += SettingsManager.Instance.launchCostVAB;
+            if (ship.shipFacility == EditorFacility.SPH) launchCostsSph += SettingsClass.Instance.launchCostSPH;
+            else launchCostsVab += SettingsClass.Instance.launchCostVAB;
         }
 
         public void ResetLaunchCosts()
@@ -56,7 +56,7 @@ namespace Bureaucracy
                 float experienceLevel = Math.Max(0.5f, p.experienceLevel);
                 validCrewCount += experienceLevel;
             }
-            return validCrewCount * SettingsManager.Instance.kerbalBaseWage;
+            return validCrewCount * SettingsClass.Instance.kerbalBaseWage;
         }
 
         public double GetFacilityMaintenanceCosts()

@@ -23,28 +23,28 @@ namespace Bureaucracy
             switch (name)
             {
                 case "Administration":
-                    cost = SettingsManager.Instance.AdminCost;
+                    cost = SettingsClass.Instance.AdminCost;
                     break;
                 case "AstronautComplex:":
-                    cost = SettingsManager.Instance.AstronautComplexCost;
+                    cost = SettingsClass.Instance.AstronautComplexCost;
                     break;
                 case "MissionControl":
-                    cost = SettingsManager.Instance.MissionControlCost;
+                    cost = SettingsClass.Instance.MissionControlCost;
                     break;
                 case "SPH":
-                    cost = SettingsManager.Instance.SphCost;
+                    cost = SettingsClass.Instance.SphCost;
                     break;
                 case "TrackingStation":
-                    cost = SettingsManager.Instance.TrackingStationCost;
+                    cost = SettingsClass.Instance.TrackingStationCost;
                     break;
                 case "RnD":
-                    cost = SettingsManager.Instance.RndCost;
+                    cost = SettingsClass.Instance.RndCost;
                     break;
                 case "VAB":
-                    cost = SettingsManager.Instance.VabCost;
+                    cost = SettingsClass.Instance.VabCost;
                     break;
                 case "Other Facility":
-                    cost = SettingsManager.Instance.OtherFacilityCost;
+                    cost = SettingsClass.Instance.OtherFacilityCost;
                     break;
                 default:
                     Debug.Log("[Bureaucracy]: Facility " + name + " could not be found!");

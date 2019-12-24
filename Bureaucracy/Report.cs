@@ -5,15 +5,10 @@ namespace Bureaucracy
 {
     public class Report
     {
-        private string title;
         protected StringBuilder ReportBuilder = new StringBuilder();
-        
-        public string ReportTitle
-        {
-            get => title;
-            protected set => title = value;
-        }
 
-        public virtual string ReportBody() { return "Report Not Found"; }
+        public string ReportTitle { get; protected set; } = "Report Not Implemented";
+
+        public virtual string ReportBody() { return "If you are seeing this message, you've forgotten to override GetReport() in a Manager class."; }
     }
 }

@@ -5,16 +5,12 @@ namespace Bureaucracy
     {
         public override void OnSave(ConfigNode node)
         {
-            BudgetManager.Instance.OnSave(node);
-            FacilityManager.Instance.OnSave(node);
-            SettingsManager.Instance.OnSave(node);
+            Bureaucracy.Instance.OnSave(node);
         }
 
         public override void OnLoad(ConfigNode node)
         {
-            BudgetManager.Instance.OnLoad(node);
-            FacilityManager.Instance.OnLoad(node);
-            SettingsManager.Instance.OnLoad(node);
+            Bureaucracy.Instance.OnLoad(node);
         }
     }
 }

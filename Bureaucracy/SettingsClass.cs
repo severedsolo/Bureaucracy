@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Bureaucracy
 {
-    public class SettingsManager
+    public class SettingsClass
     {
-        public static SettingsManager Instance;
+        public static SettingsClass Instance;
         public int BudgetMultiplier = 2227;
         public float TimeBetweenBudgets = 30.0f;
         public bool StopTimeWarp = true;
@@ -26,7 +26,7 @@ namespace Bureaucracy
         public int kerbalBaseWage = 1000;
         public bool contractInterceptor = true;
 
-        public SettingsManager()
+        public SettingsClass()
         {
             Instance = this;
         }

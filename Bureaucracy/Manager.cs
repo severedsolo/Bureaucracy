@@ -6,11 +6,10 @@ namespace Bureaucracy
     public class Manager
     {
         protected StringBuilder reportBuilder = new StringBuilder();
-        protected Report report;
         
         public virtual void OnEventCompleted() { }
 
-        public virtual Report GetReport() { return report; }
+        public virtual Report GetReport() { return new Report(); }
 
 
     }
