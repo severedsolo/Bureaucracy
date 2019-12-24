@@ -5,11 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/BudgetReport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BudgetReport.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Costs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Costs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/InternalEvents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/InternalEvents.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,11 +19,11 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/InternalEvents.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Report.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BudgetReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RepDecay.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyGameEvents.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Costs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyScenario.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Utilities.cs" root0="FORCE_HIGHLIGHTING" />
@@ -33,7 +31,6 @@
     <setting file="file://$PROJECT_DIR$/Bureaucracy/KACWrapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyFacility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Manager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/TimerScript.cs" root0="FORCE_HIGHLIGHTING" />
@@ -60,13 +57,15 @@
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyGameEvents.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/SettingsManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Costs.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Report.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BudgetReport.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/BudgetManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BudgetEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BudgetReport.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/InternalEvents.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" />
       </list>
     </option>
   </component>
@@ -133,6 +132,7 @@
       <workItem from="1577128099207" duration="497000" />
       <workItem from="1577128686386" duration="263000" />
       <workItem from="1577172790794" duration="2246000" />
+      <workItem from="1577205267463" duration="1815000" />
     </task>
     <servers />
   </component>

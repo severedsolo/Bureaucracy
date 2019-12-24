@@ -11,13 +11,11 @@ namespace Bureaucracy
         class InternalEvents : MonoBehaviour
     {
         public static EventData<double, double> OnBudgetAwarded;
-        public static InternalEvents Instance;
 
         private void Awake()
         {
             DontDestroyOnLoad(this);
             OnBudgetAwarded = new EventData<double, double>("OnBudgetAwarded");
-            Instance = this;
         }
     }
 }
