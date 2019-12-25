@@ -1,4 +1,6 @@
 
+using System.Linq;
+
 namespace Bureaucracy
 {
     public class Utilities
@@ -16,10 +18,36 @@ namespace Bureaucracy
             if (!KacWrapper.ApiReady) return;
             KacWrapper.Kac.CreateAlarm(KacWrapper.Kacapi.AlarmTypeEnum.Raw, alarmName, alarmTime);
         }
-
-        public void FileMessage(string[] s)
+        
+        public double GetGrossBudget()
         {
-            throw new System.NotImplementedException();
+            return Reputation.Instance.reputation * SettingsClass.Instance.BudgetMultiplier;
+        }
+
+        public double GetNetBudget(string department)
+        {
+            double funding = GetGrossBudget();
+            funding -= Costs.Instance.GetTotalMaintenanceCosts();
+            float allocation = 1.0f;
+            switch (department)
+            {
+                case "Budget":
+                {
+                    for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
+                    {
+                        Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
+                        if (m == BudgetManager.Instance) continue;
+                        allocation -= m.FundingAllocation / 100.0f;
+                    }
+
+                    return allocation;
+                }
+                case "Facilities":
+                    return funding * FacilityManager.Instance.FundingAllocation / 100.0f;
+                case "Research":
+                    return funding * ResearchManager.Instance.FundingAllocation / 100.0f;
+            }
+            return 0;
         }
     }
 }

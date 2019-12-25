@@ -21,10 +21,10 @@ namespace Bureaucracy
         public int RndCost = 8000;
         public int VabCost = 8000;
         public int OtherFacilityCost = 5000;
-        public int launchCostSPH = 100;
-        public int launchCostVAB = 1000;
-        public int kerbalBaseWage = 1000;
-        public bool contractInterceptor = true;
+        public int LaunchCostSph = 100;
+        public int LaunchCostVab = 1000;
+        public int KerbalBaseWage = 1000;
+        public bool ContractInterceptor = true;
 
         public SettingsClass()
         {

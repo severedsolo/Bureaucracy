@@ -16,6 +16,7 @@
         <e p="ContractInterceptor.cs" t="Include" />
         <e p="Costs.cs" t="Include" />
         <e p="FacilityManager.cs" t="Include" />
+        <e p="FacilityUpgradeEvent.cs" t="Include" />
         <e p="GameEventListeners.cs" t="Include" />
         <e p="InternalEvents.cs" t="Include" />
         <e p="KACWrapper.cs" t="Include" />
@@ -25,6 +26,7 @@
         </e>
         <e p="RepDecay.cs" t="Include" />
         <e p="Report.cs" t="Include" />
+        <e p="ResearchManager.cs" t="Include" />
         <e p="SettingsClass.cs" t="Include" />
         <e p="TimerScript.cs" t="Include" />
         <e p="Utilities.cs" t="Include" />

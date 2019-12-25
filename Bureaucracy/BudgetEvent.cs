@@ -16,7 +16,7 @@ namespace Bureaucracy
         {
             RepDecay repDecay = new RepDecay();
             repDecay.ApplyHardMode();
-            double funding = BudgetManager.Instance.GetNetBudget();
+            double funding = Utilities.Instance.GetNetBudget("Budget");
             if (Bureaucracy.Instance.settings.UseItOrLoseIt && funding > Funding.Instance.Funds) Funding.Instance.SetFunds(0, TransactionReasons.Contracts);
             Funding.Instance.AddFunds(funding, TransactionReasons.Contracts);
             InternalEvents.OnBudgetAwarded.Fire(funding, Costs.Instance.GetTotalMaintenanceCosts());

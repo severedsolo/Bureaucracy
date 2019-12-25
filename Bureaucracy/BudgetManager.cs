@@ -1,4 +1,6 @@
 
+using System.Linq;
+
 namespace Bureaucracy
 {
     public class BudgetManager : Manager
@@ -9,6 +11,7 @@ namespace Bureaucracy
 
         public BudgetManager()
         {
+            Name = "Budget Manager";
             Instance = this;
         }
 
@@ -17,19 +20,7 @@ namespace Bureaucracy
             return new BudgetReport();
         }
 
-        public double GetGrossBudget()
-        {
-            return Reputation.Instance.reputation * SettingsClass.Instance.BudgetMultiplier;
-        }
-
-        public double GetNetBudget()
-        {
-            double funding = GetGrossBudget();
-            funding -= costs.GetTotalMaintenanceCosts();
-            return funding;
-        }
-
-        public override void OnEventCompleted()
+        public override void OnEventCompleted(BureaucracyEvent eventCompleted)
         {
             nextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
         }
@@ -38,7 +29,9 @@ namespace Bureaucracy
         {
             double time = SettingsClass.Instance.TimeBetweenBudgets;
             time *= FlightGlobals.GetHomeBody().solarDayLength;
-            time += Planetarium.GetUniversalTime();
+            double offset = 0;
+            if (nextBudget != null) offset = Planetarium.GetUniversalTime() - nextBudget.CompletionTime;
+            time += Planetarium.GetUniversalTime() - offset;
             return time;
         }
         

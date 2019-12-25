@@ -1,5 +1,8 @@
 using System;
+using Contracts;
+using PreFlightTests;
 using UnityEngine;
+using Upgradeables;
 
 namespace Bureaucracy
 {
@@ -7,19 +10,38 @@ namespace Bureaucracy
     public class GameEventListeners : MonoBehaviour
     {
 
-        public static GameEventListeners Instance;
-
         private void Awake()
         {
             Debug.Log("[Bureaucracy]: Waking GameEvents");
-            DontDestroyOnLoad(this);
-            GameEvents.OnVesselRollout.Add(AddLaunch);
-            Instance = this;
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
+            {
+                Destroy(this);
+                Debug.Log("[Bureaucracy]: Game Mode is not career. Destroying Event Handler");
+            }
+            else
+            {
+                DontDestroyOnLoad(this);
+                GameEvents.OnVesselRollout.Add(AddLaunch);
+                GameEvents.Contract.onOffered.Add(OnContractOffered);
+                GameEvents.OnKSCFacilityUpgraded.Add(OnKSCFacilityUpgrade);
+            }
+        }
+
+        private void OnKSCFacilityUpgrade(UpgradeableFacility facility, int requestedLevel)
+        {
+            FacilityManager.Instance.StartUpgrade(facility, requestedLevel);
+        }
+
+        private void OnContractOffered(Contract contract)
+        {
+            ContractInterceptor.Instance.OnContractOffered(contract);
         }
 
         private void AddLaunch(ShipConstruct ship)
         {
             Costs.Instance.AddLaunch(ship);
         }
+        
+        //TODO: Add destructors for all events
     }
 }

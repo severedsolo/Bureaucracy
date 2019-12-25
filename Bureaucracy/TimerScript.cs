@@ -49,7 +49,9 @@ namespace Bureaucracy
 
         private void CheckTimers()
         {
-            //TODO: Make some kind of gradual timewarp stop
+            //If not using KAC there is the possibility of a little drift if events are being set sequentially.
+            //BudgetManager handles this by comparing the time of the budget to the time of the last budget.
+            //Possible TODO: Timewarp slowdown like KAC does?
             double time = Planetarium.GetUniversalTime();
             eventCache = events.ToList();
             foreach (var v in eventCache)

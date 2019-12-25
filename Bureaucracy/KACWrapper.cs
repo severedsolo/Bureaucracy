@@ -5,9 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-// TODO: Change this namespace to something specific to your plugin here.
-//EG:
-// namespace MyPlugin_KACWrapper
 namespace Bureaucracy
 {
 

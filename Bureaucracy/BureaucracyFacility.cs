@@ -1,5 +1,8 @@
+using System;
 using System.Linq;
+using Expansions.Missions.Tests;
 using UnityEngine;
+using Upgradeables;
 
 namespace Bureaucracy
 {
@@ -8,8 +11,15 @@ namespace Bureaucracy
         private int level = 1;
         private int upkeepCost = 0;
         private string name;
+        private bool upgrading = false;
+        public FacilityUpgradeEvent Upgrade;
+        private bool recentlyUpgraded = false;
+
+        public bool Upgrading => upgrading;
 
         public int MaintenanceCost => upkeepCost * level;
+
+        public string Name => name;
 
         public BureaucracyFacility(SpaceCenterFacility spf)
         {
@@ -76,6 +86,19 @@ namespace Bureaucracy
             }
         }
 
+        public void StartUpgrade(UpgradeableFacility facility, int requestedLevel)
+        {
+            upgrading = true;
+            if(Upgrade == null) Upgrade = new FacilityUpgradeEvent(facility, requestedLevel, this);
+        }
+
+        public string GetProgressReport()
+        {
+            if (!upgrading && !recentlyUpgraded) return String.Empty;
+            if (recentlyUpgraded) return name + " upgrade completed successfully";
+            return "$" + Upgrade.Cost + " remaining";
+        }
+        
         public void OnLoad(ConfigNode[] facilityNodes)
         {
             for (int i = 0; i < facilityNodes.Length; i++)
@@ -84,16 +107,29 @@ namespace Bureaucracy
                 if (cn.GetValue("Name") != name) continue;
                 int.TryParse(cn.GetValue("Level"), out level);
                 SetCosts();
+                ConfigNode upgradeNode = cn.GetNode("UPGRADE");
+                if (upgradeNode != null)
+                {
+                    upgrading = true;
+                    Upgrade = new FacilityUpgradeEvent(ScenarioUpgradeableFacilities.protoUpgradeables[name].facilityRefs, upgradeNode, name, this);
+                }
                 return;
             }
         }
-
         public void OnSave(ConfigNode cn)
         {
             ConfigNode thisNode = new ConfigNode("FACILITY");
             thisNode.SetValue("Name", name, true);
             thisNode.SetValue("Level", level, true);
+            if (upgrading) Upgrade.OnSave(thisNode);
             cn.AddNode(thisNode);
+        }
+
+        public void OnUpgradeCompleted()
+        {
+            upgrading = false;
+            Upgrade = null;
+            recentlyUpgraded = true;
         }
     }
 }

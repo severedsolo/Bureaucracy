@@ -11,16 +11,20 @@ namespace Bureaucracy
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
     class ContractInterceptor : MonoBehaviour
     {
+        public static ContractInterceptor Instance;
         protected void Awake()
         {
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) Destroy(this);
-            else DontDestroyOnLoad(this);
-            GameEvents.Contract.onOffered.Add(OnContractOffered);
+            else
+            {
+                DontDestroyOnLoad(this);
+                Instance = this;
+            }
         }
 
-        private void OnContractOffered(Contract contract)
+        public void OnContractOffered(Contract contract)
         {
-            if (!SettingsClass.Instance.contractInterceptor) return;
+            if (!SettingsClass.Instance.ContractInterceptor) return;
             if (contract.FundsCompletion <= 0) return;
             //Set Failure Penalty to Advance - Failure Rep.
             float rep = (float)contract.FundsAdvance / 10000 * -1 - (float)contract.FundsFailure / 10000;
@@ -41,7 +45,7 @@ namespace Bureaucracy
 
         public void OnDisable()
         {
-            global::GameEvents.Contract.onOffered.Remove(this.OnContractOffered);
+            GameEvents.Contract.onOffered.Remove(OnContractOffered);
         }
     }
 }
