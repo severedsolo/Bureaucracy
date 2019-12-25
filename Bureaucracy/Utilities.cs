@@ -1,4 +1,5 @@
 
+using System;
 using System.Linq;
 
 namespace Bureaucracy
@@ -26,6 +27,7 @@ namespace Bureaucracy
 
         public double GetNetBudget(string department)
         {
+            
             double funding = GetGrossBudget();
             funding -= Costs.Instance.GetTotalMaintenanceCosts();
             float allocation = 1.0f;
@@ -48,6 +50,12 @@ namespace Bureaucracy
                     return funding * ResearchManager.Instance.FundingAllocation / 100.0f;
             }
             return 0;
+        }
+
+        public string TrimFacilityString(string s)
+        {
+            s.Replace("SpaceCenter/", String.Empty);
+            return s;
         }
     }
 }

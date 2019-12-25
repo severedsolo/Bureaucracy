@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using PreFlightTests;
 using Upgradeables;
 
 namespace Bureaucracy
@@ -36,10 +35,16 @@ namespace Bureaucracy
 
         public float Cost => cost;
 
-        public void UpdateProgress(double funding)
+        public float UpdateProgress(double funding)
         {
+            double remainingFunding = funding - cost;
+            if (remainingFunding > 0)
+            {
+                OnEventCompleted();
+                return  (float)remainingFunding;
+            }
             cost -= (float)funding;
-            if (cost <= 0) OnEventCompleted();
+            return 0.0f;
         }
 
         public override void OnEventCompleted()

@@ -13,13 +13,13 @@ namespace Bureaucracy
         public override string ReportBody()
         {
             ReportBuilder.Clear();
-            ReportBuilder.AppendLine("Gross Budget: " + BudgetManager.Instance.GetGrossBudget());
+            ReportBuilder.AppendLine("Gross Budget: " + Utilities.Instance.GetGrossBudget());
             ReportBuilder.AppendLine("Staff Costs: " + Costs.Instance.GetWageCosts());
             ReportBuilder.AppendLine("Facility Maintenance Costs: " + Costs.Instance.GetFacilityMaintenanceCosts());
             ReportBuilder.AppendLine("Launch Costs: " + Costs.Instance.GetLaunchCosts());
             ReportBuilder.AppendLine("Total Maintenance Costs: " + Costs.Instance.GetTotalMaintenanceCosts());
             //TODO: Construction and Research Costs go here
-            double netBudget = BudgetManager.Instance.GetNetBudget();
+            double netBudget = Utilities.Instance.GetNetBudget("Budget");
             ReportBuilder.AppendLine("Net Budget: " + Math.Max(0, netBudget));
             if (netBudget < 0)
             {

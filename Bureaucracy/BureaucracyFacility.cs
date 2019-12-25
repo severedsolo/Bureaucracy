@@ -21,9 +21,9 @@ namespace Bureaucracy
 
         public string Name => name;
 
-        public BureaucracyFacility(SpaceCenterFacility spf)
+        public BureaucracyFacility(UpgradeableFacility spf)
         {
-            name = SetName(spf);
+            name = spf.id;
             upkeepCost = SetCosts();
         }
 
@@ -41,7 +41,7 @@ namespace Bureaucracy
                 case "MissionControl":
                     cost = SettingsClass.Instance.MissionControlCost;
                     break;
-                case "SPH":
+                case "SpacePlaneHangar":
                     cost = SettingsClass.Instance.SphCost;
                     break;
                 case "TrackingStation":
@@ -63,28 +63,6 @@ namespace Bureaucracy
 
             return cost;
         }
-        private string SetName(SpaceCenterFacility spf)
-        {
-            switch (spf)
-            {
-                case SpaceCenterFacility.Administration:
-                    return "Administration";
-                case SpaceCenterFacility.AstronautComplex:
-                    return "AstronautComplex";
-                case SpaceCenterFacility.MissionControl:
-                    return "MissionControl";
-                case SpaceCenterFacility.SpaceplaneHangar:
-                    return "SPH";
-                case SpaceCenterFacility.TrackingStation:
-                    return "TrackingStation";
-                case SpaceCenterFacility.ResearchAndDevelopment:
-                    return "RnD";
-                case SpaceCenterFacility.VehicleAssemblyBuilding:
-                    return "VAB";
-                default:
-                    return "OtherFacility";
-            }
-        }
 
         public void StartUpgrade(UpgradeableFacility facility, int requestedLevel)
         {
@@ -95,8 +73,8 @@ namespace Bureaucracy
         public string GetProgressReport()
         {
             if (!upgrading && !recentlyUpgraded) return String.Empty;
-            if (recentlyUpgraded) return name + " upgrade completed successfully";
-            return "$" + Upgrade.Cost + " remaining";
+            if (recentlyUpgraded) return name + ": Upgrade completed successfully";
+            return name+ ": $" + Upgrade.Cost + " remaining";
         }
         
         public void OnLoad(ConfigNode[] facilityNodes)

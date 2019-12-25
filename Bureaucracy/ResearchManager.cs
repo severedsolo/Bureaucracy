@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Bureaucracy
 {
     public class ResearchManager : Manager

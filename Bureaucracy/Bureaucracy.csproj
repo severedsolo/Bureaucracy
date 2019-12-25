@@ -56,6 +56,7 @@
     <Compile Include="BudgetEvent.cs" />
     <Compile Include="BudgetManager.cs" />
     <Compile Include="BudgetReport.cs" />
+    <Compile Include="FacilityReport.cs" />
     <Compile Include="FacilityUpgradeEvent.cs" />
     <Compile Include="GameEventListeners.cs" />
     <Compile Include="BureaucracyScenario.cs" />
