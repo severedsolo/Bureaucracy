@@ -77,6 +77,8 @@
     <Compile Include="RepDecay.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="ResearchManager.cs" />
+    <Compile Include="ScienceEvent.cs" />
+    <Compile Include="ScienceReport.cs" />
     <Compile Include="SettingsClass.cs" />
     <Compile Include="TimerScript.cs" />
     <Compile Include="Utilities.cs" />

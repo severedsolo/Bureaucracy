@@ -29,6 +29,8 @@
         <e p="RepDecay.cs" t="Include" />
         <e p="Report.cs" t="Include" />
         <e p="ResearchManager.cs" t="Include" />
+        <e p="ScienceEvent.cs" t="Include" />
+        <e p="ScienceReport.cs" t="Include" />
         <e p="SettingsClass.cs" t="Include" />
         <e p="TimerScript.cs" t="Include" />
         <e p="Utilities.cs" t="Include" />

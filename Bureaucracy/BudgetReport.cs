@@ -18,8 +18,8 @@ namespace Bureaucracy
             ReportBuilder.AppendLine("Facility Maintenance Costs: " + Costs.Instance.GetFacilityMaintenanceCosts());
             ReportBuilder.AppendLine("Launch Costs: " + Costs.Instance.GetLaunchCosts());
             ReportBuilder.AppendLine("Total Maintenance Costs: " + Costs.Instance.GetTotalMaintenanceCosts());
-            ReportBuilder.AppendLine("Facility Upgrade Costs: " + FacilityManager.Instance.GetAllocatedFunding());
-            //TODO: Add Research Report
+            ReportBuilder.AppendLine("Construction Department: " + FacilityManager.Instance.GetAllocatedFunding());
+            ReportBuilder.AppendLine("Research Department: " + ResearchManager.Instance.GetAllocatedFunding());
             //TODO: Add Crew Report
             double netBudget = Utilities.Instance.GetNetBudget("Budget");
             ReportBuilder.AppendLine("Net Budget: " + Math.Max(0, netBudget));

@@ -46,8 +46,13 @@ namespace Bureaucracy
         {
             registeredManagers.Add(new BudgetManager());
             registeredManagers.Add(new FacilityManager());
+            registeredManagers.Add(new ResearchManager());
         }
 
+        public void SetCalcsDirty()
+        {
+            Costs.Instance.SetCalcsDirty();
+        }
         public void RegisterManager(Manager m)
         {
             if (registeredManagers.Contains(m))
@@ -65,6 +70,7 @@ namespace Bureaucracy
             SettingsClass.Instance.OnLoad(node);
             BudgetManager.Instance.OnLoad(node);
             FacilityManager.Instance.OnLoad(node);
+            //TODO: Add ResearchManager here
         }
 
         public void OnSave(ConfigNode node)
@@ -72,6 +78,7 @@ namespace Bureaucracy
             SettingsClass.Instance.OnSave(node);
             BudgetManager.Instance.OnSave(node);
             FacilityManager.Instance.OnSave(node);
+            //TODO: Add Research Manager here
         }
 
         private void GeneratePostBudgetReport(double data0, double data1)

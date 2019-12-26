@@ -25,7 +25,13 @@ namespace Bureaucracy
                 GameEvents.OnVesselRollout.Add(AddLaunch);
                 GameEvents.Contract.onOffered.Add(OnContractOffered);
                 GameEvents.onFacilityContextMenuSpawn.Add(OnFacilityContextMenuSpawn);
+                GameEvents.OnScienceRecieved.Add(OnScienceRecieved);
             }
+        }
+
+        private void OnScienceRecieved(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
+        {
+            ResearchManager.Instance.NewScienceReceived(science, subject, protoVessel, reverseEngineered);
         }
 
         private void OnFacilityContextMenuSpawn(KSCFacilityContextMenu menu)

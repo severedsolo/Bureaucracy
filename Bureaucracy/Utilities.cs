@@ -46,9 +46,9 @@ namespace Bureaucracy
                     return funding*allocation;
                 }
                 case "Facilities":
-                    return Math.Max(funding * FacilityManager.Instance.FundingAllocation / 100.0f, 0);
+                    return Math.Max(funding * FacilityManager.Instance.FundingAllocation / 100.0f, 0.0f);
                 case "Research":
-                    return Math.Max(funding * ResearchManager.Instance.FundingAllocation / 100.0f, 0);
+                    return Math.Max(funding * ResearchManager.Instance.FundingAllocation / 100.0f, 0.0f);
             }
             return 0;
         }
