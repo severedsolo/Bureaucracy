@@ -6,36 +6,22 @@ namespace Bureaucracy
 {
     public class FacilityUpgradeEvent : BureaucracyEvent
     {
-        private UpgradeableFacility facilityToUpgrade;
+        public UpgradeableFacility FacilityToUpgrade;
         private float cost;
         private int levelRequested;
         private BureaucracyFacility parentFacility;
 
-        public FacilityUpgradeEvent(UpgradeableFacility facility, int requestedLevel, BureaucracyFacility passingFacility)
+        public FacilityUpgradeEvent(UpgradeableFacility facility, BureaucracyFacility passingFacility)
         {
-            facilityToUpgrade = facility;
-            levelRequested = requestedLevel;
+            FacilityToUpgrade = facility;
+            levelRequested = facility.FacilityLevel + 1;
             cost = facility.GetUpgradeCost();
             parentFacility = passingFacility;
         }
 
-        public FacilityUpgradeEvent(List<UpgradeableFacility> facilityRefs, ConfigNode cn, string facilityName, BureaucracyFacility passingFacility)
-        {
-            parentFacility = passingFacility;
-            for (int i = 0; i < facilityRefs.Count; i++)
-            {
-                UpgradeableFacility f = facilityRefs.ElementAt(i);
-                if(f.id != facilityName) continue;
-                facilityToUpgrade = f;
-                int.TryParse(cn.GetValue("level"), out levelRequested);
-                float.TryParse(cn.GetValue("cost"), out cost);
-                return;
-            }
-        }
-
         public float Cost => cost;
 
-        public float UpdateProgress(double funding)
+        public float ProgressUpgrade(double funding)
         {
             double remainingFunding = funding - cost;
             if (remainingFunding > 0)
@@ -49,7 +35,7 @@ namespace Bureaucracy
 
         public override void OnEventCompleted()
         {
-            facilityToUpgrade.SetLevel(levelRequested);
+            FacilityToUpgrade.SetLevel(levelRequested);
             parentFacility.OnUpgradeCompleted();
         }
 
@@ -59,6 +45,12 @@ namespace Bureaucracy
             upgradeNode.SetValue("cost", cost, true);
             upgradeNode.SetValue("level", levelRequested, true);
             facilityNode.AddNode(upgradeNode);
+        }
+
+        public void OnLoad(ConfigNode upgradeNode)
+        {
+            float.TryParse(upgradeNode.GetValue("cost"), out cost);
+            int.TryParse(upgradeNode.GetValue("level"), out levelRequested);
         }
     }
 }

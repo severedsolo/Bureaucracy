@@ -39,7 +39,7 @@ namespace Bureaucracy
 
         private void Start()
         {
-            InternalEvents.OnBudgetAwarded.Add(GenerateReport);
+            InternalEvents.OnBudgetAwarded.Add(GeneratePostBudgetReport);
         }
 
         private void RegisterBureaucracyManagers()
@@ -74,20 +74,18 @@ namespace Bureaucracy
             FacilityManager.Instance.OnSave(node);
         }
 
-        private void GenerateReport(double data0, double data1)
+        private void GeneratePostBudgetReport(double data0, double data1)
         {
             for (int i = 0; i < registeredManagers.Count; i++)
             {
                 Manager m = registeredManagers.ElementAt(i);
-                Report r = m.GetReport();
-                MessageSystem.Message message = new MessageSystem.Message(r.ReportTitle, r.ReportBody(), MessageSystemButton.MessageButtonColor.BLUE, MessageSystemButton.ButtonIcons.MESSAGE);
-                MessageSystem.Instance.AddMessage(message);
+                m.MakeReport();
             }
         }
 
         void OnDisable()
         {
-            InternalEvents.OnBudgetAwarded.Remove(GenerateReport);
+            InternalEvents.OnBudgetAwarded.Remove(GeneratePostBudgetReport);
         }
     }
 }

@@ -14,11 +14,12 @@ namespace Bureaucracy
 
         public override void OnEventCompleted()
         {
+            InternalEvents.OnBudgetAboutToFire.Fire();
             RepDecay repDecay = new RepDecay();
             repDecay.ApplyHardMode();
             double funding = Utilities.Instance.GetNetBudget("Budget");
-            if (Bureaucracy.Instance.settings.UseItOrLoseIt && funding > Funding.Instance.Funds) Funding.Instance.SetFunds(0, TransactionReasons.Contracts);
-            Funding.Instance.AddFunds(funding, TransactionReasons.Contracts);
+            if(SettingsClass.Instance.UseItOrLoseIt && funding > Funding.Instance.Funds) Funding.Instance.SetFunds(0.0f, TransactionReasons.Contracts);
+            if(!SettingsClass.Instance.UseItOrLoseIt || Funding.Instance.Funds == 0.0f) Funding.Instance.AddFunds(funding, TransactionReasons.Contracts);
             InternalEvents.OnBudgetAwarded.Fire(funding, Costs.Instance.GetTotalMaintenanceCosts());
             repDecay.ApplyRepDecay(Bureaucracy.Instance.settings.RepDecayPercent);
             InformParent();

@@ -1,5 +1,6 @@
 using System;
 using Contracts;
+using KSP.UI.Screens;
 using PreFlightTests;
 using UnityEngine;
 using Upgradeables;
@@ -23,14 +24,15 @@ namespace Bureaucracy
                 DontDestroyOnLoad(this);
                 GameEvents.OnVesselRollout.Add(AddLaunch);
                 GameEvents.Contract.onOffered.Add(OnContractOffered);
-                GameEvents.OnKSCFacilityUpgraded.Add(OnKSCFacilityUpgrade);
+                GameEvents.onFacilityContextMenuSpawn.Add(OnFacilityContextMenuSpawn);
             }
         }
 
-        private void OnKSCFacilityUpgrade(UpgradeableFacility facility, int requestedLevel)
+        private void OnFacilityContextMenuSpawn(KSCFacilityContextMenu menu)
         {
-            FacilityManager.Instance.StartUpgrade(facility, requestedLevel);
+            FacilityMenuOverride.Instance.FacilityMenuSpawned(menu);
         }
+
 
         private void OnContractOffered(Contract contract)
         {

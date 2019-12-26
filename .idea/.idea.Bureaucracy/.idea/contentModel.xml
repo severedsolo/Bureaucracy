@@ -16,6 +16,7 @@
         <e p="ContractInterceptor.cs" t="Include" />
         <e p="Costs.cs" t="Include" />
         <e p="FacilityManager.cs" t="Include" />
+        <e p="FacilityMenuOverride.cs" t="Include" />
         <e p="FacilityReport.cs" t="Include" />
         <e p="FacilityUpgradeEvent.cs" t="Include" />
         <e p="GameEventListeners.cs" t="Include" />

@@ -51,11 +51,15 @@
     <Reference Include="UnityEngine.IMGUIModule">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program - ModDev\KSP_x64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\KSPDlls\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BudgetEvent.cs" />
     <Compile Include="BudgetManager.cs" />
     <Compile Include="BudgetReport.cs" />
+    <Compile Include="FacilityMenuOverride.cs" />
     <Compile Include="FacilityReport.cs" />
     <Compile Include="FacilityUpgradeEvent.cs" />
     <Compile Include="GameEventListeners.cs" />

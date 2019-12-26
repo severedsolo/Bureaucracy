@@ -25,6 +25,7 @@ namespace Bureaucracy
         public int LaunchCostVab = 1000;
         public int KerbalBaseWage = 1000;
         public bool ContractInterceptor = true;
+        public bool HandleKscUpgrades = true;
 
         public SettingsClass()
         {

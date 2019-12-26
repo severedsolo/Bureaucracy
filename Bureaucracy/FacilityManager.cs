@@ -10,22 +10,25 @@ namespace Bureaucracy
     {
         public List<BureaucracyFacility> Facilities = new List<BureaucracyFacility>();
         public static FacilityManager Instance;
-        private bool modRequestedUpgrade = false;
 
         public FacilityManager()
         {
-            InternalEvents.OnBudgetAwarded.Add(RunFacilityBudget);
+            InternalEvents.OnBudgetAboutToFire.Add(RunFacilityBudget);
             SpaceCenterFacility[] spaceCentreFacilities = (SpaceCenterFacility[]) Enum.GetValues(typeof(SpaceCenterFacility));
             for (int i = 0; i < spaceCentreFacilities.Length; i++)
             {
                 SpaceCenterFacility spf = spaceCentreFacilities.ElementAt(i);
                 
                 if(spf == SpaceCenterFacility.LaunchPad || spf == SpaceCenterFacility.Runway) continue;
-                spf.
                 Facilities.Add(new BureaucracyFacility(spf));
             }
             Name = "Facility Manager";
             Instance = this;
+        }
+
+        public override double GetAllocatedFunding()
+        {
+            return Math.Round(Utilities.Instance.GetNetBudget("Facilities"), 0);
         }
 
         public override Report GetReport()
@@ -33,18 +36,18 @@ namespace Bureaucracy
             return new FacilityReport();
         }
 
-        private void RunFacilityBudget(double data0, double data1)
+        private void RunFacilityBudget()
         {
             double facilityBudget = Utilities.Instance.GetNetBudget("Facilities");
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
                 if(!bf.Upgrading) continue;
-                facilityBudget = bf.Upgrade.UpdateProgress(facilityBudget);
+                facilityBudget = bf.Upgrade.ProgressUpgrade(facilityBudget);
                 if (facilityBudget <= 0.0f) return;
             }
         }
-
+        
         public void OnLoad(ConfigNode cn)
         {
             ConfigNode[] facilityNodes = cn.GetNodes("FACILITY");
@@ -66,26 +69,51 @@ namespace Bureaucracy
             }
         }
 
-        public void StartUpgrade(UpgradeableFacility facility, int requestedLevel)
+        public void StartUpgrade(UpgradeableFacility facility)
         {
-            if (modRequestedUpgrade)
+            BureaucracyFacility facilityToUpgrade = UpgradeableToActualFacility(facility);
+            if (facilityToUpgrade == null)
             {
-                modRequestedUpgrade = false;
+                Debug.Log("[Bureacracy]: Upgrade of "+facility.id+" requested but no facility found");
                 return;
             }
-            modRequestedUpgrade = true;
             Debug.Log("[Bureaucracy]: Upgrade of "+facility.id+" requested");
-            facility.SetLevel(requestedLevel-1);
-            Funding.Instance.AddFunds(facility.GetUpgradeCost(), TransactionReasons.StructureConstruction);
+            if (facilityToUpgrade.Upgrading)
+            {
+                Debug.Log("[Bureaucracy]: "+facility.id+" is already being upgraded");
+                ScreenMessages.PostScreenMessage(facilityToUpgrade.Name + " is already being upgraded");
+                return;
+            }
+            facilityToUpgrade.StartUpgrade(facility);
+        }
+
+        private BureaucracyFacility UpgradeableToActualFacility(UpgradeableFacility facility)
+        {
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
-                Debug.Log("[Bureaucracy]: Trying " + bf.Name);
-                if (facility.id != bf.Name) continue;
-                string s = facility.name;
-                if (!bf.Upgrading) bf.StartUpgrade(facility, requestedLevel);
-                else Funding.Instance.AddFunds(facility.GetUpgradeCost(), TransactionReasons.StructureConstruction);
+                if(!facility.id.Contains(bf.Name)) continue;
+                return bf;
             }
+            return null;
+        }
+
+        public UpgradeableFacility ActualFacilityToUpgradeableFacility(BureaucracyFacility facility)
+        {
+            Debug.Log("[Bureaucracy]: Trying to find an upgradeable for "+facility.Name);
+            foreach (var upgradeable in ScenarioUpgradeableFacilities.protoUpgradeables)
+            {
+                List<UpgradeableFacility> facilityList = upgradeable.Value.facilityRefs;
+                for (int i = 0; i < facilityList.Count; i++)
+                {
+                    UpgradeableFacility uf = facilityList.ElementAt(i);
+                    if(!uf.id.Contains(facility.Name)) continue;
+                    Debug.Log("[Bureaucracy]: Matched "+facility.Name+" to "+uf.id);
+                    return uf;
+                }
+            }
+            Debug.Log("[Bureaucracy]: Couldn't match an Upgradeable for "+facility.Name);
+            return null;
         }
     }
 }

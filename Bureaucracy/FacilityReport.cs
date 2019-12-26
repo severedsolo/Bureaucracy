@@ -16,12 +16,13 @@ namespace Bureaucracy
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
-                string s = bf.GetProgressReport();
+                string s = bf.GetProgressReport(bf.Upgrade);
                 if(s == String.Empty) continue;
                 ReportBuilder.AppendLine(s);
             }
-
-            return ReportBuilder.ToString();
+            string report = ReportBuilder.ToString();
+            if (String.IsNullOrEmpty(report)) report = "No Facility updates to report";
+            return report;
         }
     }
 }

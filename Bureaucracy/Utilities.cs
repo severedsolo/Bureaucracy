@@ -29,7 +29,8 @@ namespace Bureaucracy
         {
             
             double funding = GetGrossBudget();
-            funding -= Costs.Instance.GetTotalMaintenanceCosts();
+            double costs = Costs.Instance.GetTotalMaintenanceCosts();
+            funding -= costs;
             float allocation = 1.0f;
             switch (department)
             {
@@ -41,21 +42,15 @@ namespace Bureaucracy
                         if (m == BudgetManager.Instance) continue;
                         allocation -= m.FundingAllocation / 100.0f;
                     }
-
-                    return allocation;
+                    if (funding < 0.0f) return funding;
+                    return funding*allocation;
                 }
                 case "Facilities":
-                    return funding * FacilityManager.Instance.FundingAllocation / 100.0f;
+                    return Math.Max(funding * FacilityManager.Instance.FundingAllocation / 100.0f, 0);
                 case "Research":
-                    return funding * ResearchManager.Instance.FundingAllocation / 100.0f;
+                    return Math.Max(funding * ResearchManager.Instance.FundingAllocation / 100.0f, 0);
             }
             return 0;
-        }
-
-        public string TrimFacilityString(string s)
-        {
-            s.Replace("SpaceCenter/", String.Empty);
-            return s;
         }
     }
 }

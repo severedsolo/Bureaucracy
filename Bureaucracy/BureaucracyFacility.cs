@@ -3,6 +3,7 @@ using System.Linq;
 using Expansions.Missions.Tests;
 using UnityEngine;
 using Upgradeables;
+using VehiclePhysics;
 
 namespace Bureaucracy
 {
@@ -12,8 +13,8 @@ namespace Bureaucracy
         private int upkeepCost = 0;
         private string name;
         private bool upgrading = false;
-        public FacilityUpgradeEvent Upgrade;
         private bool recentlyUpgraded = false;
+        public FacilityUpgradeEvent Upgrade;
 
         public bool Upgrading => upgrading;
 
@@ -21,10 +22,33 @@ namespace Bureaucracy
 
         public string Name => name;
 
-        public BureaucracyFacility(UpgradeableFacility spf)
+        public BureaucracyFacility(SpaceCenterFacility spf)
         {
-            name = spf.id;
+            name = SetName(spf);
             upkeepCost = SetCosts();
+        }
+
+        private string SetName(SpaceCenterFacility spf)
+        {
+            switch (spf)
+            {
+                case SpaceCenterFacility.Administration:
+                    return "Administration";
+                case SpaceCenterFacility.AstronautComplex:
+                    return "AstronautComplex";
+                case SpaceCenterFacility.MissionControl:
+                    return "MissionControl";
+                case SpaceCenterFacility.SpaceplaneHangar:
+                    return "SpacePlaneHangar";
+                case SpaceCenterFacility.TrackingStation:
+                    return "TrackingStation";
+                case SpaceCenterFacility.ResearchAndDevelopment:
+                    return "ResearchAndDevelopment";
+                case SpaceCenterFacility.VehicleAssemblyBuilding:
+                    return "VehicleAssemblyBuilding";
+                default:
+                    return "OtherFacility";
+            }
         }
 
         private int SetCosts()
@@ -47,10 +71,10 @@ namespace Bureaucracy
                 case "TrackingStation":
                     cost = SettingsClass.Instance.TrackingStationCost;
                     break;
-                case "RnD":
+                case "ResearchAndDevelopment":
                     cost = SettingsClass.Instance.RndCost;
                     break;
-                case "VAB":
+                case "VehicleAssemblyBuilding":
                     cost = SettingsClass.Instance.VabCost;
                     break;
                 case "Other Facility":
@@ -64,17 +88,22 @@ namespace Bureaucracy
             return cost;
         }
 
-        public void StartUpgrade(UpgradeableFacility facility, int requestedLevel)
+        public void StartUpgrade(UpgradeableFacility facilityToUpgrade)
         {
+            Upgrade = new FacilityUpgradeEvent(facilityToUpgrade, this);
             upgrading = true;
-            if(Upgrade == null) Upgrade = new FacilityUpgradeEvent(facility, requestedLevel, this);
+            ScreenMessages.PostScreenMessage("[Bureacracy]: Upgrade of " + name + " requested");
         }
-
-        public string GetProgressReport()
+        
+        public string GetProgressReport(FacilityUpgradeEvent upgrade)
         {
             if (!upgrading && !recentlyUpgraded) return String.Empty;
-            if (recentlyUpgraded) return name + ": Upgrade completed successfully";
-            return name+ ": $" + Upgrade.Cost + " remaining";
+            if (recentlyUpgraded)
+            {
+                recentlyUpgraded = false;
+                return name + ": Upgrade completed successfully";
+            }
+            return name+ ": $" + upgrade.Cost + " of investment needed to complete";
         }
         
         public void OnLoad(ConfigNode[] facilityNodes)
@@ -89,11 +118,13 @@ namespace Bureaucracy
                 if (upgradeNode != null)
                 {
                     upgrading = true;
-                    Upgrade = new FacilityUpgradeEvent(ScenarioUpgradeableFacilities.protoUpgradeables[name].facilityRefs, upgradeNode, name, this);
+                    Upgrade = new FacilityUpgradeEvent(FacilityManager.Instance.ActualFacilityToUpgradeableFacility(this), this);
+                    Upgrade.OnLoad(upgradeNode);
                 }
                 return;
             }
         }
+
         public void OnSave(ConfigNode cn)
         {
             ConfigNode thisNode = new ConfigNode("FACILITY");
