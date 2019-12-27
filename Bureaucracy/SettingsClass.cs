@@ -7,6 +7,7 @@ namespace Bureaucracy
     {
         public static SettingsClass Instance;
         public int BudgetMultiplier = 2227;
+        public int ScienceMultiplier = 1000;
         public float TimeBetweenBudgets = 30.0f;
         public bool StopTimeWarp = true;
         public bool UseItOrLoseIt = true;
@@ -31,6 +32,7 @@ namespace Bureaucracy
         {
             Instance = this;
         }
+        //TODO: Make Settings Load and Save
         public void OnLoad(ConfigNode cn)
         {
             Debug.Log("[Bureaucracy]: Settings Class would have loaded if you'd written it");

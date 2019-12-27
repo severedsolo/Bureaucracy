@@ -17,6 +17,11 @@ namespace Bureaucracy
             Name = "Research Manager";
             Instance = this;
         }
+        
+        public override void UnregisterEvents()
+        {
+            InternalEvents.OnBudgetAboutToFire.Remove(RunResearchBudget);
+        }
 
         private void RunResearchBudget()
         {
@@ -47,6 +52,34 @@ namespace Bureaucracy
             CompletedEvents.Add(eventCompleted as ScienceEvent);
         }
         
-        //TODO: Write OnSave and OnLoad
+        public void OnLoad(ConfigNode node)
+        {
+            ConfigNode researchNode = node.GetNode("RESEARCH");
+            if (researchNode == null) return;
+            ConfigNode[] scienceNodes = researchNode.GetNodes("SCIENCE_DATA");
+            if (scienceNodes.Length == 0) return;
+            ScienceEvent se;
+            for (int i = 0; i < scienceNodes.Length; i++)
+            {
+                bool isComplete;
+                ConfigNode cn = scienceNodes.ElementAt(i);
+                bool.TryParse(cn.GetValue("isComplete"), out isComplete);
+                se = new ScienceEvent(cn, this);
+                if(isComplete) CompletedEvents.Add(se);
+                else processingScience.Add(se);
+            }
+        }
+
+        public void OnSave(ConfigNode node)
+        {
+            ConfigNode researchNode = new ConfigNode("RESEARCH");
+            for (int i = 0; i < processingScience.Count; i++)
+            {
+                ScienceEvent se = processingScience.ElementAt(i);
+                se.OnSave(researchNode);
+            }
+
+            node.AddNode(researchNode);
+        }
     }
 }

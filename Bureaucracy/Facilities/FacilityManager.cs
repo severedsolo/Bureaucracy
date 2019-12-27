@@ -25,6 +25,11 @@ namespace Bureaucracy
             Name = "Facility Manager";
             Instance = this;
         }
+        
+        public override void UnregisterEvents()
+        {
+            InternalEvents.OnBudgetAboutToFire.Remove(RunFacilityBudget);
+        }
 
         public override double GetAllocatedFunding()
         {
@@ -74,7 +79,7 @@ namespace Bureaucracy
             BureaucracyFacility facilityToUpgrade = UpgradeableToActualFacility(facility);
             if (facilityToUpgrade == null)
             {
-                Debug.Log("[Bureacracy]: Upgrade of "+facility.id+" requested but no facility found");
+                Debug.Log("[Bureaucracy]: Upgrade of "+facility.id+" requested but no facility found");
                 return;
             }
             Debug.Log("[Bureaucracy]: Upgrade of "+facility.id+" requested");
@@ -95,24 +100,6 @@ namespace Bureaucracy
                 if(!facility.id.Contains(bf.Name)) continue;
                 return bf;
             }
-            return null;
-        }
-
-        public UpgradeableFacility ActualFacilityToUpgradeableFacility(BureaucracyFacility facility)
-        {
-            Debug.Log("[Bureaucracy]: Trying to find an upgradeable for "+facility.Name);
-            foreach (var upgradeable in ScenarioUpgradeableFacilities.protoUpgradeables)
-            {
-                List<UpgradeableFacility> facilityList = upgradeable.Value.facilityRefs;
-                for (int i = 0; i < facilityList.Count; i++)
-                {
-                    UpgradeableFacility uf = facilityList.ElementAt(i);
-                    if(!uf.id.Contains(facility.Name)) continue;
-                    Debug.Log("[Bureaucracy]: Matched "+facility.Name+" to "+uf.id);
-                    return uf;
-                }
-            }
-            Debug.Log("[Bureaucracy]: Couldn't match an Upgradeable for "+facility.Name);
             return null;
         }
     }

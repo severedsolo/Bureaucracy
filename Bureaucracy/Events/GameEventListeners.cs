@@ -49,7 +49,13 @@ namespace Bureaucracy
         {
             Costs.Instance.AddLaunch(ship);
         }
-        
-        //TODO: Add destructors for all events
+
+        private void OnDisable()
+        {
+            GameEvents.OnVesselRollout.Remove(AddLaunch);
+            GameEvents.Contract.onOffered.Remove(OnContractOffered);
+            GameEvents.onFacilityContextMenuSpawn.Remove(OnFacilityContextMenuSpawn);
+            GameEvents.OnScienceRecieved.Remove(OnScienceRecieved);
+        }
     }
 }

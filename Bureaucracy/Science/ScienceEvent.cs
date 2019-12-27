@@ -11,6 +11,7 @@ namespace Bureaucracy
         private float scienceLeftToProcess;
         private string scienceSubject;
         public string UiName;
+        private bool isComplete = false;
 
         public float OriginalScience => originalScience;
 
@@ -21,24 +22,32 @@ namespace Bureaucracy
             scienceLeftToProcess = science;
             originalScience = science;
             scienceSubject = subject.id;
-            //TODO: Parse the name properly
-            UiName = subject.id;
+            UiName = subject.title;
             ParentManager = passingManager;
             Debug.Log("[Bureaucracy]: Added new event: "+scienceSubject);
+        }
+
+        public ScienceEvent(ConfigNode dataNode, ResearchManager passingManager)
+        {
+            float.TryParse(dataNode.GetValue("originalScience"), out originalScience);
+            float.TryParse(dataNode.GetValue("scienceLeftToProcess"), out scienceLeftToProcess);
+            scienceSubject = dataNode.GetValue("scienceSubject");
+            UiName = dataNode.GetValue("UiName");
+            bool.TryParse(dataNode.GetValue("isComplete"), out isComplete);
+            ParentManager = passingManager;
         }
 
         public double ProgressResearch(double funding)
         {
             //Potential TODO: Make research rate configurable?
-            float scienceAvailable = (float)funding / 10000;
+            float scienceAvailable = (float)funding / SettingsClass.Instance.ScienceMultiplier;
             float originalScienceRemaining = scienceLeftToProcess;
             scienceLeftToProcess -= scienceAvailable;
-            if (scienceAvailable <= 0.0f)
+            if (scienceLeftToProcess <= 0.0f)
             {
-                scienceAvailable = Math.Abs(scienceAvailable);
+                scienceAvailable = scienceAvailable - originalScienceRemaining;
                 ResearchAndDevelopment.Instance.AddScience(originalScienceRemaining, TransactionReasons.ScienceTransmission);
                 Debug.Log("[Bureaucracy]: " + scienceSubject + " completed. Adding " + originalScienceRemaining + " science");
-                //TODO: Research Event Completed event
                 OnEventCompleted();
                 return scienceAvailable * 10000;
             }
@@ -51,9 +60,19 @@ namespace Bureaucracy
 
         public override void OnEventCompleted()
         {
+            isComplete = true;
             InformParent();
         }
-        
-        //TODO: Write OnSave and OnLoad
+
+        public void OnSave(ConfigNode researchNode)
+        {
+            ConfigNode dataNode = new ConfigNode("SCIENCE_DATA");
+            dataNode.SetValue("originalScience", originalScience, true);
+            dataNode.SetValue("scienceLeftToProcess", scienceLeftToProcess, true);
+            dataNode.SetValue("scienceSubject", scienceSubject, true);
+            dataNode.SetValue("UiName", UiName, true);
+            dataNode.SetValue("isComplete", isComplete, true);
+            researchNode.AddNode(dataNode);
+        }
     }
 }

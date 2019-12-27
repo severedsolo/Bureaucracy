@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using KSP.UI.Screens;
+using UnityEngine;
 
 namespace Bureaucracy
 {
@@ -20,12 +21,13 @@ namespace Bureaucracy
             set => fundingAllocation = value / 100.0f;
         }
 
+        public virtual void UnregisterEvents() { Debug.Log("[Bureaucracy]: No Events to Unregister for "+Name); }
+
+
         public virtual double GetAllocatedFunding() { return 0; }
 
         public virtual void OnEventCompleted(BureaucracyEvent eventCompleted) { }
 
         public virtual Report GetReport() { return new Report(); }
-
-
     }
 }

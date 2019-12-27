@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FinePrint;
 using KSP.UI.Screens;
 using Steamworks;
 using UnityEngine;
@@ -70,7 +71,7 @@ namespace Bureaucracy
             SettingsClass.Instance.OnLoad(node);
             BudgetManager.Instance.OnLoad(node);
             FacilityManager.Instance.OnLoad(node);
-            //TODO: Add ResearchManager here
+            ResearchManager.Instance.OnLoad(node);
         }
 
         public void OnSave(ConfigNode node)
@@ -78,7 +79,7 @@ namespace Bureaucracy
             SettingsClass.Instance.OnSave(node);
             BudgetManager.Instance.OnSave(node);
             FacilityManager.Instance.OnSave(node);
-            //TODO: Add Research Manager here
+            ResearchManager.Instance.OnSave(node);
         }
 
         private void GeneratePostBudgetReport(double data0, double data1)
@@ -92,6 +93,11 @@ namespace Bureaucracy
 
         void OnDisable()
         {
+            for (int i = 0; i < registeredManagers.Count; i++)
+            {
+                Manager m = registeredManagers.ElementAt(i);
+                m.UnregisterEvents();
+            }
             InternalEvents.OnBudgetAwarded.Remove(GeneratePostBudgetReport);
         }
     }

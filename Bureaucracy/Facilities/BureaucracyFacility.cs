@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
-using Expansions.Missions.Tests;
 using UnityEngine;
 using Upgradeables;
-using VehiclePhysics;
 
 namespace Bureaucracy
 {
@@ -39,7 +37,7 @@ namespace Bureaucracy
                 case SpaceCenterFacility.MissionControl:
                     return "MissionControl";
                 case SpaceCenterFacility.SpaceplaneHangar:
-                    return "SpacePlaneHangar";
+                    return "SpaceplaneHangar";
                 case SpaceCenterFacility.TrackingStation:
                     return "TrackingStation";
                 case SpaceCenterFacility.ResearchAndDevelopment:
@@ -65,7 +63,7 @@ namespace Bureaucracy
                 case "MissionControl":
                     cost = SettingsClass.Instance.MissionControlCost;
                     break;
-                case "SpacePlaneHangar":
+                case "SpaceplaneHangar":
                     cost = SettingsClass.Instance.SphCost;
                     break;
                 case "TrackingStation":
@@ -90,9 +88,9 @@ namespace Bureaucracy
 
         public void StartUpgrade(UpgradeableFacility facilityToUpgrade)
         {
-            Upgrade = new FacilityUpgradeEvent(facilityToUpgrade, this);
+            Upgrade = new FacilityUpgradeEvent(facilityToUpgrade.id, this);
             upgrading = true;
-            ScreenMessages.PostScreenMessage("[Bureacracy]: Upgrade of " + name + " requested");
+            ScreenMessages.PostScreenMessage("[Bureaucracy]: Upgrade of " + name + " requested");
         }
         
         public string GetProgressReport(FacilityUpgradeEvent upgrade)
@@ -118,7 +116,7 @@ namespace Bureaucracy
                 if (upgradeNode != null)
                 {
                     upgrading = true;
-                    Upgrade = new FacilityUpgradeEvent(FacilityManager.Instance.ActualFacilityToUpgradeableFacility(this), this);
+                    Upgrade = new FacilityUpgradeEvent(upgradeNode.GetValue("ID"), this);
                     Upgrade.OnLoad(upgradeNode);
                 }
                 return;

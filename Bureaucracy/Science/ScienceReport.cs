@@ -16,15 +16,18 @@ namespace Bureaucracy
             for (int i = 0; i < ResearchManager.Instance.CompletedEvents.Count; i++)
             {
                 ScienceEvent se = ResearchManager.Instance.CompletedEvents.ElementAt(i);
-                float processedScience = se.OriginalScience - se.RemainingScience;
-                ReportBuilder.AppendLine(se.UiName + ": " + Math.Round(processedScience, 0) + "/" + se.OriginalScience);
+                float processedScience = se.OriginalScience;
+                ReportBuilder.AppendLine(se.UiName + ": " + Math.Round(processedScience, 1) + "/" + se.OriginalScience);
+                ResearchManager.Instance.CompletedEvents.Remove(se);
             }
             for (int i = 0; i < ResearchManager.Instance.processingScience.Count; i++)
             {
                 ScienceEvent se = ResearchManager.Instance.processingScience.ElementAt(i);
                 float processedScience = se.OriginalScience - se.RemainingScience;
-                ReportBuilder.AppendLine(se.UiName + ": " + Math.Round(processedScience, 0) + "/" + se.OriginalScience);
+                ReportBuilder.AppendLine(se.UiName + ": " + Math.Round(processedScience, 1) + "/" + se.OriginalScience);
             }
+
+            ResearchManager.Instance.CompletedEvents.Clear();
             return ReportBuilder.ToString();
         }
     }

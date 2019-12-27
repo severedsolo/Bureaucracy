@@ -21,6 +21,7 @@ namespace Bureaucracy
             if(SettingsClass.Instance.UseItOrLoseIt && funding > Funding.Instance.Funds) Funding.Instance.SetFunds(0.0d, TransactionReasons.Contracts);
             if(!SettingsClass.Instance.UseItOrLoseIt || Funding.Instance.Funds <= 0.0d || funding <= 0.0d) Funding.Instance.AddFunds(funding, TransactionReasons.Contracts);
             InternalEvents.OnBudgetAwarded.Fire(funding, Costs.Instance.GetTotalMaintenanceCosts());
+            Costs.Instance.ResetLaunchCosts();
             repDecay.ApplyRepDecay(Bureaucracy.Instance.settings.RepDecayPercent);
             InformParent();
         }
