@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Bureaucracy
 {
     [KSPAddon(KSPAddon.Startup.MainMenu, true)]
-        class InternalEvents : MonoBehaviour
+        class InternalListeners : MonoBehaviour
     {
         public static EventData<double, double> OnBudgetAwarded;
         public static EventVoid OnBudgetAboutToFire;

@@ -38,6 +38,9 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program - ModDev\KSP_x64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
+    <Reference Include="FlightTracker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>bin\Debug\FlightTracker.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -63,8 +66,12 @@
     <Compile Include="Budget\RepDecay.cs" />
     <Compile Include="Bureaucracy.cs" />
     <Compile Include="ContractInterceptor.cs" />
-    <Compile Include="Events\GameEventListeners.cs" />
-    <Compile Include="Events\InternalEvents.cs" />
+    <Compile Include="Crew\CrewManager.cs" />
+    <Compile Include="Crew\CrewMember.cs" />
+    <Compile Include="Crew\CrewReport.cs" />
+    <Compile Include="Crew\CrewUnhappiness.cs" />
+    <Compile Include="GameEvents\ExternalListeners.cs" />
+    <Compile Include="GameEvents\InternalListeners.cs" />
     <Compile Include="Facilities\BureaucracyFacility.cs" />
     <Compile Include="Facilities\FacilityManager.cs" />
     <Compile Include="Facilities\FacilityMenuOverride.cs" />
@@ -76,7 +83,6 @@
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report.cs" />
-    <Compile Include="Science\CrewManager.cs" />
     <Compile Include="Science\ResearchManager.cs" />
     <Compile Include="Science\ScienceEvent.cs" />
     <Compile Include="Science\ScienceReport.cs" />

@@ -10,16 +10,15 @@ namespace Bureaucracy
     {
         public List<BureaucracyFacility> Facilities = new List<BureaucracyFacility>();
         public static FacilityManager Instance;
+        public List<BureaucracyFacility> UnmaintainedFacilities = new List<BureaucracyFacility>();
 
         public FacilityManager()
         {
-            InternalEvents.OnBudgetAboutToFire.Add(RunFacilityBudget);
+            InternalListeners.OnBudgetAboutToFire.Add(RunFacilityBudget);
             SpaceCenterFacility[] spaceCentreFacilities = (SpaceCenterFacility[]) Enum.GetValues(typeof(SpaceCenterFacility));
             for (int i = 0; i < spaceCentreFacilities.Length; i++)
             {
                 SpaceCenterFacility spf = spaceCentreFacilities.ElementAt(i);
-                
-                if(spf == SpaceCenterFacility.LaunchPad || spf == SpaceCenterFacility.Runway) continue;
                 Facilities.Add(new BureaucracyFacility(spf));
             }
             Name = "Facility Manager";
@@ -28,7 +27,7 @@ namespace Bureaucracy
         
         public override void UnregisterEvents()
         {
-            InternalEvents.OnBudgetAboutToFire.Remove(RunFacilityBudget);
+            InternalListeners.OnBudgetAboutToFire.Remove(RunFacilityBudget);
         }
 
         public override double GetAllocatedFunding()
@@ -36,7 +35,7 @@ namespace Bureaucracy
             return Math.Round(Utilities.Instance.GetNetBudget("Facilities"), 0);
         }
 
-        public override Report GetReport()
+        protected override Report GetReport()
         {
             return new FacilityReport();
         }
@@ -101,6 +100,26 @@ namespace Bureaucracy
                 return bf;
             }
             return null;
+        }
+
+        public BureaucracyFacility GetFacilityByName(string name)
+        {
+            for (int i = 0; i < Facilities.Count; i++)
+            {
+                BureaucracyFacility bf = Facilities.ElementAt(i);
+                if (bf.Name == name) return bf;
+            }
+
+            return null;
+        }
+
+        public void ReopenAllFacilities()
+        {
+            for (int i = 0; i < Facilities.Count; i++)
+            {
+                BureaucracyFacility bf = Facilities.ElementAt(i);
+                bf.ReopenFacility();
+            }
         }
     }
 }

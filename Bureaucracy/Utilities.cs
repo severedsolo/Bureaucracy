@@ -1,6 +1,8 @@
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Expansions.Missions;
 
 namespace Bureaucracy
 {
@@ -51,6 +53,68 @@ namespace Bureaucracy
                     return Math.Max(funding * ResearchManager.Instance.FundingAllocation / 100.0f, 0.0f);
             }
             return 0;
+        }
+
+        public KeyValuePair<int, string> ConvertUtToRealTime(double ut)
+        {
+            int timeStamp = 0;
+            CelestialBody homeworld = FlightGlobals.GetHomeBody();
+            while (ut > homeworld.orbit.period)
+            {
+                timeStamp++;
+                ut -= homeworld.orbit.period;
+            }
+            if(timeStamp >0) return new KeyValuePair<int, string>(timeStamp, "years");
+            while (ut > homeworld.solarDayLength)
+            {
+                timeStamp++;
+                ut -= homeworld.solarDayLength;
+            }
+            return new KeyValuePair<int, string>(timeStamp, "days");
+        }
+
+        public void PayWageDebt(double debt)
+        {
+            debt = Math.Abs(debt);
+            debt -= Funding.Instance.Funds;
+            if (debt <= 0) return;
+            List<CrewMember> unpaidKerbals = new List<CrewMember>();
+            for(int i = 0; i<CrewManager.Instance.Kerbals.Count; i++)
+            {
+                CrewMember c = CrewManager.Instance.Kerbals.ElementAt(i).Value;
+                unpaidKerbals.Add(c);
+                debt -= c.Wage;
+                if (debt <= 0) break;
+            }
+            CrewManager.Instance.ProcessUnpaidKerbals(unpaidKerbals);
+        }
+
+        public void PayFacilityDebt(double debt, double wageDebt)
+        {
+            double fundsAvailable = Funding.Instance.Funds - wageDebt;
+            debt -= fundsAvailable;
+            for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
+            {
+                BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
+                bf.CloseFacility();
+                debt += bf.MaintenanceCost;
+                if (debt <= 0) break;
+            }
+        }
+
+        public void SabotageLaunch()
+        {
+            for (int i = 0; i < FlightGlobals.ActiveVessel.Parts.Count; i++)
+            {
+                Part p = FlightGlobals.ActiveVessel.Parts.ElementAt(i);
+                List<PartResource> resources = p.Resources.ToList();
+                for (int resourceCount = 0; resourceCount < resources.Count; resourceCount++)
+                {
+                    PartResource r = resources.ElementAt(resourceCount);
+                    r.amount = 0;
+                }
+            }
+            //TODO: Funny warning message that no resources have been loaded.
         }
     }
 }

@@ -8,34 +8,34 @@ namespace Bureaucracy
     public class ResearchManager : Manager
     {
         public static ResearchManager Instance;
-        public List<ScienceEvent> processingScience = new List<ScienceEvent>();
+        public List<ScienceEvent> ProcessingScience = new List<ScienceEvent>();
         public List<ScienceEvent> CompletedEvents = new List<ScienceEvent>();
 
         public ResearchManager()
         {
-            InternalEvents.OnBudgetAboutToFire.Add(RunResearchBudget);
+            InternalListeners.OnBudgetAboutToFire.Add(RunResearchBudget);
             Name = "Research Manager";
             Instance = this;
         }
         
         public override void UnregisterEvents()
         {
-            InternalEvents.OnBudgetAboutToFire.Remove(RunResearchBudget);
+            InternalListeners.OnBudgetAboutToFire.Remove(RunResearchBudget);
         }
 
         private void RunResearchBudget()
         {
-            double facilityBudget = Utilities.Instance.GetNetBudget("Research");
-            if (facilityBudget == 0.0f) return;
-            for (int i = 0; i < processingScience.Count; i++)
+            double researchBudget = Utilities.Instance.GetNetBudget("Research");
+            if (researchBudget == 0.0f) return;
+            for (int i = 0; i < ProcessingScience.Count; i++)
             {
-                ScienceEvent se = processingScience.ElementAt(i);
-                facilityBudget = se.ProgressResearch(facilityBudget);
-                if (facilityBudget <= 0.0f) return;
+                ScienceEvent se = ProcessingScience.ElementAt(i);
+                researchBudget = se.ProgressResearch(researchBudget);
+                if (researchBudget <= 0.0f) return;
             }
         }
 
-        public override Report GetReport()
+        protected override Report GetReport()
         {
             return new ScienceReport();
         }
@@ -43,12 +43,12 @@ namespace Bureaucracy
         public void NewScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
         {
             ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
-            processingScience.Add(new ScienceEvent(science, subject, this));
+            ProcessingScience.Add(new ScienceEvent(science, subject, this));
         }
 
-        public override void OnEventCompleted(BureaucracyEvent eventCompleted)
+        public override void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted)
         {
-            processingScience.Remove(eventCompleted as ScienceEvent);
+            ProcessingScience.Remove(eventCompleted as ScienceEvent);
             CompletedEvents.Add(eventCompleted as ScienceEvent);
         }
         
@@ -66,16 +66,16 @@ namespace Bureaucracy
                 bool.TryParse(cn.GetValue("isComplete"), out isComplete);
                 se = new ScienceEvent(cn, this);
                 if(isComplete) CompletedEvents.Add(se);
-                else processingScience.Add(se);
+                else ProcessingScience.Add(se);
             }
         }
 
         public void OnSave(ConfigNode node)
         {
             ConfigNode researchNode = new ConfigNode("RESEARCH");
-            for (int i = 0; i < processingScience.Count; i++)
+            for (int i = 0; i < ProcessingScience.Count; i++)
             {
-                ScienceEvent se = processingScience.ElementAt(i);
+                ScienceEvent se = ProcessingScience.ElementAt(i);
                 se.OnSave(researchNode);
             }
 

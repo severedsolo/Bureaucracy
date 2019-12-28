@@ -20,9 +20,9 @@ namespace Bureaucracy
                 ReportBuilder.AppendLine(se.UiName + ": " + Math.Round(processedScience, 1) + "/" + se.OriginalScience);
                 ResearchManager.Instance.CompletedEvents.Remove(se);
             }
-            for (int i = 0; i < ResearchManager.Instance.processingScience.Count; i++)
+            for (int i = 0; i < ResearchManager.Instance.ProcessingScience.Count; i++)
             {
-                ScienceEvent se = ResearchManager.Instance.processingScience.ElementAt(i);
+                ScienceEvent se = ResearchManager.Instance.ProcessingScience.ElementAt(i);
                 float processedScience = se.OriginalScience - se.RemainingScience;
                 ReportBuilder.AppendLine(se.UiName + ": " + Math.Round(processedScience, 1) + "/" + se.OriginalScience);
             }

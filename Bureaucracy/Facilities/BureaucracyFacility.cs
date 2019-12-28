@@ -13,7 +13,24 @@ namespace Bureaucracy
         private bool upgrading = false;
         private bool recentlyUpgraded = false;
         public FacilityUpgradeEvent Upgrade;
+        private bool canBeClosed;
+        private bool isClosed;
+        public int LaunchesThisMonth = 0;
+        
+        public bool IsClosed => isClosed;
 
+        public bool CanBeClosed => canBeClosed;
+
+        public void ReopenFacility()
+        {
+            isClosed = false;
+        }
+
+        public void CloseFacility()
+        {
+            if (!canBeClosed) return;
+            isClosed = true;
+        }
         public bool Upgrading => upgrading;
 
         public int MaintenanceCost => upkeepCost * level;
@@ -33,19 +50,26 @@ namespace Bureaucracy
                 case SpaceCenterFacility.Administration:
                     return "Administration";
                 case SpaceCenterFacility.AstronautComplex:
+                    canBeClosed = true;
                     return "AstronautComplex";
                 case SpaceCenterFacility.MissionControl:
                     return "MissionControl";
                 case SpaceCenterFacility.SpaceplaneHangar:
+                    canBeClosed = true;
                     return "SpaceplaneHangar";
                 case SpaceCenterFacility.TrackingStation:
                     return "TrackingStation";
                 case SpaceCenterFacility.ResearchAndDevelopment:
                     return "ResearchAndDevelopment";
                 case SpaceCenterFacility.VehicleAssemblyBuilding:
+                    canBeClosed = true;
                     return "VehicleAssemblyBuilding";
+                case SpaceCenterFacility.Runway:
+                    return "Runway";
+                case SpaceCenterFacility.LaunchPad:
+                    return "LaunchPad";
                 default:
-                    return "OtherFacility";
+                    return "Other Facility";
             }
         }
 
@@ -57,7 +81,7 @@ namespace Bureaucracy
                 case "Administration":
                     cost = SettingsClass.Instance.AdminCost;
                     break;
-                case "AstronautComplex:":
+                case "AstronautComplex":
                     cost = SettingsClass.Instance.AstronautComplexCost;
                     break;
                 case "MissionControl":
@@ -79,10 +103,9 @@ namespace Bureaucracy
                     cost = SettingsClass.Instance.OtherFacilityCost;
                     break;
                 default:
-                    Debug.Log("[Bureaucracy]: Facility " + name + " could not be found!");
+                    cost = 0;
                     break;
             }
-
             return cost;
         }
 

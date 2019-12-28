@@ -65,19 +65,16 @@ namespace Bureaucracy
 
         public double GetWageCosts()
         {
-            float validCrewCount = 0;
-            List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
+            List<CrewMember> crew = CrewManager.Instance.Kerbals.Values.ToList();
+            double wage = 0;
             for (int i = 0; i < crew.Count; i++)
             {
-                ProtoCrewMember p = crew.ElementAt(i);
-                if(p.type == ProtoCrewMember.KerbalType.Applicant) continue;
-                if(p.type == ProtoCrewMember.KerbalType.Tourist) continue;
-                if(p.type == ProtoCrewMember.KerbalType.Unowned) continue;
-                if(p.rosterStatus == ProtoCrewMember.RosterStatus.Dead || p.rosterStatus == ProtoCrewMember.RosterStatus.Missing) continue;
-                float experienceLevel = Math.Max(0.5f, p.experienceLevel);
-                validCrewCount += experienceLevel;
+                CrewMember c = crew.ElementAt(i);
+                if(c.CrewReference().rosterStatus == ProtoCrewMember.RosterStatus.Dead || c.CrewReference().rosterStatus == ProtoCrewMember.RosterStatus.Missing) continue;
+                wage += c.Wage;
             }
-            return validCrewCount * SettingsClass.Instance.KerbalBaseWage;
+
+            return wage;
         }
 
         public double GetFacilityMaintenanceCosts()
@@ -86,6 +83,7 @@ namespace Bureaucracy
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
+                if(bf.IsClosed) continue;
                 d += bf.MaintenanceCost;
             }
 

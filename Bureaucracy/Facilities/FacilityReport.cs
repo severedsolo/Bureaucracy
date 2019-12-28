@@ -17,6 +17,7 @@ namespace Bureaucracy
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
                 string s = bf.GetProgressReport(bf.Upgrade);
+                if (bf.IsClosed) ReportBuilder.AppendLine(bf.Name + " is closed");
                 if(s == String.Empty) continue;
                 ReportBuilder.AppendLine(s);
             }

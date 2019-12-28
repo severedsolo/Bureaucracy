@@ -40,7 +40,8 @@ namespace Bureaucracy
 
         private void Start()
         {
-            InternalEvents.OnBudgetAwarded.Add(GeneratePostBudgetReport);
+            InternalListeners.OnBudgetAwarded.Add(GeneratePostBudgetReport);
+            
         }
 
         private void RegisterBureaucracyManagers()
@@ -48,6 +49,7 @@ namespace Bureaucracy
             registeredManagers.Add(new BudgetManager());
             registeredManagers.Add(new FacilityManager());
             registeredManagers.Add(new ResearchManager());
+            registeredManagers.Add(new CrewManager(HighLogic.CurrentGame.CrewRoster.Crew.ToList()));
         }
 
         public void SetCalcsDirty()
@@ -72,6 +74,7 @@ namespace Bureaucracy
             BudgetManager.Instance.OnLoad(node);
             FacilityManager.Instance.OnLoad(node);
             ResearchManager.Instance.OnLoad(node);
+            CrewManager.Instance.OnLoad(node);
         }
 
         public void OnSave(ConfigNode node)
@@ -80,6 +83,7 @@ namespace Bureaucracy
             BudgetManager.Instance.OnSave(node);
             FacilityManager.Instance.OnSave(node);
             ResearchManager.Instance.OnSave(node);
+            CrewManager.Instance.OnSave(node);
         }
 
         private void GeneratePostBudgetReport(double data0, double data1)
@@ -98,7 +102,7 @@ namespace Bureaucracy
                 Manager m = registeredManagers.ElementAt(i);
                 m.UnregisterEvents();
             }
-            InternalEvents.OnBudgetAwarded.Remove(GeneratePostBudgetReport);
+            InternalListeners.OnBudgetAwarded.Remove(GeneratePostBudgetReport);
         }
     }
 }

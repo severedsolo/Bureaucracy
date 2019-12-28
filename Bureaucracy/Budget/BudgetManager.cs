@@ -15,12 +15,12 @@ namespace Bureaucracy
             Instance = this;
         }
 
-        public override Report GetReport()
+        protected override Report GetReport()
         {
             return new BudgetReport();
         }
 
-        public override void OnEventCompleted(BureaucracyEvent eventCompleted)
+        public override void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted)
         {
             nextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
         }

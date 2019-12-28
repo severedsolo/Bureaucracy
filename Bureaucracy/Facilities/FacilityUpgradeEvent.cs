@@ -8,7 +8,7 @@ namespace Bureaucracy
     {
         private string facilityId;
         private float cost;
-        private int levelRequested;
+        private int levelRequested = 1;
         private BureaucracyFacility parentFacility;
 
         public FacilityUpgradeEvent(string id, BureaucracyFacility passingFacility)
@@ -26,6 +26,10 @@ namespace Bureaucracy
             parentFacility = passingFacility;
         }
 
+        public FacilityUpgradeEvent(string facilityName)
+        {
+            
+        }
         public float Cost => cost;
 
         public float ProgressUpgrade(double funding)

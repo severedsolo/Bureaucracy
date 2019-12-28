@@ -26,8 +26,8 @@ namespace Bureaucracy
 
         public virtual double GetAllocatedFunding() { return 0; }
 
-        public virtual void OnEventCompleted(BureaucracyEvent eventCompleted) { }
+        public virtual void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted) { }
 
-        public virtual Report GetReport() { return new Report(); }
+        protected virtual Report GetReport() { return new Report(); }
     }
 }

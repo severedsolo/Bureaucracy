@@ -15,7 +15,7 @@ namespace Bureaucracy
 
         protected void InformParent()
         {
-            ParentManager.OnEventCompleted(this);
+            ParentManager.OnEventCompletedManagerActions(this);
         }
     }
 }

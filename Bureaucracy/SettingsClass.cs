@@ -27,11 +27,18 @@ namespace Bureaucracy
         public int KerbalBaseWage = 1000;
         public bool ContractInterceptor = true;
         public bool HandleKscUpgrades = true;
+        public float LongTermBonusYears = 10000;
+        public float LongTermBonusDays = 30;
+        public int BaseStrikesToQuit = 6;
+        public int StrikeMemory = 6;
+        public bool AstronautTraining = true;
+        //TODO: Tidy this up so they are in a logical order
 
         public SettingsClass()
         {
             Instance = this;
         }
+
         //TODO: Make Settings Load and Save
         public void OnLoad(ConfigNode cn)
         {
