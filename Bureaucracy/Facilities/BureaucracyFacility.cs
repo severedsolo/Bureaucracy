@@ -23,6 +23,7 @@ namespace Bureaucracy
 
         public void ReopenFacility()
         {
+            LaunchesThisMonth = 0;
             isClosed = false;
         }
 
@@ -134,6 +135,9 @@ namespace Bureaucracy
                 ConfigNode cn = facilityNodes.ElementAt(i);
                 if (cn.GetValue("Name") != name) continue;
                 int.TryParse(cn.GetValue("Level"), out level);
+                bool.TryParse(cn.GetValue("RecentlyUpgraded"), out recentlyUpgraded);
+                bool.TryParse(cn.GetValue("Closed"), out isClosed);
+                int.TryParse(cn.GetValue("LaunchesThisMonth"), out LaunchesThisMonth);
                 SetCosts();
                 ConfigNode upgradeNode = cn.GetNode("UPGRADE");
                 if (upgradeNode != null)
@@ -151,6 +155,9 @@ namespace Bureaucracy
             ConfigNode thisNode = new ConfigNode("FACILITY");
             thisNode.SetValue("Name", name, true);
             thisNode.SetValue("Level", level, true);
+            thisNode.SetValue("RecentlyUpgraded", recentlyUpgraded, true);
+            thisNode.SetValue("Closed", isClosed, true);
+            thisNode.SetValue("LaunchesThisMonth", LaunchesThisMonth, true);
             if (upgrading) Upgrade.OnSave(thisNode);
             cn.AddNode(thisNode);
         }
@@ -160,6 +167,7 @@ namespace Bureaucracy
             upgrading = false;
             Upgrade = null;
             recentlyUpgraded = true;
+            level++;
         }
     }
 }

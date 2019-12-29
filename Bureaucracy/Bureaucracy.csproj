@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bureaucracy</RootNamespace>
     <AssemblyName>Bureaucracy</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\.steam\steam\steamapps\common\Kerbal Space Program - ModDev\GameData\Bureaucracy\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program - ModDev\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -79,7 +82,9 @@
     <Compile Include="Facilities\FacilityUpgradeEvent.cs" />
     <Compile Include="BureaucracyScenario.cs" />
     <Compile Include="BureaucracyEvent.cs" />
+    <Compile Include="OverrideKSCButtons.cs" />
     <Compile Include="KACWrapper.cs" />
+    <Compile Include="KSCButtonHook.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report.cs" />

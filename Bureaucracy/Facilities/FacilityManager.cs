@@ -42,6 +42,7 @@ namespace Bureaucracy
 
         private void RunFacilityBudget()
         {
+            ReopenAllFacilities();
             double facilityBudget = Utilities.Instance.GetNetBudget("Facilities");
             for (int i = 0; i < Facilities.Count; i++)
             {
@@ -54,7 +55,9 @@ namespace Bureaucracy
         
         public void OnLoad(ConfigNode cn)
         {
-            ConfigNode[] facilityNodes = cn.GetNodes("FACILITY");
+            ConfigNode managerNode = cn.GetNode("FACILITY_MANAGER");
+            if (managerNode == null) return;
+            ConfigNode[] facilityNodes = managerNode.GetNodes("FACILITY");
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
@@ -66,11 +69,14 @@ namespace Bureaucracy
 
         public void OnSave(ConfigNode cn)
         {
+            ConfigNode managerNode = new ConfigNode("FACILITY_MANAGER");
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
-                bf.OnSave(cn);
+                bf.OnSave(managerNode);
             }
+
+            cn.AddNode(managerNode);
         }
 
         public void StartUpgrade(UpgradeableFacility facility)

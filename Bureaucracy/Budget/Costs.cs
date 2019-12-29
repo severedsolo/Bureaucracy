@@ -90,9 +90,8 @@ namespace Bureaucracy
             return d;
         }
 
-        public void OnLoad(ConfigNode cn)
+        public void OnLoad(ConfigNode costsNode)
         {
-            ConfigNode costsNode = cn.GetNode("COSTS");
             if (costsNode == null) return;
             int.TryParse(costsNode.GetValue("launchCostsVAB"), out launchCostsVab);
             int.TryParse(costsNode.GetValue("launchCostsSPH"), out launchCostsSph);

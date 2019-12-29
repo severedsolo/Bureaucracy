@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Expansions.Missions.Actions;
 using KSP.UI.Screens;
+using KSP.UI.Screens.SpaceCenter;
 using UnityEngine;
 using UnityEngine.UI;
 using Upgradeables;
@@ -28,6 +30,7 @@ namespace Bureaucracy
             menuToOverride = menu;
             StartCoroutine(HandleUpgradeButton());
         }
+        
 
         private IEnumerator HandleUpgradeButton()
         {
@@ -42,7 +45,6 @@ namespace Bureaucracy
                 Debug.Log("Could not find UpgradeButton by name, using index instead.");
                 button = GetMember<Button>(2);
             }
-
             if (button != null)
             {
                 Debug.Log("Found upgrade button, overriding it.");
@@ -94,7 +96,6 @@ namespace Bureaucracy
             }
             return default(T);
         }
-        
         public static object GetMemberInfoValue(System.Reflection.MemberInfo member, object sourceObject)
         {
             object newVal;

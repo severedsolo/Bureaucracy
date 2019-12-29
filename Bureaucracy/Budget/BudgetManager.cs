@@ -41,7 +41,8 @@ namespace Bureaucracy
             double nextBudgetTime = GetNextBudgetTime();
             if(managerNode != null) double.TryParse(managerNode.GetValue("nextBudget"), out nextBudgetTime);
             nextBudget = new BudgetEvent(nextBudgetTime, this, false);
-            Costs.Instance.OnLoad(cn);
+            ConfigNode costsNode = cn.GetNode("COSTS");
+            Costs.Instance.OnLoad(costsNode);
         }
 
         public void OnSave(ConfigNode cn)
@@ -49,7 +50,7 @@ namespace Bureaucracy
             ConfigNode managerNode = new ConfigNode("BUDGET_MANAGER");
             managerNode.SetValue("nextBudget", nextBudget.CompletionTime, true);
             cn.AddNode(managerNode);
-            Costs.Instance.OnSave(cn);
+            Costs.Instance.OnSave(managerNode);
         }
     }
 }

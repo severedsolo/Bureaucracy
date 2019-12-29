@@ -25,11 +25,7 @@ namespace Bureaucracy
             }
             parentFacility = passingFacility;
         }
-
-        public FacilityUpgradeEvent(string facilityName)
-        {
-            
-        }
+        
         public float Cost => cost;
 
         public float ProgressUpgrade(double funding)
