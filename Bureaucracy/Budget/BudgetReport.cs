@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 
 namespace Bureaucracy
 {
@@ -24,6 +23,7 @@ namespace Bureaucracy
             double netBudget = Utilities.Instance.GetNetBudget("Budget");
             ReportBuilder.AppendLine("Net Budget: " + Math.Max(0, netBudget));
             if (netBudget > 0 && netBudget < Funding.Instance.Funds) ReportBuilder.AppendLine("We can't justify extending your funding");
+            // ReSharper disable once InvertIf
             if (netBudget < 0)
             {
                 ReportBuilder.AppendLine("The budget didn't fully cover your space programs costs.");

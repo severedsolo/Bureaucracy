@@ -1,5 +1,3 @@
-using System;
-using System.Text;
 using KSP.UI.Screens;
 using UnityEngine;
 

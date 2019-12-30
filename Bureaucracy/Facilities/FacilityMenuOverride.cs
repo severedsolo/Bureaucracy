@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using Expansions.Missions.Actions;
 using KSP.UI.Screens;
-using KSP.UI.Screens.SpaceCenter;
 using UnityEngine;
 using UnityEngine.UI;
 using Upgradeables;
@@ -13,6 +12,8 @@ using Upgradeables;
 namespace Bureaucracy
 {
     [KSPAddon(KSPAddon.Startup.SpaceCentre, false)]
+    [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
+    [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeNullComparison")]
     public class FacilityMenuOverride : MonoBehaviour
     {
         public static FacilityMenuOverride Instance;
@@ -62,14 +63,16 @@ namespace Bureaucracy
             FacilityManager.Instance.StartUpgrade(overriddenFacility);
         }
 
+        [SuppressMessage("ReSharper", "UseCollectionCountProperty")]
+        [SuppressMessage("ReSharper", "RedundantTypeSpecificationInDefaultExpression")]
         private T GetMember<T>(int index)
         {
-            IEnumerable<MemberInfo> memberList = menuToOverride.GetType().GetMembers(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy).Where(m => m.ToString().Contains(typeof(T).ToString()));
+            List<MemberInfo> memberList = menuToOverride.GetType().GetMembers(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy).Where(m => m.ToString().Contains(typeof(T).ToString())).ToList();
             Debug.Log($"Found {memberList.Count()} matches for {typeof(T)}");
             MemberInfo member = memberList.Count() >= index ? memberList.ElementAt(index) : null;
             if (member == null)
             {
-                Debug.Log($"Member was null when trying to find element at index {index} for type '{typeof(T).ToString()}'");
+                Debug.Log($"Member was null when trying to find element at index {index} for type '{typeof(T)}'");
                 return default(T);
             }
             object o = GetMemberInfoValue(member, menuToOverride);
@@ -80,10 +83,11 @@ namespace Bureaucracy
             return default(T);
         }
         
+        [SuppressMessage("ReSharper", "RedundantTypeSpecificationInDefaultExpression")]
         private T GetMember<T>(string memberName)
         {
             
-            MemberInfo member = menuToOverride.GetType().GetMember(memberName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy)?.FirstOrDefault();
+            MemberInfo member = menuToOverride.GetType().GetMember(memberName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy).FirstOrDefault();
             if (member == null)
             {
                 Debug.Log($"Member was null when trying to find '{name}'");
@@ -96,9 +100,10 @@ namespace Bureaucracy
             }
             return default(T);
         }
-        public static object GetMemberInfoValue(System.Reflection.MemberInfo member, object sourceObject)
+        private static object GetMemberInfoValue(MemberInfo member, object sourceObject)
         {
             object newVal;
+            // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
             if (member is FieldInfo)
                 newVal = ((FieldInfo)member).GetValue(sourceObject);
             else

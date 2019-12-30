@@ -1,15 +1,11 @@
 ﻿using Contracts;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Bureaucracy
 {
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
-    class ContractInterceptor : MonoBehaviour
+    public class ContractInterceptor : MonoBehaviour
     {
         public static ContractInterceptor Instance;
         protected void Awake()

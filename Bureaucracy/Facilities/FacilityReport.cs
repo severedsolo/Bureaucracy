@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Bureaucracy
 {
+    [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyleForMemberAccess")]
     public class FacilityReport : Report
     {
         public FacilityReport()

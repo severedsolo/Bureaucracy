@@ -1,22 +1,27 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using FinePrint;
-using UnityEngine;
 
 namespace Bureaucracy
 {
     public class ResearchManager : Manager
     {
         public static ResearchManager Instance;
-        public List<ScienceEvent> ProcessingScience = new List<ScienceEvent>();
-        public List<ScienceEvent> CompletedEvents = new List<ScienceEvent>();
+        public readonly List<ScienceEvent> ProcessingScience = new List<ScienceEvent>();
+        public readonly List<ScienceEvent> CompletedEvents = new List<ScienceEvent>();
 
         public ResearchManager()
         {
             InternalListeners.OnBudgetAboutToFire.Add(RunResearchBudget);
-            Name = "Research Manager";
+            Name = "Research";
             Instance = this;
         }
+        
+        public override double GetAllocatedFunding()
+        {
+            return Math.Round(Utilities.Instance.GetNetBudget(Name), 0);
+        }
+
         
         public override void UnregisterEvents()
         {
@@ -25,7 +30,8 @@ namespace Bureaucracy
 
         private void RunResearchBudget()
         {
-            double researchBudget = Utilities.Instance.GetNetBudget("Research");
+            double researchBudget = Utilities.Instance.GetNetBudget(Name);
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (researchBudget == 0.0f) return;
             for (int i = 0; i < ProcessingScience.Count; i++)
             {
@@ -40,7 +46,7 @@ namespace Bureaucracy
             return new ScienceReport();
         }
 
-        public void NewScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
+        public void NewScienceReceived(float science, ScienceSubject subject)
         {
             ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
             ProcessingScience.Add(new ScienceEvent(science, subject, this));
@@ -58,13 +64,11 @@ namespace Bureaucracy
             if (researchNode == null) return;
             ConfigNode[] scienceNodes = researchNode.GetNodes("SCIENCE_DATA");
             if (scienceNodes.Length == 0) return;
-            ScienceEvent se;
             for (int i = 0; i < scienceNodes.Length; i++)
             {
-                bool isComplete;
                 ConfigNode cn = scienceNodes.ElementAt(i);
-                bool.TryParse(cn.GetValue("isComplete"), out isComplete);
-                se = new ScienceEvent(cn, this);
+                bool.TryParse(cn.GetValue("isComplete"), out bool isComplete);
+                ScienceEvent se = new ScienceEvent(cn, this);
                 if(isComplete) CompletedEvents.Add(se);
                 else ProcessingScience.Add(se);
             }

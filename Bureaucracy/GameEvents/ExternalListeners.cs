@@ -1,10 +1,6 @@
-using System;
 using Contracts;
-using Contracts.Parameters;
 using KSP.UI.Screens;
-using PreFlightTests;
 using UnityEngine;
-using Upgradeables;
 using FlightTracker;
 
 namespace Bureaucracy
@@ -35,6 +31,25 @@ namespace Bureaucracy
             GameEvents.OnScienceRecieved.Add(OnScienceReceived);
             GameEvents.OnCrewmemberHired.Add(OnCrewMemberHired);
             ActiveFlightTracker.onFlightTrackerUpdated.Add(AllocateCrewBonuses);
+            GameEvents.onKerbalStatusChanged.Add(PotentialKerbalDeath);
+            GameEvents.onGUIApplicationLauncherReady.Add(AddToolbarButton);
+            GameEvents.onGUIApplicationLauncherUnreadifying.Add(RemoveToolbarButton);
+        }
+
+        private void AddToolbarButton()
+        {
+            UiController.Instance.SetupToolbarButton();
+        }
+        private void RemoveToolbarButton(GameScenes data)
+        {
+            UiController.Instance.RemoveToolbarButton();
+        }
+
+        private void PotentialKerbalDeath(ProtoCrewMember crewMember, ProtoCrewMember.RosterStatus statusFrom, ProtoCrewMember.RosterStatus statusTo)
+        {
+            //No need to check if the Kerbal hasn't died. Kerbals always go missing before they go dead, so just check for Missing.
+            if (statusTo != ProtoCrewMember.RosterStatus.Missing) return;
+            CrewManager.Instance.ProcessDeadKerbal(crewMember);
         }
 
         private void OnCrewMemberHired(ProtoCrewMember crewMember, int numberOfActiveKerbals)
@@ -56,7 +71,7 @@ namespace Bureaucracy
 
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
         {
-            ResearchManager.Instance.NewScienceReceived(science, subject, protoVessel, reverseEngineered);
+            ResearchManager.Instance.NewScienceReceived(science, subject);
         }
 
         private void OnFacilityContextMenuSpawn(KSCFacilityContextMenu menu)
@@ -73,15 +88,11 @@ namespace Bureaucracy
         private void AddLaunch(ShipConstruct ship)
         {
             Costs.Instance.AddLaunch(ship);
-            string editor = "None";
-            if (ship.shipFacility == EditorFacility.VAB) editor = "VehicleAssemblyBuilding";
-            else editor = "SpaceplaneHangar";
+            string editor = ship.shipFacility == EditorFacility.VAB ? "VehicleAssemblyBuilding" : "SpaceplaneHangar";
             BureaucracyFacility bf = FacilityManager.Instance.GetFacilityByName(editor);
-            if (bf.IsClosed)
-            {
-                bf.LaunchesThisMonth++;
-                if (bf.LaunchesThisMonth > 2) Utilities.Instance.SabotageLaunch();
-            }
+            if (!bf.IsClosed) return;
+            bf.LaunchesThisMonth++;
+            if (bf.LaunchesThisMonth > 2) Utilities.Instance.SabotageLaunch();
         }
 
         private void OnDisable()
@@ -90,7 +101,9 @@ namespace Bureaucracy
             GameEvents.Contract.onOffered.Remove(OnContractOffered);
             GameEvents.onFacilityContextMenuSpawn.Remove(OnFacilityContextMenuSpawn);
             GameEvents.OnScienceRecieved.Remove(OnScienceReceived);
+            GameEvents.OnCrewmemberHired.Remove(OnCrewMemberHired);
             ActiveFlightTracker.onFlightTrackerUpdated.Remove(AllocateCrewBonuses);
+            GameEvents.onKerbalStatusChanged.Remove(PotentialKerbalDeath);
         }
     }
 }

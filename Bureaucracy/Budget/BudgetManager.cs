@@ -1,11 +1,9 @@
-
-using System.Linq;
-
 namespace Bureaucracy
 {
     public class BudgetManager : Manager
     {
-        private BudgetEvent nextBudget;
+        public BudgetEvent NextBudget;
+        // ReSharper disable once UnusedMember.Local
         private Costs costs = new Costs();
         public static BudgetManager Instance;
 
@@ -22,7 +20,7 @@ namespace Bureaucracy
 
         public override void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted)
         {
-            nextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
+            NextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
         }
 
         private double GetNextBudgetTime()
@@ -30,7 +28,7 @@ namespace Bureaucracy
             double time = SettingsClass.Instance.TimeBetweenBudgets;
             time *= FlightGlobals.GetHomeBody().solarDayLength;
             double offset = 0;
-            if (nextBudget != null) offset = Planetarium.GetUniversalTime() - nextBudget.CompletionTime;
+            if (NextBudget != null) offset = Planetarium.GetUniversalTime() - NextBudget.CompletionTime;
             time += Planetarium.GetUniversalTime() - offset;
             return time;
         }
@@ -40,7 +38,7 @@ namespace Bureaucracy
             ConfigNode managerNode = cn.GetNode("BUDGET_MANAGER");
             double nextBudgetTime = GetNextBudgetTime();
             if(managerNode != null) double.TryParse(managerNode.GetValue("nextBudget"), out nextBudgetTime);
-            nextBudget = new BudgetEvent(nextBudgetTime, this, false);
+            NextBudget = new BudgetEvent(nextBudgetTime, this, false);
             ConfigNode costsNode = cn.GetNode("COSTS");
             Costs.Instance.OnLoad(costsNode);
         }
@@ -48,7 +46,7 @@ namespace Bureaucracy
         public void OnSave(ConfigNode cn)
         {
             ConfigNode managerNode = new ConfigNode("BUDGET_MANAGER");
-            managerNode.SetValue("nextBudget", nextBudget.CompletionTime, true);
+            managerNode.SetValue("nextBudget", NextBudget.CompletionTime, true);
             cn.AddNode(managerNode);
             Costs.Instance.OnSave(managerNode);
         }

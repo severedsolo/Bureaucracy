@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using FinePrint;
-using KSP.UI.Screens;
-using Steamworks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Bureaucracy
 {
@@ -29,6 +23,7 @@ namespace Bureaucracy
     {
         public SettingsClass settings = new SettingsClass();
         public static Bureaucracy Instance;
+        // ReSharper disable once UnusedMember.Local
         private Utilities utilities = new Utilities();
         public List<Manager> registeredManagers = new List<Manager>();
 
@@ -95,7 +90,7 @@ namespace Bureaucracy
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             for (int i = 0; i < registeredManagers.Count; i++)
             {

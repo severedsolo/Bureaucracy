@@ -1,28 +1,26 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Enumerable = UniLinq.Enumerable;
 
 namespace Bureaucracy
 {
     public class CrewMember
     {
-        private double bonusAwaitingPayment = 0;
-        private string name;
+        private double bonusAwaitingPayment;
         private ProtoCrewMember crewRef;
-        private int maxStrikes = 0;
-        public int LastMissionPayout;
-        List<CrewUnhappiness> unhappinessEvents = new List<CrewUnhappiness>();
-        public bool Unhappy = false;
+        private readonly int maxStrikes;
+        private int lastMissionPayout;
+        private readonly List<CrewUnhappiness> unhappinessEvents = new List<CrewUnhappiness>();
+        public bool Unhappy;
         
-        public string Name => name;
+        public string Name { get; private set; }
 
         public double Wage
         {
             get
             {
                 float experienceLevel = crewRef.experienceLevel;
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (experienceLevel == 0) experienceLevel = 0.5f;
                 return experienceLevel * SettingsClass.Instance.KerbalBaseWage;
             }
@@ -30,7 +28,7 @@ namespace Bureaucracy
 
         public CrewMember(string kerbalName)
         {
-            name = kerbalName;
+            Name = kerbalName;
             maxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
         }
         
@@ -40,23 +38,18 @@ namespace Bureaucracy
             double payout;
             if (kvp.Value == "years") payout = kvp.Key * SettingsClass.Instance.LongTermBonusYears;
             else payout = kvp.Key * SettingsClass.Instance.LongTermBonusDays;
-            LastMissionPayout = (int)payout;
-            Debug.Log("[Bureaucracy]: Assigned Bonus of "+(int)payout+" to "+name);
+            lastMissionPayout = (int)payout;
+            Debug.Log("[Bureaucracy]: Assigned Bonus of "+(int)payout+" to "+Name);
         }
 
         public ProtoCrewMember CrewReference()
         {
-            if (crewRef != null)
-            {
-                Debug.Log("[Bureaucracy]: Returning cached crew ref " + crewRef.name);
-                return crewRef;
-            }
-
+            if (crewRef != null) { return crewRef; }
             List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
             for (int i = 0; i < crew.Count; i++)
             {
                 ProtoCrewMember p = crew.ElementAt(i);
-                if (p.name != name) continue;
+                if (p.name != Name) continue;
                 crewRef = p;
                 break;
             }
@@ -64,44 +57,44 @@ namespace Bureaucracy
             //Newly hired crew members aren't actually in the crew yet, so we need to check the Applicants too.
             if (crewRef == null)
             {
-                Debug.Log("[Bureaucracy]: Couldn't find " + name + " in the crew list. Checking Applicants");
+                Debug.Log("[Bureaucracy]: Couldn't find " + Name + " in the crew list. Checking Applicants");
                 crew = HighLogic.CurrentGame.CrewRoster.Applicants.ToList();
                 for (int i = 0; i < crew.Count; i++)
                 {
                     ProtoCrewMember p = crew.ElementAt(i);
-                    if (p.name != name) continue;
+                    if (p.name != Name) continue;
                     crewRef = p;
                     break;
                 }
             }
 
-            if (crewRef == null) Debug.Log("[Bureaucracy]: Couldn't find a crew ref for " + name);
-            Debug.Log("[Bureaucracy]: Returning uncached crewRef " + name);
+            if (crewRef == null) Debug.Log("[Bureaucracy]: Couldn't find a crew ref for " + Name);
+            else Debug.Log("[Bureaucracy]: Returning and caching crewRef " + Name);
             return crewRef;
         }
 
-        public int GetBonus()
+        public int GetBonus(bool clearBonus)
         {
             double payment = bonusAwaitingPayment;
-            bonusAwaitingPayment = 0;
+            if(clearBonus) bonusAwaitingPayment = 0;
             return (int)payment;
         }
 
         public void OnSave(ConfigNode crewManagerNode)
         {
             ConfigNode cn = new ConfigNode("CREW_MEMBER");
-            cn.SetValue("Name", name, true);
+            cn.SetValue("Name", Name, true);
             cn.SetValue("Bonus", bonusAwaitingPayment, true);
             //TODO: Save unhappiness events
-            cn.SetValue("LastPayout", LastMissionPayout, true);
+            cn.SetValue("LastPayout", lastMissionPayout, true);
             crewManagerNode.AddNode(cn);
         }
 
         public void OnLoad(ConfigNode crewConfig)
         {
-            name = crewConfig.GetValue("Name");
+            Name = crewConfig.GetValue("Name");
             double.TryParse(crewConfig.GetValue("Bonus"), out bonusAwaitingPayment);
-            int.TryParse(crewConfig.GetValue("LastPayout"), out LastMissionPayout);
+            int.TryParse(crewConfig.GetValue("LastPayout"), out lastMissionPayout);
             //TODO: Load unhappiness events;
         }
 

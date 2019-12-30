@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -9,9 +8,10 @@ namespace Bureaucracy
     public class CrewManager : Manager
     {
         public static CrewManager Instance;
-        public Dictionary<string, CrewMember> Kerbals = new Dictionary<string, CrewMember>();
+        public readonly Dictionary<string, CrewMember> Kerbals = new Dictionary<string, CrewMember>();
         private int lastBonus;
-        public Dictionary<CrewMember, string> UnhappyCrewOutcomes = new Dictionary<CrewMember, string>();
+        public readonly Dictionary<CrewMember, string> UnhappyCrewOutcomes = new Dictionary<CrewMember, string>();
+        private Guid lastProcessedVessel = Guid.Empty;
 
         public int LastBonus
         {
@@ -28,8 +28,10 @@ namespace Bureaucracy
             return new CrewReport();
         }
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         public CrewManager(List<ProtoCrewMember> crewMembers)
         {
+            FundingAllocation = 0;
             for (int i = 0; i < crewMembers.Count; i++)
             {
                 ProtoCrewMember p = crewMembers.ElementAt(i);
@@ -79,14 +81,14 @@ namespace Bureaucracy
             Kerbals[crewMember.name].AllocateBonus(Planetarium.GetUniversalTime()-launchTime);   
         }
 
-        public int Bonuses(double availableFunding)
+        public int Bonuses(double availableFunding, bool clearBonuses)
         {
             int bonus = 0;
             for (int i = 0; i < Kerbals.Count; i++)
             {
                 CrewMember c = Kerbals.ElementAt(i).Value;
-                int bonusToProcess = c.GetBonus();
-                if (bonusToProcess > 0 && availableFunding < bonusToProcess)
+                int bonusToProcess = c.GetBonus(clearBonuses);
+                if (clearBonuses && bonusToProcess > 0 && availableFunding < bonusToProcess)
                 {
                     c.AddUnhappiness("not being paid");
                 }
@@ -137,6 +139,36 @@ namespace Bureaucracy
             crewMember.SetInactive(trainingPeriod);
             Debug.Log("[Bureaucracy]: New Crewmember added: " + newCrew.Name + ". Training for " + trainingPeriod);
             //TODO: Make the Astronaut Complex UI reflect that the astronaut is training;
+            //TODO: Make the Astronaut Complex UI reflect that the astronaut is training;
+        }
+
+        public void ProcessDeadKerbal(ProtoCrewMember crewMember)
+        {
+            Kerbals.Remove(crewMember.name);
+            if (LossAlreadyProcessed(crewMember)) return;
+            for (int i = 0; i < Kerbals.Count; i++)
+            {
+                CrewMember c = Kerbals.ElementAt(i).Value;
+                if(Utilities.Instance.Randomise.NextDouble() < c.CrewReference().courage) continue;
+                string lostVessel = crewMember.name;
+                if (CrewOnValidVessel(crewMember)) lostVessel = crewMember.seat.vessel.vesselName;
+                c.AddUnhappiness("Loss of "+lostVessel);
+            }
+            float penalty = Reputation.Instance.reputation * (SettingsClass.Instance.DeadKerbalPenalty / 100.0f);
+            Reputation.Instance.AddReputation(-penalty, TransactionReasons.VesselLoss);
+        }
+
+        private bool LossAlreadyProcessed(ProtoCrewMember crewMember)
+        {
+            if (!CrewOnValidVessel(crewMember)) return false;
+            if (crewMember.seat.vessel.id == lastProcessedVessel) return true;
+            lastProcessedVessel = crewMember.seat.vessel.id;
+            return true;
+        }
+
+        private bool CrewOnValidVessel(ProtoCrewMember crewMember)
+        {
+            return crewMember.seat != null && crewMember.seat.vessel != null;
         }
     }
 }

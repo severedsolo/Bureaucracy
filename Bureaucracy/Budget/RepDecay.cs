@@ -9,11 +9,10 @@ namespace Bureaucracy
             Reputation.Instance.AddReputation((float)-penalty, TransactionReasons.ContractPenalty);
         }
 
-        private bool DecayIsValid(bool hardMode)
+        private static bool DecayIsValid(bool hardMode)
         {
             if (hardMode && !SettingsClass.Instance.HardMode) return false;
-            if (!hardMode && !SettingsClass.Instance.RepDecayEnabled) return false;
-            return true;
+            return hardMode || SettingsClass.Instance.RepDecayEnabled;
         }
 
         public void ApplyRepDecay(int decayPercent)

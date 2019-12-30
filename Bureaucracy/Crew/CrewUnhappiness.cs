@@ -3,14 +3,13 @@ namespace Bureaucracy
     public class CrewUnhappiness
     {
         private int expiry = SettingsClass.Instance.StrikeMemory;
-        private string unhappinessReason;
-        private CrewMember parentCrew;
+        private readonly CrewMember parentCrew;
 
-        public string Reason => unhappinessReason;
+        public string Reason { get; }
 
         public CrewUnhappiness(string reason, CrewMember passingCrewMember)
         {
-            unhappinessReason = reason;
+            Reason = reason;
             parentCrew = passingCrewMember;
         }
 
@@ -18,8 +17,7 @@ namespace Bureaucracy
         {
             parentCrew.Unhappy = false;
             expiry--;
-            if (expiry <= 0) return true;
-            return false;
+            return expiry <= 0;
         }
     }
 }

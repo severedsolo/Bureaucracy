@@ -1,14 +1,15 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Expansions.Missions;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Bureaucracy
 {
     public class Utilities
     {
         public static Utilities Instance;
+        public readonly Random Randomise = new Random();  
 
         public Utilities()
         {
@@ -24,7 +25,7 @@ namespace Bureaucracy
         
         public double GetGrossBudget()
         {
-            return Reputation.Instance.reputation * SettingsClass.Instance.BudgetMultiplier;
+            return Math.Round(Reputation.Instance.reputation * SettingsClass.Instance.BudgetMultiplier, 0);
         }
 
         public double GetNetBudget(string department)
@@ -33,6 +34,7 @@ namespace Bureaucracy
             double funding = GetGrossBudget();
             double costs = Costs.Instance.GetTotalMaintenanceCosts();
             funding -= costs;
+            funding -= CrewManager.Instance.Bonuses(funding, false);
             float allocation = 1.0f;
             switch (department)
             {
@@ -45,14 +47,15 @@ namespace Bureaucracy
                         allocation -= m.FundingAllocation / 100.0f;
                     }
                     if (funding < 0.0f) return funding;
-                    return funding*allocation;
+                    return Math.Round(funding*allocation, 0);
                 }
-                case "Facilities":
+                case "Construction":
                     return Math.Max(funding * FacilityManager.Instance.FundingAllocation / 100.0f, 0.0f);
                 case "Research":
                     return Math.Max(funding * ResearchManager.Instance.FundingAllocation / 100.0f, 0.0f);
+                default:
+                    return -1.0f;
             }
-            return 0;
         }
 
         public KeyValuePair<int, string> ConvertUtToRealTime(double ut)
@@ -115,6 +118,25 @@ namespace Bureaucracy
                 }
             }
             //TODO: Funny warning message that no resources have been loaded.
+        }
+
+        public string ConvertUtToKspTimeStamp(double universalTimeStamp)
+        {
+            int years = 1;
+            int days = 1;
+            while (universalTimeStamp > FlightGlobals.GetHomeBody().orbit.period)
+            {
+                years++;
+                universalTimeStamp -= FlightGlobals.GetHomeBody().orbit.period;
+            }
+
+            while (universalTimeStamp > FlightGlobals.GetHomeBody().solarDayLength)
+            {
+                days++;
+                universalTimeStamp -= FlightGlobals.GetHomeBody().solarDayLength;
+            }
+
+            return "Y" + years + " D" + days;
         }
     }
 }

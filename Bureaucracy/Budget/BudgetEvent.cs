@@ -5,12 +5,12 @@ namespace Bureaucracy
 {
     public class BudgetEvent : BureaucracyEvent
     {
-        public BudgetEvent(double budgetTime, BudgetManager manager, bool newKacaLarm)
+        public BudgetEvent(double budgetTime, BudgetManager manager, bool newKacAlarm)
         {
             CompletionTime = budgetTime;
             Name = "Next Budget";
             ParentManager = manager;
-            if(newKacaLarm) Utilities.Instance.NewKacAlarm("Next Budget", CompletionTime);
+            if(newKacAlarm) Utilities.Instance.NewKacAlarm("Next Budget", CompletionTime);
             AddTimer();
         }
 
@@ -20,7 +20,7 @@ namespace Bureaucracy
             RepDecay repDecay = new RepDecay();
             repDecay.ApplyHardMode();
             double funding = Utilities.Instance.GetNetBudget("Budget");
-            funding -= CrewManager.Instance.Bonuses(funding);
+            funding -= CrewManager.Instance.Bonuses(funding, true);
             double facilityDebt = Costs.Instance.GetFacilityMaintenanceCosts();
             double wageDebt = Math.Abs(funding + facilityDebt);
             if (funding < 0)

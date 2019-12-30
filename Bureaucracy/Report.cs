@@ -1,11 +1,10 @@
-using System.Reflection;
 using System.Text;
 
 namespace Bureaucracy
 {
     public class Report
     {
-        protected StringBuilder ReportBuilder = new StringBuilder();
+        protected readonly StringBuilder ReportBuilder = new StringBuilder();
 
         public string ReportTitle { get; protected set; } = "Report Not Implemented";
 

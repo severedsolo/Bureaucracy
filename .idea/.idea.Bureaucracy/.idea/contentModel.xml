@@ -35,9 +35,7 @@
           <e p="InternalListeners.cs" t="Include" />
         </e>
         <e p="KACWrapper.cs" t="Include" />
-        <e p="KSCButtonHook.cs" t="Include" />
         <e p="Manager.cs" t="Include" />
-        <e p="OverrideKSCButtons.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
@@ -49,6 +47,9 @@
         </e>
         <e p="SettingsClass.cs" t="Include" />
         <e p="TimerScript.cs" t="Include" />
+        <e p="UI" t="Include">
+          <e p="UIController.cs" t="Include" />
+        </e>
         <e p="Utilities.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive" />

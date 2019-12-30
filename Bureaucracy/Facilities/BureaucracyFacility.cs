@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using UnityEngine;
 using Upgradeables;
 
 namespace Bureaucracy
@@ -8,18 +7,15 @@ namespace Bureaucracy
     public class BureaucracyFacility
     {
         private int level = 1;
-        private int upkeepCost = 0;
-        private string name;
-        private bool upgrading = false;
-        private bool recentlyUpgraded = false;
+        private readonly int upkeepCost;
+        private bool recentlyUpgraded;
         public FacilityUpgradeEvent Upgrade;
-        private bool canBeClosed;
         private bool isClosed;
-        public int LaunchesThisMonth = 0;
+        public int LaunchesThisMonth;
         
         public bool IsClosed => isClosed;
 
-        public bool CanBeClosed => canBeClosed;
+        private bool CanBeClosed { get; set; }
 
         public void ReopenFacility()
         {
@@ -29,18 +25,18 @@ namespace Bureaucracy
 
         public void CloseFacility()
         {
-            if (!canBeClosed) return;
+            if (!CanBeClosed) return;
             isClosed = true;
         }
-        public bool Upgrading => upgrading;
+        public bool Upgrading { get; private set; }
 
         public int MaintenanceCost => upkeepCost * level;
 
-        public string Name => name;
+        public string Name { get; }
 
         public BureaucracyFacility(SpaceCenterFacility spf)
         {
-            name = SetName(spf);
+            Name = SetName(spf);
             upkeepCost = SetCosts();
         }
 
@@ -51,19 +47,19 @@ namespace Bureaucracy
                 case SpaceCenterFacility.Administration:
                     return "Administration";
                 case SpaceCenterFacility.AstronautComplex:
-                    canBeClosed = true;
+                    CanBeClosed = true;
                     return "AstronautComplex";
                 case SpaceCenterFacility.MissionControl:
                     return "MissionControl";
                 case SpaceCenterFacility.SpaceplaneHangar:
-                    canBeClosed = true;
+                    CanBeClosed = true;
                     return "SpaceplaneHangar";
                 case SpaceCenterFacility.TrackingStation:
                     return "TrackingStation";
                 case SpaceCenterFacility.ResearchAndDevelopment:
                     return "ResearchAndDevelopment";
                 case SpaceCenterFacility.VehicleAssemblyBuilding:
-                    canBeClosed = true;
+                    CanBeClosed = true;
                     return "VehicleAssemblyBuilding";
                 case SpaceCenterFacility.Runway:
                     return "Runway";
@@ -76,8 +72,8 @@ namespace Bureaucracy
 
         private int SetCosts()
         {
-            int cost = 0;
-            switch (name)
+            int cost;
+            switch (Name)
             {
                 case "Administration":
                     cost = SettingsClass.Instance.AdminCost;
@@ -110,22 +106,26 @@ namespace Bureaucracy
             return cost;
         }
 
+        public void CancelUpgrade()
+        {
+            Upgrade = null;
+            Upgrading = false;
+        }
+        
         public void StartUpgrade(UpgradeableFacility facilityToUpgrade)
         {
             Upgrade = new FacilityUpgradeEvent(facilityToUpgrade.id, this);
-            upgrading = true;
-            ScreenMessages.PostScreenMessage("[Bureaucracy]: Upgrade of " + name + " requested");
+            Upgrading = true;
+            ScreenMessages.PostScreenMessage("[Bureaucracy]: Upgrade of " + Name + " requested");
         }
         
         public string GetProgressReport(FacilityUpgradeEvent upgrade)
         {
-            if (!upgrading && !recentlyUpgraded) return String.Empty;
-            if (recentlyUpgraded)
-            {
-                recentlyUpgraded = false;
-                return name + ": Upgrade completed successfully";
-            }
-            return name+ ": $" + upgrade.Cost + " of investment needed to complete";
+            // ReSharper disable once BuiltInTypeReferenceStyleForMemberAccess
+            if (!Upgrading && !recentlyUpgraded) return String.Empty;
+            if (!recentlyUpgraded) return Name + ": $" + upgrade.RemainingInvestment + " / "+ upgrade.OriginalCost;
+            recentlyUpgraded = false;
+            return Name + ": Upgrade completed successfully";
         }
         
         public void OnLoad(ConfigNode[] facilityNodes)
@@ -133,38 +133,35 @@ namespace Bureaucracy
             for (int i = 0; i < facilityNodes.Length; i++)
             {
                 ConfigNode cn = facilityNodes.ElementAt(i);
-                if (cn.GetValue("Name") != name) continue;
+                if (cn.GetValue("Name") != Name) continue;
                 int.TryParse(cn.GetValue("Level"), out level);
                 bool.TryParse(cn.GetValue("RecentlyUpgraded"), out recentlyUpgraded);
                 bool.TryParse(cn.GetValue("Closed"), out isClosed);
                 int.TryParse(cn.GetValue("LaunchesThisMonth"), out LaunchesThisMonth);
                 SetCosts();
                 ConfigNode upgradeNode = cn.GetNode("UPGRADE");
-                if (upgradeNode != null)
-                {
-                    upgrading = true;
-                    Upgrade = new FacilityUpgradeEvent(upgradeNode.GetValue("ID"), this);
-                    Upgrade.OnLoad(upgradeNode);
-                }
-                return;
+                if (upgradeNode == null) return;
+                Upgrading = true;
+                Upgrade = new FacilityUpgradeEvent(upgradeNode.GetValue("ID"), this);
+                Upgrade.OnLoad(upgradeNode);
             }
         }
 
         public void OnSave(ConfigNode cn)
         {
             ConfigNode thisNode = new ConfigNode("FACILITY");
-            thisNode.SetValue("Name", name, true);
+            thisNode.SetValue("Name", Name, true);
             thisNode.SetValue("Level", level, true);
             thisNode.SetValue("RecentlyUpgraded", recentlyUpgraded, true);
             thisNode.SetValue("Closed", isClosed, true);
             thisNode.SetValue("LaunchesThisMonth", LaunchesThisMonth, true);
-            if (upgrading) Upgrade.OnSave(thisNode);
+            if (Upgrading) Upgrade.OnSave(thisNode);
             cn.AddNode(thisNode);
         }
 
         public void OnUpgradeCompleted()
         {
-            upgrading = false;
+            Upgrading = false;
             Upgrade = null;
             recentlyUpgraded = true;
             level++;

@@ -8,9 +8,8 @@ namespace Bureaucracy
 {
     public class FacilityManager : Manager
     {
-        public List<BureaucracyFacility> Facilities = new List<BureaucracyFacility>();
+        public readonly List<BureaucracyFacility> Facilities = new List<BureaucracyFacility>();
         public static FacilityManager Instance;
-        public List<BureaucracyFacility> UnmaintainedFacilities = new List<BureaucracyFacility>();
 
         public FacilityManager()
         {
@@ -21,7 +20,7 @@ namespace Bureaucracy
                 SpaceCenterFacility spf = spaceCentreFacilities.ElementAt(i);
                 Facilities.Add(new BureaucracyFacility(spf));
             }
-            Name = "Facility Manager";
+            Name = "Construction";
             Instance = this;
         }
         
@@ -32,7 +31,7 @@ namespace Bureaucracy
 
         public override double GetAllocatedFunding()
         {
-            return Math.Round(Utilities.Instance.GetNetBudget("Facilities"), 0);
+            return Math.Round(Utilities.Instance.GetNetBudget(Name), 0);
         }
 
         protected override Report GetReport()
@@ -43,7 +42,7 @@ namespace Bureaucracy
         private void RunFacilityBudget()
         {
             ReopenAllFacilities();
-            double facilityBudget = Utilities.Instance.GetNetBudget("Facilities");
+            double facilityBudget = Utilities.Instance.GetNetBudget(Name);
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
@@ -119,7 +118,7 @@ namespace Bureaucracy
             return null;
         }
 
-        public void ReopenAllFacilities()
+        private void ReopenAllFacilities()
         {
             for (int i = 0; i < Facilities.Count; i++)
             {

@@ -1,22 +1,20 @@
-using System;
-using FinePrint;
 using UnityEngine;
-using VehiclePhysics;
 
 namespace Bureaucracy
 {
     public class ScienceEvent : BureaucracyEvent
     {
-        private float originalScience;
+        private readonly float originalScience;
         private float scienceLeftToProcess;
-        private string scienceSubject;
-        public string UiName;
-        private bool isComplete = false;
+        private readonly string scienceSubject;
+        public readonly string UiName;
+        private bool isComplete;
 
         public float OriginalScience => originalScience;
 
         public float RemainingScience => scienceLeftToProcess;
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         public ScienceEvent(float science, ScienceSubject subject, ResearchManager passingManager)
         {
             scienceLeftToProcess = science;
@@ -45,7 +43,7 @@ namespace Bureaucracy
             scienceLeftToProcess -= scienceAvailable;
             if (scienceLeftToProcess <= 0.0f)
             {
-                scienceAvailable = scienceAvailable - originalScienceRemaining;
+                scienceAvailable -= originalScienceRemaining;
                 ResearchAndDevelopment.Instance.AddScience(originalScienceRemaining, TransactionReasons.ScienceTransmission);
                 Debug.Log("[Bureaucracy]: " + scienceSubject + " completed. Adding " + originalScienceRemaining + " science");
                 OnEventCompleted();

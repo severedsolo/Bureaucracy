@@ -4,6 +4,7 @@ namespace Bureaucracy
     {
         public double CompletionTime;
         protected Manager ParentManager;
+        // ReSharper disable once NotAccessedField.Global
         protected string Name = "Uninitialised Event";
 
         protected void AddTimer()

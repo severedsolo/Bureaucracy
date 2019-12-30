@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+// ReSharper disable All
 
 namespace Bureaucracy
 {
@@ -15,6 +17,7 @@ namespace Bureaucracy
     /// <summary>
     /// The Wrapper class to access KAC from another plugin
     /// </summary>
+    [SuppressMessage("ReSharper", "InvalidXmlDocComment")]
     public class KacWrapper
     {
         protected static System.Type KacType;
@@ -179,9 +182,9 @@ namespace Bureaucracy
                 //}
             }
 
-            private Object actualKac;
+            private readonly Object actualKac;
 
-            private FieldInfo apiReadyField;
+            private readonly FieldInfo apiReadyField;
             /// <summary>
             /// Whether the APIReady flag is set in the real KAC
             /// </summary>
@@ -197,8 +200,8 @@ namespace Bureaucracy
             }
 
             #region Alarms
-            private Object actualAlarms;
-            private FieldInfo alarmsField;
+            private readonly Object actualAlarms;
+            private readonly FieldInfo alarmsField;
 
             /// <summary>
             /// The list of Alarms that are currently active in game
@@ -258,7 +261,7 @@ namespace Bureaucracy
             }
 
             //the info about the event;
-            private EventInfo onAlarmStateChangedEvent;
+            private readonly EventInfo onAlarmStateChangedEvent;
 
             /// <summary>
             /// Event that fires when the State of an Alarm changes
@@ -308,7 +311,7 @@ namespace Bureaucracy
 
 
             #region Methods
-            private MethodInfo createAlarmMethod;
+            private readonly MethodInfo createAlarmMethod;
 
             /// <summary>
             /// Create a new Alarm
@@ -323,7 +326,7 @@ namespace Bureaucracy
             }
 
 
-            private MethodInfo deleteAlarmMethod;
+            private readonly MethodInfo deleteAlarmMethod;
             /// <summary>
             /// Delete an Alarm
             /// </summary>
@@ -335,7 +338,7 @@ namespace Bureaucracy
             }
 
 
-            private MethodInfo drawAlarmActionChoiceMethod;
+            private readonly MethodInfo drawAlarmActionChoiceMethod;
             /// <summary>
             /// Delete an Alarm
             /// </summary>
@@ -403,9 +406,9 @@ namespace Bureaucracy
                     //    LogFormatted("F:{0}-{1}", fi.Name, fi.DeclaringType);
                     //}
                 }
-                private Object actualAlarm;
+                private readonly Object actualAlarm;
 
-                private FieldInfo vesselIdField;
+                private readonly FieldInfo vesselIdField;
                 /// <summary>
                 /// Unique Identifier of the Vessel that the alarm is attached to
                 /// </summary>
@@ -415,7 +418,7 @@ namespace Bureaucracy
                     set { vesselIdField.SetValue(actualAlarm, value); }
                 }
 
-                private FieldInfo idField;
+                private readonly FieldInfo idField;
                 /// <summary>
                 /// Unique Identifier of this alarm
                 /// </summary>
@@ -424,7 +427,7 @@ namespace Bureaucracy
                     get { return (String)idField.GetValue(actualAlarm); }
                 }
 
-                private FieldInfo nameField;
+                private readonly FieldInfo nameField;
                 /// <summary>
                 /// Short Text Name for the Alarm
                 /// </summary>
@@ -434,7 +437,7 @@ namespace Bureaucracy
                     set { nameField.SetValue(actualAlarm, value); }
                 }
 
-                private FieldInfo notesField;
+                private readonly FieldInfo notesField;
                 /// <summary>
                 /// Longer Text Description for the Alarm
                 /// </summary>
@@ -444,7 +447,7 @@ namespace Bureaucracy
                     set { notesField.SetValue(actualAlarm, value); }
                 }
 
-                private FieldInfo xferOriginBodyNameField;
+                private readonly FieldInfo xferOriginBodyNameField;
                 /// <summary>
                 /// Name of the origin body for a transfer
                 /// </summary>
@@ -454,7 +457,7 @@ namespace Bureaucracy
                     set { xferOriginBodyNameField.SetValue(actualAlarm, value); }
                 }
 
-                private FieldInfo xferTargetBodyNameField;
+                private readonly FieldInfo xferTargetBodyNameField;
                 /// <summary>
                 /// Name of the destination body for a transfer
                 /// </summary>
@@ -464,13 +467,13 @@ namespace Bureaucracy
                     set { xferTargetBodyNameField.SetValue(actualAlarm, value); }
                 }
                 
-                private FieldInfo alarmTypeField;
+                private readonly FieldInfo alarmTypeField;
                 /// <summary>
                 /// What type of Alarm is this - affects icon displayed and some calc options
                 /// </summary>
                 public AlarmTypeEnum AlarmType { get { return (AlarmTypeEnum)alarmTypeField.GetValue(actualAlarm); } }
 
-                private PropertyInfo alarmTimeProperty;
+                private readonly PropertyInfo alarmTimeProperty;
                 /// <summary>
                 /// In game UT value of the alarm
                 /// </summary>
@@ -480,7 +483,7 @@ namespace Bureaucracy
                     set { alarmTimeProperty.SetValue(actualAlarm, value, null); }
                 }
 
-                private FieldInfo alarmMarginField;
+                private readonly FieldInfo alarmMarginField;
                 /// <summary>
                 /// In game seconds the alarm will fire before the event it is for
                 /// </summary>
@@ -490,7 +493,7 @@ namespace Bureaucracy
                     set { alarmMarginField.SetValue(actualAlarm, value); }
                 }
 
-                private FieldInfo alarmActionField;
+                private readonly FieldInfo alarmActionField;
                 /// <summary>
                 /// What should the Alarm Clock do when the alarm fires
                 /// </summary>
@@ -500,14 +503,14 @@ namespace Bureaucracy
                     set { alarmActionField.SetValue(actualAlarm, (Int32)value); }
                 }
 
-                private FieldInfo remainingField;
+                private readonly FieldInfo remainingField;
                 /// <summary>
                 /// How much Game time is left before the alarm fires
                 /// </summary>
                 public Double Remaining { get { return (Double)remainingField.GetValue(actualAlarm); } }
 
 
-                private FieldInfo repeatAlarmField;
+                private readonly FieldInfo repeatAlarmField;
                 /// <summary>
                 /// Whether the alarm will be repeated after it fires
                 /// </summary>
@@ -516,7 +519,7 @@ namespace Bureaucracy
                     get { return (Boolean)repeatAlarmField.GetValue(actualAlarm); }
                     set { repeatAlarmField.SetValue(actualAlarm, value); }
                 }
-                private PropertyInfo repeatAlarmPeriodProperty;
+                private readonly PropertyInfo repeatAlarmPeriodProperty;
                 /// <summary>
                 /// Value in Seconds after which the alarm will repeat
                 /// </summary>

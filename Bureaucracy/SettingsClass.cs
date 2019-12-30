@@ -32,6 +32,7 @@ namespace Bureaucracy
         public int BaseStrikesToQuit = 6;
         public int StrikeMemory = 6;
         public bool AstronautTraining = true;
+        public int DeadKerbalPenalty = 25;
         //TODO: Tidy this up so they are in a logical order
 
         public SettingsClass()
