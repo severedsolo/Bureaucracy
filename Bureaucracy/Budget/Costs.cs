@@ -21,20 +21,20 @@ namespace Bureaucracy
         {
             if (ship.shipFacility == EditorFacility.SPH) launchCostsSph += SettingsClass.Instance.LaunchCostSph;
             else launchCostsVab += SettingsClass.Instance.LaunchCostVab;
+            Debug.Log("[Bureaucracy]: Launch Registered");
         }
 
         public void ResetLaunchCosts()
         {
             launchCostsSph = 0;
             launchCostsVab = 0;
+            Debug.Log("[Bureaucracy]: Launch Costs Reset");
         }
         
         public double GetTotalMaintenanceCosts()
         {
-            Debug.Log("[Bureaucracy]: Maintenance Costs requested");
             if (!costsDirty)
             {
-                Debug.Log("[Bureaucracy]: Returning cached costs: "+cachedCosts);
                 return cachedCosts;
             }
             Debug.Log("[Bureaucracy]: Costs are dirty. Recalculating");
@@ -44,7 +44,7 @@ namespace Bureaucracy
             costs += GetLaunchCosts();
             cachedCosts = costs;
             costsDirty = false;
-            Debug.Log("[Bureaucracy]: Cached costs "+costs+". Costs are not dirty");
+            Debug.Log("[Bureaucracy]: Cached costs "+costs+". Setting Costs not dirty for next 5 seconds");
             Bureaucracy.Instance.Invoke(nameof(Bureaucracy.Instance.SetCalcsDirty), 5.0f);
             return costs;
         }
@@ -82,7 +82,6 @@ namespace Bureaucracy
                 if(bf.IsClosed) continue;
                 d += bf.MaintenanceCost;
             }
-
             return d;
         }
 

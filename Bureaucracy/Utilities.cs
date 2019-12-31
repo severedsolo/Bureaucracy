@@ -105,7 +105,7 @@ namespace Bureaucracy
             }
         }
 
-        public void SabotageLaunch()
+        public void SabotageLaunch(string facilityName)
         {
             for (int i = 0; i < FlightGlobals.ActiveVessel.Parts.Count; i++)
             {
@@ -117,7 +117,7 @@ namespace Bureaucracy
                     r.amount = 0;
                 }
             }
-            //TODO: Funny warning message that no resources have been loaded.
+            UiController.Instance.GenerateErrorWindow("Due to reduced staffing levels at the "+facilityName+" it seems they forgot to actually fuel the vessel.");
         }
 
         public string ConvertUtToKspTimeStamp(double universalTimeStamp)

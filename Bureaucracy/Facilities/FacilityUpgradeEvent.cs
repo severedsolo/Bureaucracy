@@ -64,6 +64,7 @@ namespace Bureaucracy
             ConfigNode upgradeNode = new ConfigNode("UPGRADE");
             upgradeNode.SetValue("ID", facilityId, true);
             upgradeNode.SetValue("cost", remainingInvestment, true);
+            upgradeNode.SetValue("originalCost", originalCost, true);
             upgradeNode.SetValue("level", levelRequested, true);
             facilityNode.AddNode(upgradeNode);
         }
@@ -73,6 +74,7 @@ namespace Bureaucracy
             facilityId = upgradeNode.GetValue("ID");
             float.TryParse(upgradeNode.GetValue("cost"), out remainingInvestment);
             int.TryParse(upgradeNode.GetValue("level"), out levelRequested);
+            float.TryParse(upgradeNode.GetValue("originalCost"), out originalCost);
         }
     }
 }

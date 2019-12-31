@@ -1,5 +1,6 @@
 
 using System;
+using UnityEngine;
 
 namespace Bureaucracy
 {
@@ -16,6 +17,7 @@ namespace Bureaucracy
 
         public override void OnEventCompleted()
         {
+            Debug.Log("Bureaucracy]: OnBudgetAboutToFire");
             InternalListeners.OnBudgetAboutToFire.Fire();
             RepDecay repDecay = new RepDecay();
             repDecay.ApplyHardMode();
@@ -25,6 +27,7 @@ namespace Bureaucracy
             double wageDebt = Math.Abs(funding + facilityDebt);
             if (funding < 0)
             {
+                Debug.Log("[Bureaucracy]: Funding < 0. Paying debts");
                 //pay wages first then facilities
                 Utilities.Instance.PayWageDebt(wageDebt);
                 Utilities.Instance.PayFacilityDebt(facilityDebt, wageDebt);
@@ -32,7 +35,8 @@ namespace Bureaucracy
             CrewManager.Instance.ProcessUnhappyCrew();
             if(SettingsClass.Instance.UseItOrLoseIt && funding > Funding.Instance.Funds) Funding.Instance.SetFunds(0.0d, TransactionReasons.Contracts);
             if(!SettingsClass.Instance.UseItOrLoseIt || Funding.Instance.Funds <= 0.0d || funding <= 0.0d) Funding.Instance.AddFunds(funding, TransactionReasons.Contracts);
-            InternalListeners.OnBudgetAwarded.Fire(funding, Costs.Instance.GetTotalMaintenanceCosts());
+            Debug.Log("[Bureaucracy]: OnBudgetAwarded. Awarding "+funding+" Costs: "+facilityDebt);
+            InternalListeners.OnBudgetAwarded.Fire(funding, facilityDebt);
             Costs.Instance.ResetLaunchCosts();
             repDecay.ApplyRepDecay(Bureaucracy.Instance.settings.RepDecayPercent);
             InformParent();

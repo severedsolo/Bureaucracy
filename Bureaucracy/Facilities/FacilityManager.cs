@@ -22,6 +22,7 @@ namespace Bureaucracy
             }
             Name = "Construction";
             Instance = this;
+            Debug.Log("[Bureaucracy]: Facility Manager Ready");
         }
         
         public override void UnregisterEvents()
@@ -54,6 +55,7 @@ namespace Bureaucracy
         
         public void OnLoad(ConfigNode cn)
         {
+            Debug.Log("[Bureaucracy]: FacilityManager OnLoad");
             ConfigNode managerNode = cn.GetNode("FACILITY_MANAGER");
             if (managerNode == null) return;
             ConfigNode[] facilityNodes = managerNode.GetNodes("FACILITY");
@@ -62,12 +64,14 @@ namespace Bureaucracy
                 BureaucracyFacility bf = Facilities.ElementAt(i);
                 bf.OnLoad(facilityNodes);
             }
+            Debug.Log("[Bureaucracy]: FacilityManager OnLoadComplete");
         }
         
         
 
         public void OnSave(ConfigNode cn)
         {
+            Debug.Log("[Bureaucracy]: FacilityManager OnSave");
             ConfigNode managerNode = new ConfigNode("FACILITY_MANAGER");
             for (int i = 0; i < Facilities.Count; i++)
             {
@@ -76,6 +80,7 @@ namespace Bureaucracy
             }
 
             cn.AddNode(managerNode);
+            Debug.Log("[Bureaucracy]: FacilityManager OnSave Complete");
         }
 
         public void StartUpgrade(UpgradeableFacility facility)

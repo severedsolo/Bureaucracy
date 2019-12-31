@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using UnityEngine;
 using Upgradeables;
 
 namespace Bureaucracy
@@ -19,6 +20,8 @@ namespace Bureaucracy
 
         public void ReopenFacility()
         {
+            if (!isClosed) return;
+            Debug.Log("[Bureaucracy]: Reopening "+Name);
             LaunchesThisMonth = 0;
             isClosed = false;
         }
@@ -27,6 +30,7 @@ namespace Bureaucracy
         {
             if (!CanBeClosed) return;
             isClosed = true;
+            Debug.Log("[Bureaucracy]: "+Name+" has been closed");
         }
         public bool Upgrading { get; private set; }
 
@@ -38,6 +42,7 @@ namespace Bureaucracy
         {
             Name = SetName(spf);
             upkeepCost = SetCosts();
+            Debug.Log("[Bureaucracy]: Setup Facility "+Name);
         }
 
         private string SetName(SpaceCenterFacility spf)
@@ -106,17 +111,12 @@ namespace Bureaucracy
             return cost;
         }
 
-        public void CancelUpgrade()
-        {
-            Upgrade = null;
-            Upgrading = false;
-        }
-        
         public void StartUpgrade(UpgradeableFacility facilityToUpgrade)
         {
             Upgrade = new FacilityUpgradeEvent(facilityToUpgrade.id, this);
             Upgrading = true;
             ScreenMessages.PostScreenMessage("[Bureaucracy]: Upgrade of " + Name + " requested");
+            Debug.Log("[Bureaucracy]: Upgrade of "+Name+" requested for " +Upgrade.OriginalCost);
         }
         
         public string GetProgressReport(FacilityUpgradeEvent upgrade)
@@ -165,6 +165,7 @@ namespace Bureaucracy
             Upgrade = null;
             recentlyUpgraded = true;
             level++;
+            Debug.Log("[Bureaucracy]: Upgrade of "+Name+" completed");
         }
     }
 }

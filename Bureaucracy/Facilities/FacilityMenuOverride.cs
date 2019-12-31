@@ -39,22 +39,22 @@ namespace Bureaucracy
             yield return new WaitForFixedUpdate();
             SpaceCenterBuilding hostBuilding = GetMember<SpaceCenterBuilding>("host");
             overriddenFacility = hostBuilding.Facility;
-            Debug.Log("Trying to override upgrade button of menu for " + hostBuilding.facilityName);
+            Debug.Log("[Bureaucracy]: Trying to override upgrade button of menu for " + hostBuilding.facilityName);
             Button button = GetMember<Button>("UpgradeButton");
             if (button == null)
             {
-                Debug.Log("Could not find UpgradeButton by name, using index instead.");
+                Debug.Log("[Bureaucracy]: Could not find UpgradeButton by name, using index instead.");
                 button = GetMember<Button>(2);
             }
             if (button != null)
             {
-                Debug.Log("Found upgrade button, overriding it.");
+                Debug.Log("[Bureaucracy]: Found upgrade button, overriding it.");
                 button.onClick = new Button.ButtonClickedEvent(); //Clear existing KSP listener
                 button.onClick.AddListener(HandleUpgrade);
             }
             else
             {
-                throw new Exception("UpgradeButton not found. Cannot override.");
+                throw new Exception("[Bureaucracy]: UpgradeButton not found. Cannot override.");
             }
         }
 
@@ -68,11 +68,11 @@ namespace Bureaucracy
         private T GetMember<T>(int index)
         {
             List<MemberInfo> memberList = menuToOverride.GetType().GetMembers(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy).Where(m => m.ToString().Contains(typeof(T).ToString())).ToList();
-            Debug.Log($"Found {memberList.Count()} matches for {typeof(T)}");
+            Debug.Log($"[Bureaucracy]: Found {memberList.Count()} matches for {typeof(T)}");
             MemberInfo member = memberList.Count() >= index ? memberList.ElementAt(index) : null;
             if (member == null)
             {
-                Debug.Log($"Member was null when trying to find element at index {index} for type '{typeof(T)}'");
+                Debug.Log($"[Bureaucracy]: Member was null when trying to find element at index {index} for type '{typeof(T)}'");
                 return default(T);
             }
             object o = GetMemberInfoValue(member, menuToOverride);
@@ -90,7 +90,7 @@ namespace Bureaucracy
             MemberInfo member = menuToOverride.GetType().GetMember(memberName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy).FirstOrDefault();
             if (member == null)
             {
-                Debug.Log($"Member was null when trying to find '{name}'");
+                Debug.Log($"[Bureaucracy]: Member was null when trying to find '{name}'");
                 return default(T);
             }
             object o = GetMemberInfoValue(member, menuToOverride);

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Bureaucracy
 {
     public class CrewUnhappiness
@@ -5,7 +7,7 @@ namespace Bureaucracy
         private int expiry = SettingsClass.Instance.StrikeMemory;
         private readonly CrewMember parentCrew;
 
-        public string Reason { get; }
+        public string Reason { get; private set; }
 
         public CrewUnhappiness(string reason, CrewMember passingCrewMember)
         {
@@ -17,7 +19,28 @@ namespace Bureaucracy
         {
             parentCrew.Unhappy = false;
             expiry--;
-            return expiry <= 0;
+            if (expiry <= 0)
+            {
+                Debug.Log("Bureaucracy]: "+parentCrew.Name+" unhappiness for "+Reason+" expired");
+                return true;
+            }
+
+            return false;
+        }
+
+        public void OnSave(ConfigNode crewNode)
+        {
+            ConfigNode unhappyNode = new ConfigNode("UNHAPPINESS");
+            unhappyNode.SetValue("expiry", expiry, true);
+            unhappyNode.SetValue("reason", Reason, true);
+            crewNode.AddNode(unhappyNode);
+        }
+
+
+        public void OnLoad(ConfigNode unhappyNode)
+        {
+            Reason = unhappyNode.GetValue("reason");
+            int.TryParse(unhappyNode.GetValue("expiry"), out expiry);
         }
     }
 }

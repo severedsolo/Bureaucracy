@@ -30,6 +30,7 @@ namespace Bureaucracy
         {
             Name = kerbalName;
             maxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
+            Debug.Log("[Bureaucracy]: New CrewMember setup: "+kerbalName);
         }
         
         public void AllocateBonus(double timeOnMission)
@@ -45,6 +46,7 @@ namespace Bureaucracy
         public ProtoCrewMember CrewReference()
         {
             if (crewRef != null) { return crewRef; }
+            Debug.Log("[Bureaucracy]: "+Name+" does not have a crewRef. Trying to find one");
             List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
             for (int i = 0; i < crew.Count; i++)
             {
@@ -82,12 +84,16 @@ namespace Bureaucracy
 
         public void OnSave(ConfigNode crewManagerNode)
         {
-            ConfigNode cn = new ConfigNode("CREW_MEMBER");
-            cn.SetValue("Name", Name, true);
-            cn.SetValue("Bonus", bonusAwaitingPayment, true);
-            //TODO: Save unhappiness events
-            cn.SetValue("LastPayout", lastMissionPayout, true);
-            crewManagerNode.AddNode(cn);
+            ConfigNode crewNode = new ConfigNode("CREW_MEMBER");
+            crewNode.SetValue("Name", Name, true);
+            crewNode.SetValue("Bonus", bonusAwaitingPayment, true);
+            for (int i = 0; i < unhappinessEvents.Count; i++)
+            {
+                CrewUnhappiness cu = unhappinessEvents.ElementAt(i);
+                cu.OnSave(crewNode);
+            }
+            crewNode.SetValue("LastPayout", lastMissionPayout, true);
+            crewManagerNode.AddNode(crewNode);
         }
 
         public void OnLoad(ConfigNode crewConfig)
@@ -95,7 +101,13 @@ namespace Bureaucracy
             Name = crewConfig.GetValue("Name");
             double.TryParse(crewConfig.GetValue("Bonus"), out bonusAwaitingPayment);
             int.TryParse(crewConfig.GetValue("LastPayout"), out lastMissionPayout);
-            //TODO: Load unhappiness events;
+            ConfigNode[] unhappyNodes = crewConfig.GetNodes("UNHAPPINESS");
+            for (int i = 0; i < unhappyNodes.Length; i++)
+            {
+                CrewUnhappiness cu = new CrewUnhappiness("loading", this);
+                cu.OnLoad(unhappyNodes.ElementAt(i));
+                unhappinessEvents.Add(cu);
+            }
         }
 
         public string UnhappyOutcome()

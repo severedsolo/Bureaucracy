@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Bureaucracy
 {
@@ -15,6 +16,7 @@ namespace Bureaucracy
             InternalListeners.OnBudgetAboutToFire.Add(RunResearchBudget);
             Name = "Research";
             Instance = this;
+            Debug.Log("[Bureaucracy]: Research Manager Ready");
         }
         
         public override double GetAllocatedFunding()
@@ -48,6 +50,7 @@ namespace Bureaucracy
 
         public void NewScienceReceived(float science, ScienceSubject subject)
         {
+            Debug.Log("[Bureaucracy]: New Science Logged"+subject.title+" for "+science+" science");
             ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
             ProcessingScience.Add(new ScienceEvent(science, subject, this));
         }
@@ -60,6 +63,7 @@ namespace Bureaucracy
         
         public void OnLoad(ConfigNode node)
         {
+            Debug.Log("[Bureaucracy]: Research Manager OnLoad");
             ConfigNode researchNode = node.GetNode("RESEARCH");
             if (researchNode == null) return;
             ConfigNode[] scienceNodes = researchNode.GetNodes("SCIENCE_DATA");
@@ -72,10 +76,12 @@ namespace Bureaucracy
                 if(isComplete) CompletedEvents.Add(se);
                 else ProcessingScience.Add(se);
             }
+            Debug.Log("[Bureaucracy]: Research Manager OnLoad Complete");
         }
 
         public void OnSave(ConfigNode node)
         {
+            Debug.Log("[Bureaucracy]: Research Manager OnSave");
             ConfigNode researchNode = new ConfigNode("RESEARCH");
             for (int i = 0; i < ProcessingScience.Count; i++)
             {
@@ -84,6 +90,7 @@ namespace Bureaucracy
             }
 
             node.AddNode(researchNode);
+            Debug.Log("[Bureaucracy]: Research Manager OnSaveComplete");
         }
     }
 }

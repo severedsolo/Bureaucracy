@@ -40,32 +40,37 @@ namespace Bureaucracy
             }
             InternalListeners.OnBudgetAboutToFire.Add(ProcessCrew);
             Instance = this;
+            Debug.Log("[Bureaucracy]: Crew Manager Ready");
         }
 
         private void ProcessCrew()
         {
+            Debug.Log("[Bureaucracy]: Processing Crew");
             for (int i = 0; i < Kerbals.Count; i++)
             {
                 CrewMember c = Kerbals.ElementAt(i).Value;
                 c.MonthWithoutIncident();
             }
+            Debug.Log("[Bureaucracy]: Crew Processed");
         }
 
 
         public void OnSave(ConfigNode cn)
         {
+            Debug.Log("[Bureaucracy]: CrewManager OnSave");
             ConfigNode crewManagerNode = new ConfigNode("CREW_MANAGER");
             for (int i = 0; i < Kerbals.Count; i++)
             {
                 KeyValuePair<string, CrewMember> crewKeys = Kerbals.ElementAt(i);
                 crewKeys.Value.OnSave(crewManagerNode);
             }
-
             cn.AddNode(crewManagerNode);
+            Debug.Log("[Bureaucracy]: Crew Manager OnSaveComplete");
         }
 
         public void OnLoad(ConfigNode cn)
         {
+            Debug.Log("[Bureaucracy]: Crew Manager OnLoad");
             ConfigNode crewManagerNode = cn.GetNode("CREW_MANAGER");
             if (crewManagerNode == null) return;
             ConfigNode[] crewNodes = crewManagerNode.GetNodes("CREW_MEMBER");
@@ -74,6 +79,7 @@ namespace Bureaucracy
                 ConfigNode crewConfig = crewNodes.ElementAt(i);
                 Kerbals[crewConfig.GetValue("Name")].OnLoad(crewConfig);
             }
+            Debug.Log("[Bureaucracy]: Crew Manager OnLoad Complete");
         }
 
         public void UpdateCrewBonus(ProtoCrewMember crewMember, double launchTime)
@@ -101,12 +107,15 @@ namespace Bureaucracy
 
         public void ProcessUnhappyCrew()
         {
+            Debug.Log("[Bureaucracy]: Processing Unhappy Crew");
             UnhappyCrewOutcomes.Clear();
             for (int i = 0; i < Kerbals.Count; i++)
             {
                 CrewMember c = Kerbals.ElementAt(i).Value;
                 if (!c.Unhappy) continue;
-                UnhappyCrewOutcomes.Add(c, c.UnhappyOutcome());
+                string outcome = c.UnhappyOutcome();
+                Debug.Log("[Bureaucracy]: Unhappy Crewmember "+c.Name+" "+outcome);
+                UnhappyCrewOutcomes.Add(c, outcome);
             }
         }
 
@@ -116,6 +125,7 @@ namespace Bureaucracy
             {
                 CrewMember c = Kerbals.ElementAt(i).Value;
                 c.AddUnhappiness("not being paid");
+                Debug.Log("[Bureaucracy]: Adding new unpaid crew member "+c.Name);
             }
         }
 
@@ -125,6 +135,7 @@ namespace Bureaucracy
             {
                 KeyValuePair<CrewMember, string> kvp = UnhappyCrewOutcomes.ElementAt(i);
                 if(!kvp.Value.Contains("Quit")) continue;
+                Debug.Log("[Bureaucracy]: "+kvp.Key.Name+" has quit due to unhappiness");
                 HighLogic.CurrentGame.CrewRoster.Remove(kvp.Key.CrewReference());
                 Kerbals.Remove(kvp.Key.Name);
             }
@@ -139,7 +150,6 @@ namespace Bureaucracy
             crewMember.SetInactive(trainingPeriod);
             Debug.Log("[Bureaucracy]: New Crewmember added: " + newCrew.Name + ". Training for " + trainingPeriod);
             //TODO: Make the Astronaut Complex UI reflect that the astronaut is training;
-            //TODO: Make the Astronaut Complex UI reflect that the astronaut is training;
         }
 
         public void ProcessDeadKerbal(ProtoCrewMember crewMember)
@@ -153,9 +163,11 @@ namespace Bureaucracy
                 string lostVessel = crewMember.name;
                 if (CrewOnValidVessel(crewMember)) lostVessel = crewMember.seat.vessel.vesselName;
                 c.AddUnhappiness("Loss of "+lostVessel);
+                Debug.Log("[Bureaucracy]: Unhappiness event registered for "+crewMember.name+": Dead Kerbal");
             }
             float penalty = Reputation.Instance.reputation * (SettingsClass.Instance.DeadKerbalPenalty / 100.0f);
             Reputation.Instance.AddReputation(-penalty, TransactionReasons.VesselLoss);
+            Debug.Log("[Bureaucracy]: Dead Kerbal Penalty Applied");
         }
 
         private bool LossAlreadyProcessed(ProtoCrewMember crewMember)

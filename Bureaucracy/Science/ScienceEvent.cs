@@ -37,7 +37,6 @@ namespace Bureaucracy
 
         public double ProgressResearch(double funding)
         {
-            //Potential TODO: Make research rate configurable?
             float scienceAvailable = (float)funding / SettingsClass.Instance.ScienceMultiplier;
             float originalScienceRemaining = scienceLeftToProcess;
             scienceLeftToProcess -= scienceAvailable;
@@ -59,6 +58,7 @@ namespace Bureaucracy
         public override void OnEventCompleted()
         {
             isComplete = true;
+            Debug.Log("[Bureaucracy]: Science Event "+UiName+" completed");
             InformParent();
         }
 

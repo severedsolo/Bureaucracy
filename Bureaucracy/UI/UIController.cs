@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FlightTracker;
 using KSP.UI.Screens;
+using KSP.UI.Screens.Settings;
 using UnityEngine;
 using Upgradeables;
 
@@ -12,200 +14,219 @@ namespace Bureaucracy
     {
         private ApplicationLauncherButton toolbarButton;
         public static UiController Instance;
-        private bool showMainUi;
-        private bool showFacilityUi;
-        private bool showResearchUi;
-        private bool showSettingsUi;
-        private bool showErrorUi;
-        private List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
-        private GUIStyle boxStyle;
-        private GUIStyle buttonStyle;
-        private bool hasCentred;
-        private GUIStyle messageStyle;
-        private GUIStyle titleStyle;
-        private Rect window = new Rect(20, 100, 400, 50);
-        private int windowId = 0;
+        private PopupDialog mainWindow;
+        private PopupDialog facilitiesWindow;
+        private PopupDialog researchWindow;
+        private PopupDialog allocationWindow;
+        private PopupDialog errorWindow;
+        private int padding = 0;
+        private int padFactor = 10;
 
         private void Awake()
         {
             Instance = this;
-            SetupStyles();
         }
 
-        private void SetupStyles()
+        public void GenerateErrorWindow(string error)
         {
-            boxStyle = new GUIStyle(HighLogic.Skin.box)
-            {
-                padding = new RectOffset(10, 10, 5, 5)
-            };
-            titleStyle = new GUIStyle(HighLogic.Skin.label)
-            {
-                normal =
-                {
-                    textColor = Color.white
-                },
-                alignment = TextAnchor.MiddleLeft,
-                fontStyle = FontStyle.Bold,
-                stretchWidth = true
-            };
-
-            messageStyle = new GUIStyle(HighLogic.Skin.label)
-            {
-                stretchWidth = true
-            };
-
-            buttonStyle = new GUIStyle(HighLogic.Skin.button)
-            {
-                normal =
-                {
-                    textColor = Color.white
-                }
-            };
+            errorWindow = DrawErrorWindow(error);
         }
 
-        
+        private PopupDialog DrawErrorWindow(string error)
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            dialogElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(error)));
+            dialogElements.Add(CloseButton());
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new MultiOptionDialog("BureaucracyError", "", "Bureaucracy: Warning", UISkinManager.GetSkin("MainMenuSkin"),
+                    new Rect(0.5f, 0.5f, 650, 90), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+        }
+
         public void SetupToolbarButton()
         {
-            toolbarButton = ApplicationLauncher.Instance.AddModApplication(() => ActivateUi("main"), ClearUi, null, null, null, null, ApplicationLauncher.AppScenes.FLIGHT | ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.TRACKSTATION, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
+            toolbarButton = ApplicationLauncher.Instance.AddModApplication(() => ActivateUi("main"), () => ActivateUi("main"), null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
         }
         private void ActivateUi(string screen)
         {
-            ClearUi();
+           DismissAllWindows();
             switch (screen)
             {
                 case "main":
-                    showMainUi = true;
+                    mainWindow = DrawMainUi();
                     break;
                 case "facility":
-                    showFacilityUi = true;
+                    facilitiesWindow = DrawFacilityUi();
                     break;
                 case "research":
-                    showResearchUi = true;
+                    researchWindow = DrawResearchUi();
                     break;
                 case "settings":
-                    showSettingsUi = true;
-                    break;
-                default:
-                    showErrorUi = true;
+                    allocationWindow = DrawBudgetAllocationUi();
                     break;
             }
         }
 
-        private int GenerateWindowId()
+        private PopupDialog DrawBudgetAllocationUi()
         {
-            return Guid.NewGuid().GetHashCode();
+            throw new NotImplementedException();
         }
 
-        private void OnGUI()
+        private void DismissAllWindows()
         {
-            if (showMainUi) window = GUILayout.Window(windowId, window, DrawMainUi, "Bureaucracy - Budget Manager", HighLogic.Skin.window, GUILayout.Height(200), GUILayout.Height(200));
-            else if(showFacilityUi) window = GUILayout.Window(windowId, window, DrawFacilityUi, "Bureaucracy - Construction Manager", HighLogic.Skin.window, GUILayout.Height(200), GUILayout.Height(200)); 
-            else if(showResearchUi) window = GUILayout.Window(windowId, window, DrawResearchUi, "Bureaucracy - Research Manager", HighLogic.Skin.window, GUILayout.Height(200), GUILayout.Height(200));
+            if (mainWindow != null) mainWindow.Dismiss();
+            if (facilitiesWindow != null) facilitiesWindow.Dismiss();
+            if (researchWindow != null) researchWindow.Dismiss();
+            if (allocationWindow != null) allocationWindow.Dismiss();
         }
 
-        private void DrawMainUi(int id)
+        private PopupDialog DrawMainUi()
         {
-            GUILayout.BeginVertical();
-            GUILayout.Label("Next Budget: "+Utilities.Instance.ConvertUtToKspTimeStamp(BudgetManager.Instance.NextBudget.CompletionTime), messageStyle);
-            GUILayout.Label("Gross Budget: "+Utilities.Instance.GetGrossBudget(), messageStyle);
-            GUILayout.Label("Wage Costs: "+Costs.Instance.GetWageCosts(), messageStyle);
-            GUILayout.Label("Facility Maintenance Costs:"+Costs.Instance.GetFacilityMaintenanceCosts(), messageStyle);
+            padding = 0;
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            if(HighLogic.CurrentGame.Mode != Game.Modes.CAREER)  innerElements.Add(new DialogGUILabel("Bureaucracy is only available in Career Games"));
+            else
+            {
+                innerElements.Add(new DialogGUISpace(10));
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Next Budget: " + Utilities.Instance.ConvertUtToKspTimeStamp(BudgetManager.Instance.NextBudget.CompletionTime))));
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Gross Budget: $" + Utilities.Instance.GetGrossBudget())));
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Wage Costs: $" + Costs.Instance.GetWageCosts())));
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Facility Maintenance Costs: $" + Costs.Instance.GetFacilityMaintenanceCosts())));
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Mission Bonuses: $" + GetBonusesToPay())));
+                for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
+                {
+                    Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
+                    if (m.Name == "Budget") continue;
+                    double departmentFunding = Utilities.Instance.GetNetBudget(m.Name);
+                    if (departmentFunding < 0.0f) continue;
+                    innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(m.Name + " Department Funding: $" + departmentFunding)));
+                }
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Net Budget: $"+Utilities.Instance.GetNetBudget("Budget"))));
+                DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
+                dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+                dialogElements.Add(GetBoxes("main"));
+            }
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new MultiOptionDialog("BureaucracyMain", "", "Bureaucracy: Budget", UISkinManager.GetSkin("MainMenuSkin"),
+                    GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+        }
+
+        private Rect GetRect(List<DialogGUIBase> dialogElements)
+        {
+            return new Rect(0.5f, 0.5f, 300, 265) {height = 150 + 50 * dialogElements.Count, width = padding};
+        }
+
+        private DialogGUIBase[] PaddedLabel(string stringToPad)
+        {
+            DialogGUIBase[] paddedLayout = new DialogGUIBase[2];
+            paddedLayout[0] = new DialogGUISpace(10);
+            EvaluatePadding(stringToPad);
+            paddedLayout[1] = new DialogGUILabel(stringToPad, MessageStyle());
+            return paddedLayout;
+        }
+
+        private void EvaluatePadding(string stringToEvaluate)
+        {
+            if (stringToEvaluate.Length *padFactor > padding) padding = stringToEvaluate.Length * padFactor;
+        }
+
+        private UIStyle MessageStyle()
+        {
+            return new UIStyle
+            {
+                fontSize = 12,
+                fontStyle = FontStyle.Bold,
+                alignment = TextAnchor.MiddleCenter,
+                stretchWidth = false,
+                normal = new UIStyleState
+                {
+                    textColor = new Color(0.89f, 0.86f, 0.72f)
+                }
+            };
+        }
+
+        private DialogGUIButton CloseButton()
+        {
+            return new DialogGUIButton("Close", () => { }, true);
+            
+        }
+
+        private int GetBonusesToPay()
+        {
             int bonusesToPay = 0;
             for (int i = 0; i < CrewManager.Instance.Kerbals.Count; i++)
             {
                 CrewMember c = CrewManager.Instance.Kerbals.ElementAt(i).Value;
                 bonusesToPay += c.GetBonus(false);
             }
-            GUILayout.Label("Mission Bonuses: "+bonusesToPay, messageStyle);
-            for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
-            {
-                Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
-                if (m.Name == "Budget") continue;
-                double departmentFunding = Utilities.Instance.GetNetBudget(m.Name);
-                if(departmentFunding < 0.0f) continue;
-                GUILayout.Label(m.Name+" Department Funding: "+departmentFunding, messageStyle);
-            }
-            GUILayout.Label("Net Budget:" +Utilities.Instance.GetNetBudget("Budget"), messageStyle);
-            GUILayout.EndVertical();
-            DrawBottomOfWindow("Main");
-            GUI.DragWindow();
+            return bonusesToPay;
         }
-        
-        private void DrawFacilityUi(int id)
+
+        private PopupDialog DrawFacilityUi()
         {
-        GUILayout.BeginVertical();
-        int upgradeCount = 0;
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            int upgradeCount = 0;
+            innerElements.Add(new DialogGUISpace(10));
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
                 if (!bf.Upgrading) continue;
                 upgradeCount++;
-                GUILayout.BeginHorizontal();
-                GUILayout.Label(bf.Name+": "+bf.Upgrade.RemainingInvestment+" / "+bf.Upgrade.OriginalCost, messageStyle);
-                if (GUILayout.Button("X", buttonStyle, GUILayout.MaxWidth(20.0f))) bf.CancelUpgrade();
-                GUILayout.EndHorizontal();
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(bf.Name+": $"+(bf.Upgrade.OriginalCost-bf.Upgrade.RemainingInvestment)+" / $"+bf.Upgrade.OriginalCost)));
             }
-            if(upgradeCount == 0) GUILayout.Label("No Facility Upgrades in progress", messageStyle);
-            GUILayout.EndVertical();
-            DrawBottomOfWindow("Facility");
+            if (upgradeCount == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No Facility Upgrades in progress")));
+            DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
+            dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+            dialogElements.Add(GetBoxes("facility"));
+            dialogElements.Add(CloseButton());
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("FacilitiesDialog", "", "Bureaucracy: Facilities", UISkinManager.GetSkin("MainMenuSkin"), GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
         
-        private void DrawResearchUi(int id)
+        private PopupDialog DrawResearchUi()
         {
-            GUILayout.BeginVertical();
-            if(ResearchManager.Instance.ProcessingScience.Count == 0) GUILayout.Label("No research in progress", messageStyle);
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            innerElements.Add(new DialogGUISpace(10));
+            if(ResearchManager.Instance.ProcessingScience.Count == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No research in progress")));
             for (int i = 0; i < ResearchManager.Instance.ProcessingScience.Count; i++)
             {
                 ScienceEvent se = ResearchManager.Instance.ProcessingScience.ElementAt(i);
-                GUILayout.Label(se.UiName+": "+se.RemainingScience+se.OriginalScience);
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(se.UiName+": "+(se.OriginalScience-se.RemainingScience)+"/"+se.OriginalScience)));
             }
-            GUILayout.EndVertical();
-            DrawBottomOfWindow("Research");
+            DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
+            dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+            dialogElements.Add(GetBoxes("research"));
+            dialogElements.Add(CloseButton());
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("ResearchDialog", "", "Bureaucracy: Research", UISkinManager.GetSkin("MainMenuSkin"), GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
-        private void DrawBottomOfWindow(string passingUi)
+        private DialogGUIHorizontalLayout GetBoxes(string passingUi)
         {
-            GUILayout.BeginHorizontal();
-            if (passingUi != "Main")
+            int arrayPointer = 0;
+            DialogGUIBase[] horizontal = new DialogGUIBase[4];
+            if (passingUi != "main")
             {
-                if (GUILayout.Button("Budget", buttonStyle))
-                {
-                    ActivateUi("main");
-                }
+                horizontal[arrayPointer] = new DialogGUIButton("Budget", ()=> ActivateUi("main"));
+                arrayPointer++;
             }
-            if (passingUi != "Facility")
+            if (passingUi != "facility")
             {
-                if (GUILayout.Button("Budget", buttonStyle))
-                {
-                    ActivateUi("facility");
-                }
+                horizontal[arrayPointer] = new DialogGUIButton("Construction", () => ActivateUi("facility"));
+                arrayPointer++;
             }
-            if (passingUi != "Research")
+            if (passingUi != "research")
             {
-                if (GUILayout.Button("Research", buttonStyle))
-                {
-                    ActivateUi("research");
-                }
+             horizontal[arrayPointer] = new DialogGUIButton("Research", () => ActivateUi("research"));
+             arrayPointer++;
             }
-
-            if (passingUi != "Settings")
+            if (passingUi != "settings")
             {
-                if (GUILayout.Button("Settings", buttonStyle))
-                {
-                    ActivateUi("settings");
-                }
+                horizontal[arrayPointer] = new DialogGUIButton("Settings", () => ActivateUi("settings"));
+                arrayPointer++;
             }
-            GUILayout.EndHorizontal();
-            if(GUILayout.Button("Close", buttonStyle)) ClearUi();
-            GUI.DragWindow();
-        }
-
-        private void ClearUi()
-        {
-            showMainUi = false;
-            showFacilityUi = false;
-            showResearchUi = false;
-            showSettingsUi = false;
+            horizontal[arrayPointer] = new DialogGUIButton("Close", () => { }, true);
+            return new DialogGUIHorizontalLayout(280, 35, horizontal);
         }
 
         public void RemoveToolbarButton()

@@ -21,7 +21,7 @@ namespace Bureaucracy
     }
     public class Bureaucracy : MonoBehaviour
     {
-        public SettingsClass settings = new SettingsClass();
+        public SettingsClass settings;
         public static Bureaucracy Instance;
         // ReSharper disable once UnusedMember.Local
         private Utilities utilities = new Utilities();
@@ -29,8 +29,10 @@ namespace Bureaucracy
 
         private void Awake()
         {
+            settings = new SettingsClass();
             RegisterBureaucracyManagers();
             Instance = this;
+            Debug.Log("[Bureaucracy]: Awake");
         }
 
         private void Start()
@@ -65,24 +67,29 @@ namespace Bureaucracy
 
         public void OnLoad(ConfigNode node)
         {
-            SettingsClass.Instance.OnLoad(node);
+            Debug.Log("[Bureaucracy]: OnLoad");
+            SettingsClass.Instance.InGameLoad();
             BudgetManager.Instance.OnLoad(node);
             FacilityManager.Instance.OnLoad(node);
             ResearchManager.Instance.OnLoad(node);
             CrewManager.Instance.OnLoad(node);
+            Debug.Log("[Bureaucracy]: OnLoad Complete");
         }
 
         public void OnSave(ConfigNode node)
         {
-            SettingsClass.Instance.OnSave(node);
+            Debug.Log("[Bureaucracy]: OnSave");
+            SettingsClass.Instance.InGameSave();
             BudgetManager.Instance.OnSave(node);
             FacilityManager.Instance.OnSave(node);
             ResearchManager.Instance.OnSave(node);
             CrewManager.Instance.OnSave(node);
+            Debug.Log("[Bureaucracy]: OnSave Complete");
         }
 
         private void GeneratePostBudgetReport(double data0, double data1)
         {
+            Debug.Log("[Bureaucracy]: Firing Manager Reports");
             for (int i = 0; i < registeredManagers.Count; i++)
             {
                 Manager m = registeredManagers.ElementAt(i);
