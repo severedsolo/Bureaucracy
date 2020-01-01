@@ -58,6 +58,8 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: FacilityManager OnLoad");
             ConfigNode managerNode = cn.GetNode("FACILITY_MANAGER");
             if (managerNode == null) return;
+            int.TryParse(managerNode.GetValue("FundingAllocation"), out int funding);
+            FundingAllocation = funding;
             ConfigNode[] facilityNodes = managerNode.GetNodes("FACILITY");
             for (int i = 0; i < Facilities.Count; i++)
             {
@@ -73,6 +75,7 @@ namespace Bureaucracy
         {
             Debug.Log("[Bureaucracy]: FacilityManager OnSave");
             ConfigNode managerNode = new ConfigNode("FACILITY_MANAGER");
+            managerNode.SetValue("FundingAllocation", FundingAllocation, true);
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);

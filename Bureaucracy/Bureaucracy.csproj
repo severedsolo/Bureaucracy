@@ -72,6 +72,7 @@
     <Compile Include="Budget\RepDecay.cs" />
     <Compile Include="Bureaucracy.cs" />
     <Compile Include="ContractInterceptor.cs" />
+    <Compile Include="Crew\AstronautComplexOverride.cs" />
     <Compile Include="Crew\CrewManager.cs" />
     <Compile Include="Crew\CrewMember.cs" />
     <Compile Include="Crew\CrewReport.cs" />

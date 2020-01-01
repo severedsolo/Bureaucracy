@@ -8,9 +8,9 @@ namespace Bureaucracy
     {
         private double bonusAwaitingPayment;
         private ProtoCrewMember crewRef;
-        private readonly int maxStrikes;
+        public readonly int maxStrikes;
         private int lastMissionPayout;
-        private readonly List<CrewUnhappiness> unhappinessEvents = new List<CrewUnhappiness>();
+        public readonly List<CrewUnhappiness> unhappinessEvents = new List<CrewUnhappiness>();
         public bool Unhappy;
         
         public string Name { get; private set; }

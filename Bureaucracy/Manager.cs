@@ -7,6 +7,7 @@ namespace Bureaucracy
     {
         public string Name = "Blank Manager";
         private float fundingAllocation = 0.3f;
+        public bool ShowOnUi = true;
         public void MakeReport() 
         {                
             Report r = GetReport();
@@ -23,6 +24,7 @@ namespace Bureaucracy
 
 
         public virtual double GetAllocatedFunding() { return 0; }
+        
 
         public virtual void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted) { }
 

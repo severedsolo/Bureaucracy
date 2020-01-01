@@ -138,5 +138,17 @@ namespace Bureaucracy
 
             return "Y" + years + " D" + days;
         }
+
+        public Manager GetManagerByName(string managerName)
+        {
+            for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
+            {
+                Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
+                if (m.Name != managerName) continue;
+                return m;
+            }
+
+            return null;
+        }
     }
 }

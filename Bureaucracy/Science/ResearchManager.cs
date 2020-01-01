@@ -66,6 +66,8 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Research Manager OnLoad");
             ConfigNode researchNode = node.GetNode("RESEARCH");
             if (researchNode == null) return;
+            int.TryParse(researchNode.GetValue("FundingAllocation"), out int funding);
+            FundingAllocation = funding;
             ConfigNode[] scienceNodes = researchNode.GetNodes("SCIENCE_DATA");
             if (scienceNodes.Length == 0) return;
             for (int i = 0; i < scienceNodes.Length; i++)
@@ -83,6 +85,7 @@ namespace Bureaucracy
         {
             Debug.Log("[Bureaucracy]: Research Manager OnSave");
             ConfigNode researchNode = new ConfigNode("RESEARCH");
+            researchNode.SetValue("FundingAllocation", FundingAllocation, true);
             for (int i = 0; i < ProcessingScience.Count; i++)
             {
                 ScienceEvent se = ProcessingScience.ElementAt(i);

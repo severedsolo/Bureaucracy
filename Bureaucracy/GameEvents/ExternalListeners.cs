@@ -34,6 +34,18 @@ namespace Bureaucracy
             GameEvents.onKerbalStatusChanged.Add(PotentialKerbalDeath);
             GameEvents.onGUIApplicationLauncherReady.Add(AddToolbarButton);
             GameEvents.onGUIApplicationLauncherUnreadifying.Add(RemoveToolbarButton);
+            GameEvents.onGUIAstronautComplexSpawn.Add(AstronautComplexSpawned);
+            GameEvents.onGUIAstronautComplexDespawn.Add(AstronautComplexDespawned);
+        }
+
+        private void AstronautComplexDespawned()
+        {
+            AstronautComplexOverride.Instance.AstronautComplexSpawned = false;
+        }
+
+        private void AstronautComplexSpawned()
+        {
+            AstronautComplexOverride.Instance.AstronautComplexSpawned = true;
         }
 
         private void AddToolbarButton()
@@ -104,6 +116,10 @@ namespace Bureaucracy
             GameEvents.OnCrewmemberHired.Remove(OnCrewMemberHired);
             ActiveFlightTracker.onFlightTrackerUpdated.Remove(AllocateCrewBonuses);
             GameEvents.onKerbalStatusChanged.Remove(PotentialKerbalDeath);
+            GameEvents.onGUIApplicationLauncherReady.Remove(AddToolbarButton);
+            GameEvents.onGUIApplicationLauncherUnreadifying.Remove(RemoveToolbarButton);
+            GameEvents.onGUIAstronautComplexSpawn.Remove(AstronautComplexSpawned);
+            GameEvents.onGUIAstronautComplexDespawn.Remove(AstronautComplexDespawned);
         }
     }
 }

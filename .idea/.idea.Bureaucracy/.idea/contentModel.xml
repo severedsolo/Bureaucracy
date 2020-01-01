@@ -18,6 +18,7 @@
         <e p="BureaucracyScenario.cs" t="Include" />
         <e p="ContractInterceptor.cs" t="Include" />
         <e p="Crew" t="Include">
+          <e p="AstronautComplexOverride.cs" t="Include" />
           <e p="CrewManager.cs" t="Include" />
           <e p="CrewMember.cs" t="Include" />
           <e p="CrewReport.cs" t="Include" />

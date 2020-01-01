@@ -32,6 +32,7 @@ namespace Bureaucracy
         public CrewManager(List<ProtoCrewMember> crewMembers)
         {
             FundingAllocation = 0;
+            ShowOnUi = false;
             for (int i = 0; i < crewMembers.Count; i++)
             {
                 ProtoCrewMember p = crewMembers.ElementAt(i);
