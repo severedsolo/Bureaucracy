@@ -78,7 +78,8 @@ namespace Bureaucracy
             for (int i = 0; i < crewNodes.Length; i++)
             {
                 ConfigNode crewConfig = crewNodes.ElementAt(i);
-                Kerbals[crewConfig.GetValue("Name")].OnLoad(crewConfig);
+                if(Kerbals.TryGetValue(crewConfig.GetValue("Name"), out CrewMember c))c.OnLoad(crewConfig);
+                else Debug.Log("[Bureaucracy]: Loaded config for "+crewConfig.GetValue("Name")+" but actual CrewMember could not be found! Skipping");
             }
             Debug.Log("[Bureaucracy]: Crew Manager OnLoad Complete");
         }

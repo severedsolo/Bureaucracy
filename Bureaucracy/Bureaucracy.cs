@@ -40,7 +40,7 @@ namespace Bureaucracy
         private void Start()
         {
             InternalListeners.OnBudgetAwarded.Add(GeneratePostBudgetReport);
-            
+            KacWrapper.InitKacWrapper();
         }
 
         private void RegisterBureaucracyManagers()

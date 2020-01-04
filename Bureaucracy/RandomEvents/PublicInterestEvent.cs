@@ -33,6 +33,7 @@ namespace Bureaucracy
             bodyName = "Kerbin";
             return true;
 #endif
+            if (Reputation.Instance.reputation <= 0.0f) return false;
             int tries = 0;
             while (tries < 50)
             {
@@ -78,7 +79,7 @@ namespace Bureaucracy
 
         protected override void OnEventAccepted()
         {
-            Reputation.Instance.AddReputation(50, TransactionReasons.Progression);
+            Reputation.Instance.AddReputation(Reputation.Instance.reputation*0.1f, TransactionReasons.Progression);
         }
 
         protected override void OnEventDeclined()

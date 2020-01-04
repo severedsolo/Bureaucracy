@@ -53,10 +53,27 @@ namespace Bureaucracy
                 FundingAllocation = i;
                 double.TryParse(managerNode.GetValue("nextBudget"), out nextBudgetTime);
             }
-            NextBudget = new BudgetEvent(nextBudgetTime, this, false);
+            NextBudget = new BudgetEvent(nextBudgetTime, this, NeedNewKACAlarm());
             ConfigNode costsNode = cn.GetNode("COSTS");
             Costs.Instance.OnLoad(costsNode);
             Debug.Log("[Bureaucracy]: Budget Manager: OnLoad Complete");
+        }
+
+        private bool NeedNewKACAlarm()
+        {
+            if (!KacWrapper.AssemblyExists || !SettingsClass.Instance.StopTimeWarp)
+            {
+                Debug.Log("[Bureaucracy]: KAC Not installed/Option turned off.");
+                return false;
+            }
+            KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;
+            for (int i = 0; i < kacAlarms.Count; i++)
+            {
+                KacWrapper.Kacapi.KacAlarm alarm = kacAlarms.ElementAt(i);
+                if (alarm.Name == "Next Budget") return false;
+            }
+
+            return true;
         }
 
         public void OnSave(ConfigNode cn)

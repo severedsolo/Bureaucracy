@@ -143,7 +143,7 @@ namespace Bureaucracy
         {
             // ReSharper disable once BuiltInTypeReferenceStyleForMemberAccess
             if (!Upgrading && !recentlyUpgraded) return String.Empty;
-            if (!recentlyUpgraded) return Name + ": $" + upgrade.RemainingInvestment + " / " + upgrade.OriginalCost;
+            if (!recentlyUpgraded) return Name + ": $" + (upgrade.OriginalCost-upgrade.RemainingInvestment) + " / " + upgrade.OriginalCost;
             recentlyUpgraded = false;
             return Name + ": Upgrade completed successfully";
         }

@@ -21,9 +21,9 @@ namespace Bureaucracy
             events.Add(new MunchiesEvent());
             events.Add(new QAEvent());
             events.Add(new QAReversalEvent());
-#if!DEBUG
-            if (Utilities.Instance.Randomise.NextDouble() > SettingsClass.Instance.RandomEventChance) return;
-#endif
+            double d = Utilities.Instance.Randomise.NextDouble();
+            Debug.Log("[Bureaucracy]: Checking for Random event - rolled "+d);
+            if (d > SettingsClass.Instance.RandomEventChance) return;
             RandomEventBase r = events.ElementAt(Utilities.Instance.Randomise.Next(0, events.Count));
             if (!r.EventIsValid()) return;
             r.OnEventGenerated();

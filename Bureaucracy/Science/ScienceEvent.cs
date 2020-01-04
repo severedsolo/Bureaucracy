@@ -46,7 +46,7 @@ namespace Bureaucracy
                 ResearchAndDevelopment.Instance.AddScience(originalScienceRemaining, TransactionReasons.ScienceTransmission);
                 Debug.Log("[Bureaucracy]: " + scienceSubject + " completed. Adding " + originalScienceRemaining + " science");
                 OnEventCompleted();
-                return scienceAvailable * 10000;
+                return scienceAvailable * SettingsClass.Instance.ScienceMultiplier;
             }
 
             scienceAvailable = originalScienceRemaining - scienceLeftToProcess;

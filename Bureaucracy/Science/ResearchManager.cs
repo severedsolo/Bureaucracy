@@ -35,12 +35,14 @@ namespace Bureaucracy
             double researchBudget = Utilities.Instance.GetNetBudget(Name);
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (researchBudget == 0.0f) return;
-            for (int i = 0; i < ProcessingScience.Count; i++)
+            List<ScienceEvent> scienceCache = ProcessingScience;
+            for (int i = 0; i < scienceCache.Count; i++)
             {
-                ScienceEvent se = ProcessingScience.ElementAt(i);
+                ScienceEvent se = scienceCache.ElementAt(i);
                 researchBudget = se.ProgressResearch(researchBudget);
-                if (researchBudget <= 0.0f) return;
+                if (researchBudget <= 0.0f) break;
             }
+            RemoveCompletedEvents();
         }
 
         protected override Report GetReport()
@@ -57,7 +59,6 @@ namespace Bureaucracy
 
         public override void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted)
         {
-            ProcessingScience.Remove(eventCompleted as ScienceEvent);
             CompletedEvents.Add(eventCompleted as ScienceEvent);
         }
         
@@ -94,6 +95,15 @@ namespace Bureaucracy
 
             node.AddNode(researchNode);
             Debug.Log("[Bureaucracy]: Research Manager OnSaveComplete");
+        }
+
+        public void RemoveCompletedEvents()
+        {
+            for (int i = 0; i < CompletedEvents.Count; i++)
+            {
+                ScienceEvent se = CompletedEvents.ElementAt(i);
+                ProcessingScience.Remove(se);
+            }
         }
     }
 }
