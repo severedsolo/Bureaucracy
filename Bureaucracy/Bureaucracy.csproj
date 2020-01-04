@@ -89,6 +89,15 @@
     <Compile Include="KACWrapper.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomEvents\AliensEvent.cs" />
+    <Compile Include="RandomEvents\ExplosionEvent.cs" />
+    <Compile Include="RandomEvents\FireEvent.cs" />
+    <Compile Include="RandomEvents\MunchiesEvent.cs" />
+    <Compile Include="RandomEvents\PublicInterestEvent.cs" />
+    <Compile Include="RandomEvents\QAEvent.cs" />
+    <Compile Include="RandomEvents\QAReversalEvent.cs" />
+    <Compile Include="RandomEvents\RandomEventBase.cs" />
+    <Compile Include="RandomEvents\RandomEvents.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="Science\ResearchManager.cs" />
     <Compile Include="Science\ScienceEvent.cs" />

@@ -14,6 +14,8 @@ namespace Bureaucracy
         public bool UseItOrLoseIt = true;
         public bool HardMode = false;
         public bool RepDecayEnabled = false;
+        public bool RandomEventsEnabled = true;
+        public float RandomEventChance = 0.1f;
         public bool AstronautTraining = true;
         public float TimeBetweenBudgets = 30.0f;
         public int BudgetMultiplier = 2227;
@@ -87,6 +89,8 @@ namespace Bureaucracy
             bool.TryParse(cn.GetValue("HardModeEnabled"), out HardMode);
             bool.TryParse(cn.GetValue("RepDecayEnabled"), out RepDecayEnabled);
             bool.TryParse(cn.GetValue("AstronautTrainingEnabled"), out AstronautTraining);
+            bool.TryParse(cn.GetValue("RandomEventsEnabled"), out RandomEventsEnabled);
+            float.TryParse(cn.GetValue("RandomEventChance"), out RandomEventChance);
             float.TryParse(cn.GetValue("TimeBetweenBudgetsDays"), out TimeBetweenBudgets);
             int.TryParse(cn.GetValue("RepToFundsMultiplier"), out BudgetMultiplier);
             int.TryParse(cn.GetValue("ScienceToFundsMultiplier"), out ScienceMultiplier);
@@ -122,6 +126,8 @@ namespace Bureaucracy
             cn.SetValue("HardModeEnabled", HardMode, true);
             cn.SetValue("RepDecayEnabled", RepDecayEnabled, true);
             cn.SetValue("AstronautTrainingEnabled", AstronautTraining, true);
+            cn.SetValue("RandomEventsEnabled", RandomEventsEnabled, true);
+            cn.SetValue("RandomEventChance", RandomEventChance, true);
             cn.SetValue("TimeBetweenBudgetsDays", TimeBetweenBudgets, true);
             cn.SetValue("RepToFundsMultiplier", BudgetMultiplier, true);
             cn.SetValue("ScienceToFundsMultiplier", ScienceMultiplier, true);

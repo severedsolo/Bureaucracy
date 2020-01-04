@@ -45,8 +45,6 @@ namespace Bureaucracy
 
         public ProtoCrewMember CrewReference()
         {
-            if (crewRef != null) { return crewRef; }
-            Debug.Log("[Bureaucracy]: "+Name+" does not have a crewRef. Trying to find one");
             List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
             for (int i = 0; i < crew.Count; i++)
             {
@@ -71,7 +69,6 @@ namespace Bureaucracy
             }
 
             if (crewRef == null) Debug.Log("[Bureaucracy]: Couldn't find a crew ref for " + Name);
-            else Debug.Log("[Bureaucracy]: Returning and caching crewRef " + Name);
             return crewRef;
         }
 

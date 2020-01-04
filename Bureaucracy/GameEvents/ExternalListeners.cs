@@ -45,6 +45,7 @@ namespace Bureaucracy
 
         private void AstronautComplexSpawned()
         {
+            AstronautComplexOverride.Instance.updateCount = 4;
             AstronautComplexOverride.Instance.AstronautComplexSpawned = true;
         }
 
@@ -99,12 +100,17 @@ namespace Bureaucracy
 
         private void AddLaunch(ShipConstruct ship)
         {
+            if (Utilities.Instance.Randomise.NextDouble() > Bureaucracy.Instance.qaModifier)
+            {
+                ExplosionEvent e = new ExplosionEvent();
+            }
             Costs.Instance.AddLaunch(ship);
             string editor = ship.shipFacility == EditorFacility.VAB ? "VehicleAssemblyBuilding" : "SpaceplaneHangar";
             BureaucracyFacility bf = FacilityManager.Instance.GetFacilityByName(editor);
             if (!bf.IsClosed) return;
             bf.LaunchesThisMonth++;
             if (bf.LaunchesThisMonth > 2) Utilities.Instance.SabotageLaunch(editor);
+
         }
 
         private void OnDisable()

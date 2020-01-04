@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Smooth.Compare.Utilities;
 using UnityEngine;
 
 namespace Bureaucracy
@@ -23,6 +24,7 @@ namespace Bureaucracy
     {
         public SettingsClass settings;
         public static Bureaucracy Instance;
+        public float qaModifier = 1.0f;
         // ReSharper disable once UnusedMember.Local
         private Utilities utilities = new Utilities();
         public List<Manager> registeredManagers = new List<Manager>();
@@ -68,6 +70,7 @@ namespace Bureaucracy
         public void OnLoad(ConfigNode node)
         {
             Debug.Log("[Bureaucracy]: OnLoad");
+            if(float.TryParse(node.GetValue("QAModifier"), out float f))qaModifier = f;
             SettingsClass.Instance.InGameLoad();
             BudgetManager.Instance.OnLoad(node);
             FacilityManager.Instance.OnLoad(node);
@@ -79,6 +82,7 @@ namespace Bureaucracy
         public void OnSave(ConfigNode node)
         {
             Debug.Log("[Bureaucracy]: OnSave");
+            node.SetValue("QAModifier", qaModifier, true);
             SettingsClass.Instance.InGameSave();
             BudgetManager.Instance.OnSave(node);
             FacilityManager.Instance.OnSave(node);

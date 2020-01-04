@@ -40,6 +40,17 @@
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
+        <e p="RandomEvents" t="Include">
+          <e p="AliensEvent.cs" t="Include" />
+          <e p="ExplosionEvent.cs" t="Include" />
+          <e p="FireEvent.cs" t="Include" />
+          <e p="MunchiesEvent.cs" t="Include" />
+          <e p="PublicInterestEvent.cs" t="Include" />
+          <e p="QAEvent.cs" t="Include" />
+          <e p="QAReversalEvent.cs" t="Include" />
+          <e p="RandomEventBase.cs" t="Include" />
+          <e p="RandomEvents.cs" t="Include" />
+        </e>
         <e p="Report.cs" t="Include" />
         <e p="Science" t="Include">
           <e p="ResearchManager.cs" t="Include" />

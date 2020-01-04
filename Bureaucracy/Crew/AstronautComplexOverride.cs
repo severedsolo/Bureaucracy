@@ -15,7 +15,7 @@ namespace Bureaucracy
     {
         public bool AstronautComplexSpawned = false;
         public static AstronautComplexOverride Instance;
-        private int updateCount = 4;
+        public int updateCount = 4;
 
         private void Awake()
         {
@@ -24,7 +24,7 @@ namespace Bureaucracy
 
         private void LateUpdate()
         {
-            if (!AstronautComplexSpawned) return;
+            if (!AstronautComplexSpawned || updateCount <= 0) return;
             List<CrewListItem> crewItems = FindObjectsOfType<CrewListItem>().ToList();
             updateCount--;
             CrewListItem c;
@@ -42,7 +42,6 @@ namespace Bureaucracy
             //if for whatever reason we can't find the CrewMember just leave it at default
             if (c == null) return "Available For Next Mission";
             if (c.CrewReference().inactive) return "In Training | " + "Wage: " + c.Wage;
-            StringBuilder sb = new StringBuilder();
             float morale = (1-(float)c.unhappinessEvents.Count / c.maxStrikes)*100;
             if (float.IsNaN(morale)) morale = 100;
             return "Morale: " + Math.Round(morale, 0)+"% | Wage: "+c.Wage;

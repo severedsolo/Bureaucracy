@@ -149,7 +149,7 @@ namespace Bureaucracy
             return new Rect(0.5f, 0.5f, 300, 265) {height = 150 + 50 * dialogElements.Count, width = Math.Max(padding, 280)};
         }
 
-        private DialogGUIBase[] PaddedLabel(string stringToPad, bool largePrint)
+        public DialogGUIBase[] PaddedLabel(string stringToPad, bool largePrint)
         {
             DialogGUIBase[] paddedLayout = new DialogGUIBase[2];
             paddedLayout[0] = new DialogGUISpace(10);
@@ -274,7 +274,7 @@ namespace Bureaucracy
                 allocations += m.FundingAllocation;
             }
             if(allocations <99 || allocations >101) GenerateErrorWindow("Allocations do not add up to 100%");
-            else allocationWindow.Dismiss();
+            else DismissAllWindows();
         }
 
         public void RemoveToolbarButton()

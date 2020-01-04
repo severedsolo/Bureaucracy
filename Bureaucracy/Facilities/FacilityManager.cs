@@ -20,11 +20,12 @@ namespace Bureaucracy
                 SpaceCenterFacility spf = spaceCentreFacilities.ElementAt(i);
                 Facilities.Add(new BureaucracyFacility(spf));
             }
+
             Name = "Construction";
             Instance = this;
             Debug.Log("[Bureaucracy]: Facility Manager Ready");
         }
-        
+
         public override void UnregisterEvents()
         {
             InternalListeners.OnBudgetAboutToFire.Remove(RunFacilityBudget);
@@ -47,12 +48,12 @@ namespace Bureaucracy
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
-                if(!bf.Upgrading) continue;
+                if (!bf.Upgrading) continue;
                 facilityBudget = bf.Upgrade.ProgressUpgrade(facilityBudget);
                 if (facilityBudget <= 0.0f) return;
             }
         }
-        
+
         public void OnLoad(ConfigNode cn)
         {
             Debug.Log("[Bureaucracy]: FacilityManager OnLoad");
@@ -66,10 +67,11 @@ namespace Bureaucracy
                 BureaucracyFacility bf = Facilities.ElementAt(i);
                 bf.OnLoad(facilityNodes);
             }
+
             Debug.Log("[Bureaucracy]: FacilityManager OnLoadComplete");
         }
-        
-        
+
+
 
         public void OnSave(ConfigNode cn)
         {
@@ -91,16 +93,26 @@ namespace Bureaucracy
             BureaucracyFacility facilityToUpgrade = UpgradeableToActualFacility(facility);
             if (facilityToUpgrade == null)
             {
-                Debug.Log("[Bureaucracy]: Upgrade of "+facility.id+" requested but no facility found");
+                Debug.Log("[Bureaucracy]: Upgrade of " + facility.id + " requested but no facility found");
+                UiController.Instance.GenerateErrorWindow("Cannot find " + facility.id + "! Please report this on the Bureaucracy forum thread");
                 return;
             }
-            Debug.Log("[Bureaucracy]: Upgrade of "+facility.id+" requested");
+
+            Debug.Log("[Bureaucracy]: Upgrade of " + facility.id + " requested");
+            if (facilityToUpgrade.IsDestroyed())
+            {
+                Debug.Log("[Bureaucracy]: " + facility.id + " is destroyed. Aborting upgrade");
+                ScreenMessages.PostScreenMessage("[Bureaucracy]: Can't upgrade " + facilityToUpgrade.Name + " Building is destroyed");
+                return;
+            }
+
             if (facilityToUpgrade.Upgrading)
             {
-                Debug.Log("[Bureaucracy]: "+facility.id+" is already being upgraded");
+                Debug.Log("[Bureaucracy]: " + facility.id + " is already being upgraded");
                 ScreenMessages.PostScreenMessage(facilityToUpgrade.Name + " is already being upgraded");
                 return;
             }
+
             facilityToUpgrade.StartUpgrade(facility);
         }
 
@@ -109,9 +121,10 @@ namespace Bureaucracy
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
-                if(!facility.id.Contains(bf.Name)) continue;
+                if (!facility.id.Contains(bf.Name)) continue;
                 return bf;
             }
+
             return null;
         }
 

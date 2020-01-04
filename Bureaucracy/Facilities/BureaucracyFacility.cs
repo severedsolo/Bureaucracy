@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Upgradeables;
@@ -13,15 +14,17 @@ namespace Bureaucracy
         public FacilityUpgradeEvent Upgrade;
         private bool isClosed;
         public int LaunchesThisMonth;
-        
+
         public bool IsClosed => isClosed;
+
+        public int Level => level;
 
         private bool CanBeClosed { get; set; }
 
         public void ReopenFacility()
         {
             if (!isClosed) return;
-            Debug.Log("[Bureaucracy]: Reopening "+Name);
+            Debug.Log("[Bureaucracy]: Reopening " + Name);
             LaunchesThisMonth = 0;
             isClosed = false;
         }
@@ -30,8 +33,9 @@ namespace Bureaucracy
         {
             if (!CanBeClosed) return;
             isClosed = true;
-            Debug.Log("[Bureaucracy]: "+Name+" has been closed");
+            Debug.Log("[Bureaucracy]: " + Name + " has been closed");
         }
+
         public bool Upgrading { get; private set; }
 
         public int MaintenanceCost => upkeepCost * level;
@@ -42,7 +46,22 @@ namespace Bureaucracy
         {
             Name = SetName(spf);
             upkeepCost = SetCosts();
-            Debug.Log("[Bureaucracy]: Setup Facility "+Name);
+            level = GetUpgradeableLevel();
+            Debug.Log("[Bureaucracy]: Setup Facility " + Name);
+        }
+
+        private int GetUpgradeableLevel()
+        {
+            foreach (var config in ScenarioUpgradeableFacilities.protoUpgradeables)
+            {
+                if (!config.Key.Contains(Name)) continue;
+                List<UpgradeableFacility> upgradeables = config.Value.facilityRefs;
+                foreach (var upgradeableBuilding in upgradeables)
+                {
+                    return upgradeableBuilding.FacilityLevel;
+                }
+            }
+            return level;
         }
 
         private string SetName(SpaceCenterFacility spf)
@@ -108,6 +127,7 @@ namespace Bureaucracy
                     cost = 0;
                     break;
             }
+
             return cost;
         }
 
@@ -116,18 +136,18 @@ namespace Bureaucracy
             Upgrade = new FacilityUpgradeEvent(facilityToUpgrade.id, this);
             Upgrading = true;
             ScreenMessages.PostScreenMessage("[Bureaucracy]: Upgrade of " + Name + " requested");
-            Debug.Log("[Bureaucracy]: Upgrade of "+Name+" requested for " +Upgrade.OriginalCost);
+            Debug.Log("[Bureaucracy]: Upgrade of " + Name + " requested for " + Upgrade.OriginalCost);
         }
-        
+
         public string GetProgressReport(FacilityUpgradeEvent upgrade)
         {
             // ReSharper disable once BuiltInTypeReferenceStyleForMemberAccess
             if (!Upgrading && !recentlyUpgraded) return String.Empty;
-            if (!recentlyUpgraded) return Name + ": $" + upgrade.RemainingInvestment + " / "+ upgrade.OriginalCost;
+            if (!recentlyUpgraded) return Name + ": $" + upgrade.RemainingInvestment + " / " + upgrade.OriginalCost;
             recentlyUpgraded = false;
             return Name + ": Upgrade completed successfully";
         }
-        
+
         public void OnLoad(ConfigNode[] facilityNodes)
         {
             for (int i = 0; i < facilityNodes.Length; i++)
@@ -165,7 +185,22 @@ namespace Bureaucracy
             Upgrade = null;
             recentlyUpgraded = true;
             level++;
-            Debug.Log("[Bureaucracy]: Upgrade of "+Name+" completed");
+            Debug.Log("[Bureaucracy]: Upgrade of " + Name + " completed");
+        }
+
+        public bool IsDestroyed()
+        {
+            foreach (KeyValuePair<string, ScenarioDestructibles.ProtoDestructible> kvp in ScenarioDestructibles.protoDestructibles)
+            {
+                if (!kvp.Key.Contains(Name)) continue;
+                List<DestructibleBuilding> buildingsToDestroy = kvp.Value.dBuildingRefs;
+                foreach (var building in buildingsToDestroy)
+                {
+                    if (building.IsDestroyed) return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FlightTracker;
 using UnityEngine;
 using Random = System.Random;
 
@@ -139,6 +140,24 @@ namespace Bureaucracy
             return "Y" + years + " D" + days;
         }
 
+        public string GetARandomKerbal()
+        {
+            List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
+            int tries = 0;
+            if (crew.Count == 0) return String.Empty;
+            while (tries < 100)
+            {
+                ProtoCrewMember p = crew.ElementAt(Randomise.Next(0, crew.Count));
+                if (p.rosterStatus != ProtoCrewMember.RosterStatus.Available)
+                {
+                    tries++;
+                    continue;
+                }
+                return p.name;
+            }
+
+            return String.Empty;
+        }
         public Manager GetManagerByName(string managerName)
         {
             for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
