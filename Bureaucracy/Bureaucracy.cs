@@ -51,6 +51,20 @@ namespace Bureaucracy
             registeredManagers.Add(new CrewManager(HighLogic.CurrentGame.CrewRoster.Crew.ToList()));
         }
 
+        public void RetryKACAlarm()
+        {
+            if (!KacWrapper.AssemblyExists) return;
+            KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;
+            for (int i = 0; i < kacAlarms.Count; i++)
+            {
+                KacWrapper.Kacapi.KacAlarm alarm = kacAlarms.ElementAt(i);
+                if (alarm.Name == "Next Budget") return;
+            }
+
+            double alarmTime = Planetarium.GetUniversalTime() + SettingsClass.Instance.TimeBetweenBudgets * FlightGlobals.GetHomeBody().solarDayLength;
+            Utilities.Instance.NewKacAlarm("Next Budget", alarmTime);
+        }
+
         public void SetCalcsDirty()
         {
             Costs.Instance.SetCalcsDirty();

@@ -1,3 +1,4 @@
+using System.Dynamic;
 using System.Linq;
 using KSPAchievements;
 using UnityEngine;
@@ -31,7 +32,7 @@ namespace Bureaucracy
             NextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
         }
 
-        private double GetNextBudgetTime()
+        public double GetNextBudgetTime()
         {
             double time = SettingsClass.Instance.TimeBetweenBudgets;
             time *= FlightGlobals.GetHomeBody().solarDayLength;
@@ -61,9 +62,11 @@ namespace Bureaucracy
 
         private bool NeedNewKACAlarm()
         {
-            if (!KacWrapper.AssemblyExists || !SettingsClass.Instance.StopTimeWarp)
+            if (!SettingsClass.Instance.StopTimeWarp) return false;
+            if (!KacWrapper.AssemblyExists)
             {
-                Debug.Log("[Bureaucracy]: KAC Not installed/Option turned off.");
+                Debug.Log("[Bureaucracy]: Couldn't find KAC. I'll try again in 1 second");
+                Bureaucracy.Instance.Invoke(nameof(Bureaucracy.Instance.RetryKACAlarm), 1.0f);
                 return false;
             }
             KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;
