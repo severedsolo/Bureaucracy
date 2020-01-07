@@ -13,6 +13,7 @@ namespace Bureaucracy
         private bool recentlyUpgraded;
         public FacilityUpgradeEvent Upgrade;
         private bool isClosed;
+        public bool IsPriority = false;
         public int LaunchesThisMonth;
 
         public bool IsClosed => isClosed;

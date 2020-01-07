@@ -118,7 +118,8 @@ namespace Bureaucracy
                     r.amount = 0;
                 }
             }
-            UiController.Instance.GenerateErrorWindow("Due to reduced staffing levels at the "+facilityName+" it seems they forgot to actually fuel the vessel.");
+
+            UiController.Instance.errorWindow = UiController.Instance.NoLaunchesWindow();
         }
 
         public string ConvertUtToKspTimeStamp(double universalTimeStamp)
@@ -144,19 +145,27 @@ namespace Bureaucracy
         {
             List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
             int tries = 0;
-            if (crew.Count == 0) return String.Empty;
-            while (tries < 100)
+            if (crew.Count != 0)
             {
-                ProtoCrewMember p = crew.ElementAt(Randomise.Next(0, crew.Count));
-                if (p.rosterStatus != ProtoCrewMember.RosterStatus.Available)
+                while (tries < 100)
                 {
-                    tries++;
-                    continue;
+                    ProtoCrewMember p = crew.ElementAt(Randomise.Next(0, crew.Count));
+                    if (p.rosterStatus != ProtoCrewMember.RosterStatus.Available)
+                    {
+                        tries++;
+                        continue;
+                    }
+
+                    return p.name;
                 }
-                return p.name;
             }
 
-            return String.Empty;
+            return "Wernher Von Kerman";
+        }
+
+        public string GetARandomBody()
+        {
+            return FinePrint.Utilities.CelestialUtilities.RandomBody(FlightGlobals.Bodies).displayName;
         }
         public Manager GetManagerByName(string managerName)
         {

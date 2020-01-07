@@ -6,8 +6,10 @@ namespace Bureaucracy
 {
     public class BudgetEvent : BureaucracyEvent
     {
+        public float monthLength;
         public BudgetEvent(double budgetTime, BudgetManager manager, bool newKacAlarm)
         {
+            monthLength = SettingsClass.Instance.TimeBetweenBudgets;
             CompletionTime = budgetTime;
             Name = "Next Budget";
             ParentManager = manager;

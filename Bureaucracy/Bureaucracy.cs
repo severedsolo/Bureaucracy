@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Smooth.Compare.Utilities;
 using UnityEngine;
@@ -41,8 +42,9 @@ namespace Bureaucracy
         {
             InternalListeners.OnBudgetAwarded.Add(GeneratePostBudgetReport);
             KacWrapper.InitKacWrapper();
+            if (SettingsClass.Instance.KctError && Directory.Exists(KSPUtil.ApplicationRootPath + "/GameData/KerbalConstructionTime")) UiController.Instance.errorWindow = UiController.Instance.KctError();
         }
-
+        
         private void RegisterBureaucracyManagers()
         {
             registeredManagers.Add(new BudgetManager());

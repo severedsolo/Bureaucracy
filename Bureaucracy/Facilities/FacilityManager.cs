@@ -45,10 +45,23 @@ namespace Bureaucracy
         {
             ReopenAllFacilities();
             double facilityBudget = Utilities.Instance.GetNetBudget(Name);
+            //Find the priority build first
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
                 if (!bf.Upgrading) continue;
+                if (!bf.IsPriority) continue;
+                facilityBudget = bf.Upgrade.ProgressUpgrade(facilityBudget);
+                break;
+            }
+            if (facilityBudget <= 0.0f) return;
+            //then run the others
+            for (int i = 0; i < Facilities.Count; i++)
+            {
+                BureaucracyFacility bf = Facilities.ElementAt(i);
+                if (!bf.Upgrading) continue;
+                //Skip priority build as this should have been progressed first.
+                if (bf.IsPriority) continue;
                 facilityBudget = bf.Upgrade.ProgressUpgrade(facilityBudget);
                 if (facilityBudget <= 0.0f) return;
             }
@@ -94,7 +107,7 @@ namespace Bureaucracy
             if (facilityToUpgrade == null)
             {
                 Debug.Log("[Bureaucracy]: Upgrade of " + facility.id + " requested but no facility found");
-                UiController.Instance.GenerateErrorWindow("Cannot find " + facility.id + "! Please report this on the Bureaucracy forum thread");
+                UiController.Instance.errorWindow = UiController.Instance.GeneralError("Can't find facility "+facility.id+" - please report this (with your KSP.log) on the Bureaucracy forum thread");
                 return;
             }
 
@@ -108,8 +121,9 @@ namespace Bureaucracy
 
             if (facilityToUpgrade.Upgrading)
             {
-                Debug.Log("[Bureaucracy]: " + facility.id + " is already being upgraded");
-                ScreenMessages.PostScreenMessage(facilityToUpgrade.Name + " is already being upgraded");
+                Debug.Log("[Bureaucracy]: " + facility.id + " is already being upgraded. Prioritising");
+                SetPriority(facilityToUpgrade, true);
+                ScreenMessages.PostScreenMessage("Upgrade of "+facilityToUpgrade.Name + " prioritised");
                 return;
             }
 
@@ -145,6 +159,16 @@ namespace Bureaucracy
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);
                 bf.ReopenFacility();
+            }
+        }
+
+        public void SetPriority(BureaucracyFacility priorityFacility, bool b)
+        {
+            for (int i = 0; i < Facilities.Count; i++)
+            {
+                BureaucracyFacility bf = Facilities.ElementAt(i);
+                if (bf != priorityFacility) bf.IsPriority = false;
+                else bf.IsPriority = b;
             }
         }
     }

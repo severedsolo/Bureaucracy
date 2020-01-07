@@ -9,6 +9,7 @@ namespace Bureaucracy
     {
         public static SettingsClass Instance;
         public bool ContractInterceptor = true;
+        public bool KctError = true;
         public bool HandleKscUpgrades = true;
         public bool StopTimeWarp = true;
         public bool UseItOrLoseIt = true;
@@ -82,6 +83,7 @@ namespace Bureaucracy
                 return;
             }
 
+            bool.TryParse(cn.GetValue("ShowKCTWarning"), out KctError);
             bool.TryParse(cn.GetValue("ContractInterceptorEnabled"), out ContractInterceptor);
             bool.TryParse(cn.GetValue("HandleKSCUpgrades"), out HandleKscUpgrades);
             bool.TryParse(cn.GetValue("StopTimeWarp"), out StopTimeWarp);
@@ -110,8 +112,22 @@ namespace Bureaucracy
             float.TryParse(cn.GetValue("LongTermMissionBonusPerDay"), out LongTermBonusDays);
             int.TryParse(cn.GetValue("BaseStrikesBeforeKerbalQuits"), out BaseStrikesToQuit);
             int.TryParse(cn.GetValue("StrikeMemoryMonths"), out StrikeMemory);
-            int.TryParse(cn.GetValue("DeadKerbalRepPenaltyEvent"), out DeadKerbalPenalty);
+            int.TryParse(cn.GetValue("DeadKerbalRepPenaltyPercent"), out DeadKerbalPenalty);
+            if (RefreshBudget())
+            {
+                TimerScript.Instance.RemoveTimer(BudgetManager.Instance.NextBudget);
+                BudgetManager.Instance.NextBudget = null;
+                BudgetManager.Instance.NextBudget = new BudgetEvent(Planetarium.GetUniversalTime()+TimeBetweenBudgets*FlightGlobals.GetHomeBody().solarDayLength, BudgetManager.Instance, true);
+            }
             Debug.Log("[Bureaucracy]: Settings Loaded");
+        }
+
+        private bool RefreshBudget()
+        {
+            if (BudgetManager.Instance == null) return false;
+            if (BudgetManager.Instance.NextBudget == null) return false;
+            if (BudgetManager.Instance.NextBudget.monthLength == TimeBetweenBudgets) return false;
+            return true;
         }
 
         public void OnSave(string path)
@@ -119,6 +135,7 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Saving Settings");
             ConfigNode cn = new ConfigNode("SETTINGS");
             cn.SetValue("Version", settingsVersion, true);
+            cn.SetValue("ShowKCTWarning", KctError, true);
             cn.SetValue("ContractInterceptorEnabled", ContractInterceptor, true);
             cn.SetValue("HandleKSCUpgrades", HandleKscUpgrades, true);
             cn.SetValue("StopTimeWarp", StopTimeWarp, true);

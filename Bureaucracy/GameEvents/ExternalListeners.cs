@@ -70,7 +70,7 @@ namespace Bureaucracy
             if (FacilityManager.Instance.GetFacilityByName("AstronautComplex").IsClosed)
             {
                 Funding.Instance.AddFunds(GameVariables.Instance.GetRecruitHireCost(numberOfActiveKerbals - 1), TransactionReasons.CrewRecruited);
-                UiController.Instance.GenerateErrorWindow("The astronaut complex is running at reduced capacity, "+crewMember.name+" couldn't be hired");
+                UiController.Instance.errorWindow = UiController.Instance.NoHireWindow();
                 HighLogic.CurrentGame.CrewRoster.Remove(crewMember);
                 return;
             }

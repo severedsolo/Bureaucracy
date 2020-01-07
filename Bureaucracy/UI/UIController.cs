@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlightTracker;
+using KSP.UI;
 using KSP.UI.Screens;
 using KSP.UI.Screens.Settings;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Bureaucracy
         private PopupDialog facilitiesWindow;
         private PopupDialog researchWindow;
         private PopupDialog allocationWindow;
-        private PopupDialog errorWindow;
+        public PopupDialog errorWindow;
         private int padding = 0;
         private int padFactor = 10;
 
@@ -26,28 +27,13 @@ namespace Bureaucracy
         {
             Instance = this;
         }
-
-        public void GenerateErrorWindow(string error)
-        {
-            errorWindow = DrawErrorWindow(error);
-        }
-
-        private PopupDialog DrawErrorWindow(string error)
-        {
-            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
-            dialogElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(error, false)));
-            dialogElements.Add(CloseButton());
-            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
-                new MultiOptionDialog("BureaucracyError", "", "Bureaucracy: Warning", UISkinManager.GetSkin("MainMenuSkin"),
-                    new Rect(0.5f, 0.5f, 650, 90), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
-        }
-
         public void SetupToolbarButton()
         {
-            toolbarButton = ApplicationLauncher.Instance.AddModApplication(() => ActivateUi("main"), () => ActivateUi("main"), null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
+            if(HighLogic.CurrentGame.Mode == Game.Modes.CAREER) toolbarButton = ApplicationLauncher.Instance.AddModApplication(() => ActivateUi("main"), () => ActivateUi("main"), null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
         }
         private void ActivateUi(string screen)
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
            DismissAllWindows();
             switch (screen)
             {
@@ -87,13 +73,17 @@ namespace Bureaucracy
             horizontalArray[0] = new DialogGUISpace(10);
             horizontalArray[1] = new DialogGUILabel("Research", MessageStyle(true));
             horizontalArray[2] = new DialogGUISpace(45);
-            horizontalArray[3] = new DialogGUITextInput(FacilityManager.Instance.FundingAllocation.ToString(), false, 3, s => SetAllocation("Research", s), 40.0f, 30.0f);
+            horizontalArray[3] = new DialogGUITextInput(ResearchManager.Instance.FundingAllocation.ToString(), false, 3, s => SetAllocation("Research", s), 40.0f, 30.0f);
+            innerElements.Add(new DialogGUIHorizontalLayout(horizontalArray));
+            horizontalArray = new DialogGUIBase[2];
+            horizontalArray[0] = new DialogGUISpace(10);
+            horizontalArray[1] = new DialogGUIButton("Load Settings", () => SettingsClass.Instance.InGameLoad(), false); 
             innerElements.Add(new DialogGUIHorizontalLayout(horizontalArray));
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
             dialogElements.Add(GetBoxes("allocation"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
-                new MultiOptionDialog("Bureaucracy", "", "Bureaucracy: Budget", UISkinManager.GetSkin("MainMenuSkin"),
+                new MultiOptionDialog("Bureaucracy", "", "Bureaucracy: Budget Allocation", UISkinManager.GetSkin("MainMenuSkin"),
                     GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
@@ -169,7 +159,7 @@ namespace Bureaucracy
             {
                 fontSize = 12,
                 fontStyle = FontStyle.Bold,
-                alignment = TextAnchor.MiddleCenter,
+                alignment = TextAnchor.LowerCenter,
                 stretchWidth = false,
                 normal = new UIStyleState
                 {
@@ -213,14 +203,16 @@ namespace Bureaucracy
             }
             if (upgradeCount == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No Facility Upgrades in progress", false)));
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-            dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+            dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, false, vertical));
+            dialogElements.Add(new DialogGUILabel("QA: "+Math.Round(Bureaucracy.Instance.qaModifier*100, 0)+"%"));
             dialogElements.Add(GetBoxes("facility"));
-            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("FacilitiesDialog", "", "Bureaucracy: Facilities", UISkinManager.GetSkin("MainMenuSkin"), GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("FacilitiesDialog", "", "Bureaucracy: Facilities", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 320, 350), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
-        
+
         private PopupDialog DrawResearchUi()
         {
             padding = 0;
+            float scienceCount = 0;
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
             innerElements.Add(new DialogGUISpace(10));
@@ -228,10 +220,12 @@ namespace Bureaucracy
             for (int i = 0; i < ResearchManager.Instance.ProcessingScience.Count; i++)
             {
                 ScienceEvent se = ResearchManager.Instance.ProcessingScience.ElementAt(i);
+                scienceCount += se.RemainingScience;
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(se.UiName+": "+(se.OriginalScience-se.RemainingScience)+"/"+se.OriginalScience, false)));
             }
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+            dialogElements.Add(new DialogGUILabel("Total Science to be processed: "+Math.Round(scienceCount, 1)));
             dialogElements.Add(GetBoxes("research"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("ResearchDialog", "", "Bureaucracy: Research", UISkinManager.GetSkin("MainMenuSkin"), GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
@@ -273,8 +267,17 @@ namespace Bureaucracy
                 if(!m.ShowOnUi) continue;
                 allocations += m.FundingAllocation;
             }
-            if(allocations <99 || allocations >101) GenerateErrorWindow("Allocations do not add up to 100%");
+
+            if (allocations < 99 || allocations > 101) errorWindow = AllocationErrorWindow();
             else DismissAllWindows();
+        }
+
+        private PopupDialog AllocationErrorWindow()
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            dialogElements.Add(new DialogGUILabel("Allocations do not add up to 100%"));
+            dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("AllocationError", "", "Bureaucracy: Error", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 200,200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
         public void RemoveToolbarButton()
@@ -286,6 +289,41 @@ namespace Bureaucracy
         private void OnDisable()
         {
             RemoveToolbarButton();
+        }
+
+        public PopupDialog NoHireWindow()
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            dialogElements.Add(new DialogGUILabel("Due to reduced staffing levels we are unable to take on any new kerbals at this time"));
+            dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("NoHire", "", "Can't Hire!", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 100, 200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+        }
+        
+        public PopupDialog GeneralError(string error)
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            dialogElements.Add(new DialogGUILabel(error));
+            dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("GeneralErrorDialog", "", "Bureaucracy: Error", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 200,200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+        }
+
+        public PopupDialog NoLaunchesWindow()
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            dialogElements.Add(new DialogGUILabel("Due to reduced funding levels, we were unable to afford any fuel"));
+            dialogElements.Add(new DialogGUISpace(20));
+            dialogElements.Add(new DialogGUILabel("No fuel will be available until the end of the month."));
+            dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("NoFuel", "", "No Fuel Available!", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 200,160), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+        }
+
+        public PopupDialog KctError()
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            dialogElements.Add(new DialogGUILabel("It looks like you have Kerbal Construction Time installed. You should not use KCT's Facility Upgrade and Bureaucracy's Facility Upgrade at the same time. Bad things will happen."));
+            dialogElements.Add(new DialogGUIToggle(() => SettingsClass.Instance.KctError, "Show this again", b => SettingsClass.Instance.KctError = b ));
+            dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("KCTError", "", "KCT Detected!", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 400,100), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
     }
 }
