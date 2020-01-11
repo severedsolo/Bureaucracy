@@ -18,9 +18,10 @@ Kerbals who die on mission will have a negative effect on your reputation. Too m
 **Facilities/Construction**
 
 You no longer need to have the available funds on hand to upgrade a building. Instead, the upgrade is handled by the Construction Department (see wiki for more info)
-
  
 If there isn’t enough money to cover the Facility Maintenance costs, a facility can be “closed” (functionality reduced/see wiki for more details).
+
+Most facilities now have 5 upgrade levels (provided via a CustomBarnKit configuration file) (see wiki)
 
 
 **Research**
