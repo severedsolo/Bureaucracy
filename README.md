@@ -28,7 +28,7 @@ If there isn’t enough money to cover the Facility Maintenance costs, a facilit
 When science data is returned to the Space Centre, you will not get the science given to you straight away. First it must be analysed by the Research Department (see wiki).
 
  
-**Crew **
+**Crew**
  
 Crew now have a basic “morale” system. Annoy your kerbals too much, and they will quit (see wiki).
  
