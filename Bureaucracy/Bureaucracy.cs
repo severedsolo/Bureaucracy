@@ -26,8 +26,6 @@ namespace Bureaucracy
         public SettingsClass settings;
         public static Bureaucracy Instance;
         public float qaModifier = 1.0f;
-        // ReSharper disable once UnusedMember.Local
-        private Utilities utilities = new Utilities();
         public List<Manager> registeredManagers = new List<Manager>();
 
         private void Awake()

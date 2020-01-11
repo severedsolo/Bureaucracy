@@ -8,7 +8,7 @@ namespace Bureaucracy
         {
             if (!DecayIsValid(true)) return;
             Debug.Log("[Bureaucracy]: Applying Hard Mode");
-            double penalty = Funding.Instance.Funds / 1000;
+            double penalty = Funding.Instance.Funds / 10000;
             Debug.Log("[Bureaucracy]: Penalising: "+penalty);
             Reputation.Instance.AddReputation((float)-penalty, TransactionReasons.ContractPenalty);
         }
@@ -25,7 +25,7 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Applying Rep Decay");
             float decayFactor = decayPercent / 100.0f;
             Debug.Log("[Bureaucracy]: Rep Decay: "+Reputation.Instance.reputation*decayFactor);
-            Reputation.Instance.SetReputation(Reputation.Instance.reputation*decayFactor, TransactionReasons.Contracts);
+            Reputation.Instance.SetReputation(Reputation.Instance.reputation-(Reputation.Instance.reputation*decayFactor), TransactionReasons.Contracts);
         }
     }
 }

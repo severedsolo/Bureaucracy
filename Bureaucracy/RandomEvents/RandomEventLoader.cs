@@ -12,12 +12,12 @@ namespace Bureaucracy
         private void Start()
         {
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
-            #if !DEBUG
             if (!SettingsClass.Instance.RandomEventsEnabled || Utilities.Instance.Randomise.NextDouble() > SettingsClass.Instance.RandomEventChance) return;
-            #endif
             LoadEvents();
             RandomEventBase e = loadedEvents.ElementAt(Utilities.Instance.Randomise.Next(0, loadedEvents.Count));
+            Debug.Log("[Bureaucracy]: Attempting to Fire Event "+e.name);
             if (!e.EventCanFire()) return;
+            Debug.Log("[Bureaucracy]: EventCanFire");
             e.OnEventFire();
         }
 

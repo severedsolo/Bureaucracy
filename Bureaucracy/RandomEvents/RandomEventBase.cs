@@ -12,7 +12,7 @@ namespace Bureaucracy
     public abstract class RandomEventBase
     {
         protected PopupDialog EventDialog;
-        protected string name;
+        public string name;
         protected string title;
         protected string body;
         protected string acceptString;
@@ -64,7 +64,7 @@ namespace Bureaucracy
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
             dialogElements.Add(new DialogGUIButton(acceptString, OnEventAccepted));
-            if(canBeDeclined) dialogElements.Add(new DialogGUIButton(acceptString, OnEventDeclined));
+            if(canBeDeclined) dialogElements.Add(new DialogGUIButton(declineString, OnEventDeclined));
             EventDialog = PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("EventDialog", "", title, UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 300, 200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
         

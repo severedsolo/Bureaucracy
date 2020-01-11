@@ -9,6 +9,7 @@ namespace Bureaucracy
     public class ExternalListeners : MonoBehaviour
     {
 
+        private Utilities utilitiesReference = new Utilities();
         private void Awake()
         {
             Debug.Log("[Bureaucracy]: Waking GameEvents");
