@@ -203,5 +203,14 @@ namespace Bureaucracy
 
             return false;
         }
+
+        public void CancelUpgrade()
+        {
+            Upgrade = null;
+            Upgrading = false;
+            IsPriority = false;
+            Debug.Log("[Bureaucracy]: Upgrade of "+Name+" cancelled");
+            ScreenMessages.PostScreenMessage("[Bureaucracy]: " + Name + " - Upgrade cancelled");
+        }
     }
 }

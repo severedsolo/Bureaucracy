@@ -225,7 +225,12 @@ namespace Bureaucracy
             }
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
-            dialogElements.Add(new DialogGUILabel("Total Science to be processed: "+Math.Round(scienceCount, 1)));
+            DialogGUIBase[] horizontal = new DialogGUIBase[3];
+            horizontal[0] = new DialogGUILabel("Processing Science: " + Math.Round(scienceCount, 1));
+            horizontal[1] = new DialogGUILabel("|");
+            double scienceOutput = ResearchManager.Instance.GetAllocatedFunding() / SettingsClass.Instance.ScienceMultiplier * ResearchManager.Instance.scienceMultiplier;
+            horizontal[2] = new DialogGUILabel("Maximum Output: "+Math.Round(scienceOutput, 1));
+            dialogElements.Add(new DialogGUIHorizontalLayout(horizontal));
             dialogElements.Add(GetBoxes("research"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("ResearchDialog", "", "Bureaucracy: Research", UISkinManager.GetSkin("MainMenuSkin"), GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
@@ -277,7 +282,7 @@ namespace Bureaucracy
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             dialogElements.Add(new DialogGUILabel("Allocations do not add up to 100%"));
             dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
-            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("AllocationError", "", "Bureaucracy: Error", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 200,200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("AllocationError", "", "Bureaucracy: Error", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 200,90), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
         public void RemoveToolbarButton()

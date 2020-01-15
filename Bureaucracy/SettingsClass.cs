@@ -9,6 +9,7 @@ namespace Bureaucracy
     {
         public static SettingsClass Instance;
         public bool ContractInterceptor = true;
+        public bool AutoBalanceSettings = true;
         public bool KctError = true;
         public bool HandleKscUpgrades = true;
         public bool StopTimeWarp = true;
@@ -39,8 +40,8 @@ namespace Bureaucracy
         public int StrikeMemory = 6;
         public int DeadKerbalPenalty = 25;
         private string defaultPath;
-        private string settingsVersion = "1.0";
-        private string previousVersion = "0.0";
+        private string settingsVersion = "0.2";
+        private string previousVersion = "1.0";
         private string savePath;
 
         public SettingsClass()
@@ -82,7 +83,7 @@ namespace Bureaucracy
                 Debug.Log("[Bureaucracy]: Settings are not compatible with this version of Bureaucracy. Aborting Load");
                 return;
             }
-
+            if(saveVersion == "0.2") bool.TryParse(cn.GetValue("AutoBalanceSettings"), out AutoBalanceSettings);
             bool.TryParse(cn.GetValue("ShowKCTWarning"), out KctError);
             bool.TryParse(cn.GetValue("ContractInterceptorEnabled"), out ContractInterceptor);
             bool.TryParse(cn.GetValue("HandleKSCUpgrades"), out HandleKscUpgrades);
@@ -119,7 +120,34 @@ namespace Bureaucracy
                 BudgetManager.Instance.NextBudget = null;
                 BudgetManager.Instance.NextBudget = new BudgetEvent(Planetarium.GetUniversalTime()+TimeBetweenBudgets*FlightGlobals.GetHomeBody().solarDayLength, BudgetManager.Instance, true);
             }
+
+            if (AutoBalanceSettings) BalanceSettings();
+            if(saveVersion != "0.2") OnSave(defaultPath); 
             Debug.Log("[Bureaucracy]: Settings Loaded");
+        }
+
+        private void BalanceSettings()
+        {
+            float balanceMultiplier = TimeBetweenBudgets / 30.0f;
+            AdminCost = BalanceCost(4000, balanceMultiplier);
+            AstronautComplexCost = BalanceCost(2000, balanceMultiplier);
+            MissionControlCost = BalanceCost(6000, balanceMultiplier);
+            SphCost = BalanceCost(8000, balanceMultiplier);
+            TrackingStationCost = BalanceCost(4000, balanceMultiplier);
+            RndCost = BalanceCost(8000, balanceMultiplier);
+            VabCost = BalanceCost(8000, balanceMultiplier);
+            OtherFacilityCost = BalanceCost(5000, balanceMultiplier);
+            LaunchCostSph = BalanceCost(100, balanceMultiplier);
+            LaunchCostVab = BalanceCost(1000, balanceMultiplier);
+            KerbalBaseWage = BalanceCost(1000, balanceMultiplier);
+            LongTermBonusYears = BalanceCost(10000, balanceMultiplier);
+            LongTermBonusDays = BalanceCost(30, balanceMultiplier);
+        }
+
+        private int BalanceCost(int initialCost, float balanceMultiplier)
+        {
+            float actualCost = initialCost * balanceMultiplier;
+            return (int)actualCost;
         }
 
         private bool RefreshBudget()
@@ -135,6 +163,7 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Saving Settings");
             ConfigNode cn = new ConfigNode("SETTINGS");
             cn.SetValue("Version", settingsVersion, true);
+            cn.SetValue("AutoBalanceSettings", AutoBalanceSettings, true);
             cn.SetValue("ShowKCTWarning", KctError, true);
             cn.SetValue("ContractInterceptorEnabled", ContractInterceptor, true);
             cn.SetValue("HandleKSCUpgrades", HandleKscUpgrades, true);
