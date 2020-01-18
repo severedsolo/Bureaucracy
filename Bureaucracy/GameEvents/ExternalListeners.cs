@@ -31,7 +31,7 @@ namespace Bureaucracy
             GameEvents.onFacilityContextMenuSpawn.Add(OnFacilityContextMenuSpawn);
             GameEvents.OnScienceRecieved.Add(OnScienceReceived);
             GameEvents.OnCrewmemberHired.Add(OnCrewMemberHired);
-            ActiveFlightTracker.onFlightTrackerUpdated.Add(AllocateCrewBonuses);
+            FlightTrackerApi.OnFlightTrackerUpdated.Add(AllocateCrewBonuses);
             GameEvents.onKerbalStatusChanged.Add(PotentialKerbalDeath);
             GameEvents.onGUIApplicationLauncherReady.Add(AddToolbarButton);
             GameEvents.onGUIApplicationLauncherUnreadifying.Add(RemoveToolbarButton);
@@ -80,7 +80,7 @@ namespace Bureaucracy
 
         private void AllocateCrewBonuses(ProtoCrewMember crewMember)
         {
-            CrewManager.Instance.UpdateCrewBonus(crewMember, ActiveFlightTracker.instance.GetLaunchTime(crewMember.name));
+            CrewManager.Instance.UpdateCrewBonus(crewMember, FlightTrackerApi.Instance.GetLaunchTime(crewMember.name));
         }
 
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
@@ -121,7 +121,7 @@ namespace Bureaucracy
             GameEvents.onFacilityContextMenuSpawn.Remove(OnFacilityContextMenuSpawn);
             GameEvents.OnScienceRecieved.Remove(OnScienceReceived);
             GameEvents.OnCrewmemberHired.Remove(OnCrewMemberHired);
-            ActiveFlightTracker.onFlightTrackerUpdated.Remove(AllocateCrewBonuses);
+            FlightTrackerApi.OnFlightTrackerUpdated.Remove(AllocateCrewBonuses);
             GameEvents.onKerbalStatusChanged.Remove(PotentialKerbalDeath);
             GameEvents.onGUIApplicationLauncherReady.Remove(AddToolbarButton);
             GameEvents.onGUIApplicationLauncherUnreadifying.Remove(RemoveToolbarButton);

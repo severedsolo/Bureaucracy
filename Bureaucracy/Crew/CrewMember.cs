@@ -9,7 +9,6 @@ namespace Bureaucracy
         private double bonusAwaitingPayment;
         private ProtoCrewMember crewRef;
         public readonly int maxStrikes;
-        private int lastMissionPayout;
         public readonly List<CrewUnhappiness> unhappinessEvents = new List<CrewUnhappiness>();
         public bool Unhappy;
         
@@ -39,7 +38,7 @@ namespace Bureaucracy
             double payout;
             if (kvp.Value == "years") payout = kvp.Key * SettingsClass.Instance.LongTermBonusYears;
             else payout = kvp.Key * SettingsClass.Instance.LongTermBonusDays;
-            lastMissionPayout = (int)payout;
+            bonusAwaitingPayment += payout;
             Debug.Log("[Bureaucracy]: Assigned Bonus of "+(int)payout+" to "+Name);
         }
 
@@ -89,7 +88,6 @@ namespace Bureaucracy
                 CrewUnhappiness cu = unhappinessEvents.ElementAt(i);
                 cu.OnSave(crewNode);
             }
-            crewNode.SetValue("LastPayout", lastMissionPayout, true);
             crewManagerNode.AddNode(crewNode);
         }
 
@@ -97,7 +95,6 @@ namespace Bureaucracy
         {
             Name = crewConfig.GetValue("Name");
             double.TryParse(crewConfig.GetValue("Bonus"), out bonusAwaitingPayment);
-            int.TryParse(crewConfig.GetValue("LastPayout"), out lastMissionPayout);
             ConfigNode[] unhappyNodes = crewConfig.GetNodes("UNHAPPINESS");
             for (int i = 0; i < unhappyNodes.Length; i++)
             {

@@ -45,15 +45,15 @@ namespace Bureaucracy
                     {
                         Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
                         if (m == BudgetManager.Instance) continue;
-                        allocation -= m.FundingAllocation / 100.0f;
+                        allocation -= m.FundingAllocation;
                     }
                     if (funding < 0.0f) return funding;
                     return Math.Round(funding*allocation, 0);
                 }
                 case "Construction":
-                    return Math.Max(funding * FacilityManager.Instance.FundingAllocation / 100.0f, 0.0f);
+                    return Math.Max(funding * FacilityManager.Instance.FundingAllocation, 0.0f);
                 case "Research":
-                    return Math.Max(funding * ResearchManager.Instance.FundingAllocation / 100.0f, 0.0f);
+                    return Math.Max(funding * ResearchManager.Instance.FundingAllocation, 0.0f);
                 default:
                     return -1.0f;
             }

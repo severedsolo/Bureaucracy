@@ -90,6 +90,8 @@ namespace Bureaucracy
             FacilityManager.Instance.OnLoad(node);
             ResearchManager.Instance.OnLoad(node);
             CrewManager.Instance.OnLoad(node);
+            RandomEventLoader.Instance.OnLoad(node);
+            UiController.Instance.OnLoad(node);
             Debug.Log("[Bureaucracy]: OnLoad Complete");
         }
 
@@ -102,6 +104,8 @@ namespace Bureaucracy
             FacilityManager.Instance.OnSave(node);
             ResearchManager.Instance.OnSave(node);
             CrewManager.Instance.OnSave(node);
+            RandomEventLoader.Instance.OnSave(node);
+            UiController.Instance.OnSave(node);
             Debug.Log("[Bureaucracy]: OnSave Complete");
         }
 

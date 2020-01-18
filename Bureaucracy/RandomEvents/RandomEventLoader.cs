@@ -9,16 +9,26 @@ namespace Bureaucracy
     public class RandomEventLoader : MonoBehaviour
     {
         List<RandomEventBase> loadedEvents = new List<RandomEventBase>();
-        private void Start()
+        private double cooldownTimer = 0;
+        public static RandomEventLoader Instance;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        private void RollEvent()
         {
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             if (!SettingsClass.Instance.RandomEventsEnabled || Utilities.Instance.Randomise.NextDouble() > SettingsClass.Instance.RandomEventChance) return;
+            if (cooldownTimer > Planetarium.GetUniversalTime()) return;
             LoadEvents();
             RandomEventBase e = loadedEvents.ElementAt(Utilities.Instance.Randomise.Next(0, loadedEvents.Count));
             Debug.Log("[Bureaucracy]: Attempting to Fire Event "+e.name);
             if (!e.EventCanFire()) return;
             Debug.Log("[Bureaucracy]: EventCanFire");
             e.OnEventFire();
+            cooldownTimer = Planetarium.GetUniversalTime() + FlightGlobals.GetHomeBody().solarDayLength * 30;
         }
 
         private void LoadEvents()
@@ -54,7 +64,21 @@ namespace Bureaucracy
                 }
             }
             Debug.Log("[Bureaucracy]: Loaded "+loadedEvents.Count+" events");
-            
+        }
+
+        public void OnSave(ConfigNode cn)
+        {
+            ConfigNode eventNode = new ConfigNode("EVENTS");
+            eventNode.SetValue("cooldown", cooldownTimer, true);
+            cn.AddNode(eventNode);
+        }
+        
+        public void OnLoad(ConfigNode cn)
+        {
+            ConfigNode eventNode = cn.GetNode("EVENTS");
+            if (eventNode == null) return;
+            double.TryParse(eventNode.GetValue("cooldown"), out cooldownTimer);
+            RollEvent();
         }
     }
 }
