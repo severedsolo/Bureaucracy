@@ -53,9 +53,15 @@ namespace Bureaucracy
 
         public void NewScienceReceived(float science, ScienceSubject subject)
         {
-            Debug.Log("[Bureaucracy]: New Science Logged"+subject.title+" for "+science+" science");
+            Debug.Log("[Bureaucracy]: New Science Received "+subject.title+" for "+science+" science");
+            if (science < 1.0f)
+            {
+                Debug.Log("[Bureaucracy]: "+subject.title+" worth less than 1 science. Skipping");
+                return;
+            }
             ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
             ProcessingScience.Add(new ScienceEvent(science, subject, this));
+            Debug.Log("[Bureaucracy]: Registered new science event "+subject.title+" for "+science+" science");
         }
 
         public override void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted)

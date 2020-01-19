@@ -7,6 +7,7 @@ using Random = System.Random;
 
 namespace Bureaucracy
 {
+    //Stuff that doesn't go elsewhere/Shared Utility methods.
     public class Utilities
     {
         public static Utilities Instance;
@@ -41,6 +42,7 @@ namespace Bureaucracy
             {
                 case "Budget":
                 {
+                    //Budget just gets whatever's left, so we need to figure out how much the other departments are getting first.
                     for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
                     {
                         Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
@@ -59,6 +61,7 @@ namespace Bureaucracy
             }
         }
 
+        //Turns UniversalTime into years (or days if <1 year)
         public KeyValuePair<int, string> ConvertUtToRealTime(double ut)
         {
             int timeStamp = 0;
@@ -122,6 +125,7 @@ namespace Bureaucracy
             UiController.Instance.errorWindow = UiController.Instance.NoLaunchesWindow();
         }
 
+        //Turns UniversalTime into KSP date format "Y1 D1"
         public string ConvertUtToKspTimeStamp(double universalTimeStamp)
         {
             int years = 1;
@@ -141,6 +145,7 @@ namespace Bureaucracy
             return "Y" + years + " D" + days;
         }
 
+        //Used for RandomEvents, grabs a relevant Kerbal.
         public string GetARandomKerbal()
         {
             List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();

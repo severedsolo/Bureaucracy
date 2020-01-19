@@ -30,6 +30,7 @@ namespace Bureaucracy
 
         private void Awake()
         {
+            //Mod starts here.
             settings = new SettingsClass();
             RegisterBureaucracyManagers();
             Instance = this;
@@ -45,6 +46,7 @@ namespace Bureaucracy
         
         private void RegisterBureaucracyManagers()
         {
+            //Register internal manager classes (and gives me a place to store the references). Expandable.
             registeredManagers.Add(new BudgetManager());
             registeredManagers.Add(new FacilityManager());
             registeredManagers.Add(new ResearchManager());
@@ -53,6 +55,7 @@ namespace Bureaucracy
 
         public void RetryKACAlarm()
         {
+            //KAC API isn't always ready when we try to add an alarm, so we retry after a few seconds.
             if (!KacWrapper.AssemblyExists) return;
             KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;
             for (int i = 0; i < kacAlarms.Count; i++)
@@ -67,10 +70,13 @@ namespace Bureaucracy
 
         public void SetCalcsDirty()
         {
+            //Costs gets called alot at budget time, to save overheads we cache them for 5 seconds.
+            //Setting Dirty lets mod know that it needs to calculate them again.
             Costs.Instance.SetCalcsDirty();
         }
         public void RegisterManager(Manager m)
         {
+            //For mods to register custom managers.
             if (registeredManagers.Contains(m))
             {
                 Debug.Log("[Bureaucracy]: Attempted to register manager" +m.Name+ " but already exists");
@@ -83,6 +89,7 @@ namespace Bureaucracy
 
         public void OnLoad(ConfigNode node)
         {
+            //ScenarioModule OnLoad event redirects here, each class handles it's own saving/loading (for better encapsulation).
             Debug.Log("[Bureaucracy]: OnLoad");
             if(float.TryParse(node.GetValue("QAModifier"), out float f))qaModifier = f;
             SettingsClass.Instance.InGameLoad();
@@ -97,6 +104,7 @@ namespace Bureaucracy
 
         public void OnSave(ConfigNode node)
         {
+            //ScenarioModule OnLoad event redirects here, each class handles it's own saving/loading (for better encapsulation).
             Debug.Log("[Bureaucracy]: OnSave");
             node.SetValue("QAModifier", qaModifier, true);
             SettingsClass.Instance.InGameSave();
@@ -111,6 +119,7 @@ namespace Bureaucracy
 
         private void GeneratePostBudgetReport(double data0, double data1)
         {
+            //All Managers generate a report.
             Debug.Log("[Bureaucracy]: Firing Manager Reports");
             for (int i = 0; i < registeredManagers.Count; i++)
             {

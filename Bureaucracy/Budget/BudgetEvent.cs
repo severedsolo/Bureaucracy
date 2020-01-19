@@ -20,6 +20,7 @@ namespace Bureaucracy
         public override void OnEventCompleted()
         {
             Debug.Log("Bureaucracy]: OnBudgetAboutToFire");
+            //Allows other Managers to do prebudget work, as once the budget is done alot of stuff gets reset.
             InternalListeners.OnBudgetAboutToFire.Fire();
             RepDecay repDecay = new RepDecay();
             repDecay.ApplyHardMode();

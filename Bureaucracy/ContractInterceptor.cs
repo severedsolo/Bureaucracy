@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Bureaucracy
 {
+    //Classic Contract Interceptor, not much has changed.
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
     public class ContractInterceptor : MonoBehaviour
     {
@@ -27,6 +28,7 @@ namespace Bureaucracy
             float rep = (float)contract.FundsAdvance / 10000 * -1 - (float)contract.FundsFailure / 10000;
             contract.FundsFailure = 0;
             contract.ReputationFailure = rep - contract.ReputationFailure;
+            //Convert rewards to Rep @ 1:10000 Ratio
             rep = (float)contract.FundsAdvance / 10000 + (float)contract.FundsCompletion / 10000;
             for (int i = 0; i < contract.AllParameters.Count(); i++)
             {

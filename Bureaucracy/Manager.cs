@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace Bureaucracy
 {
+    //Intended to be extended. Anything that extends a Manager class can register itself in Bureaucracy.cs
     public class Manager
     {
+        //obviously you change these in the constructor.
         public string Name = "Blank Manager";
         public float FundingAllocation = 0.3f;
         public bool ShowOnUi = true;
