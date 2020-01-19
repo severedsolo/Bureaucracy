@@ -54,9 +54,9 @@ namespace Bureaucracy
         public void NewScienceReceived(float science, ScienceSubject subject)
         {
             Debug.Log("[Bureaucracy]: New Science Received "+subject.title+" for "+science+" science");
-            if (science < 1.0f)
+            if (science < 0.1f)
             {
-                Debug.Log("[Bureaucracy]: "+subject.title+" worth less than 1 science. Skipping");
+                Debug.Log("[Bureaucracy]: "+subject.title+" worth less than 0.1 science. Skipping");
                 return;
             }
             ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
