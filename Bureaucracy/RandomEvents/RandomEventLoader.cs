@@ -8,8 +8,8 @@ namespace Bureaucracy
     [KSPAddon(KSPAddon.Startup.SpaceCentre, false)]
     public class RandomEventLoader : MonoBehaviour
     {
-        List<RandomEventBase> loadedEvents = new List<RandomEventBase>();
-        private double cooldownTimer = 0;
+        private readonly List<RandomEventBase> loadedEvents = new List<RandomEventBase>();
+        private double cooldownTimer;
         public static RandomEventLoader Instance;
 
         private void Awake()
@@ -24,7 +24,7 @@ namespace Bureaucracy
             if (cooldownTimer > Planetarium.GetUniversalTime()) return;
             LoadEvents();
             RandomEventBase e = loadedEvents.ElementAt(Utilities.Instance.Randomise.Next(0, loadedEvents.Count));
-            Debug.Log("[Bureaucracy]: Attempting to Fire Event "+e.name);
+            Debug.Log("[Bureaucracy]: Attempting to Fire Event "+e.Name);
             if (!e.EventCanFire()) return;
             Debug.Log("[Bureaucracy]: EventCanFire");
             e.OnEventFire();
@@ -37,9 +37,9 @@ namespace Bureaucracy
             for (int i = 0; i < eventCache.Length; i++)
             {
                 ConfigNode eventNode = eventCache.ElementAt(i);
-                RandomEventBase re;
                 try
                 {
+                    RandomEventBase re;
                     switch (eventNode.GetValue("Type"))
                     {
                         case "Currency":
@@ -60,7 +60,7 @@ namespace Bureaucracy
                 }
                 catch
                 {
-                    continue;
+                    // ignored
                 }
             }
             Debug.Log("[Bureaucracy]: Loaded "+loadedEvents.Count+" events");

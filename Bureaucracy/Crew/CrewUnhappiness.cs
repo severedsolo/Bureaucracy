@@ -19,13 +19,10 @@ namespace Bureaucracy
         {
             parentCrew.Unhappy = false;
             expiry--;
-            if (expiry <= 0)
-            {
-                Debug.Log("Bureaucracy]: "+parentCrew.Name+" unhappiness for "+Reason+" expired");
-                return true;
-            }
+            if (expiry > 0) return false;
+            Debug.Log("Bureaucracy]: "+parentCrew.Name+" unhappiness for "+Reason+" expired");
+            return true;
 
-            return false;
         }
 
         public void OnSave(ConfigNode crewNode)

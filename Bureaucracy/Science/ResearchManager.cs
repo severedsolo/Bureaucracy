@@ -10,7 +10,7 @@ namespace Bureaucracy
         public static ResearchManager Instance;
         public readonly List<ScienceEvent> ProcessingScience = new List<ScienceEvent>();
         public readonly List<ScienceEvent> CompletedEvents = new List<ScienceEvent>();
-        public float scienceMultiplier = 1.0f;
+        public float ScienceMultiplier = 1.0f;
 
         public ResearchManager()
         {
@@ -33,7 +33,7 @@ namespace Bureaucracy
 
         private void RunResearchBudget()
         {
-            double researchBudget = Utilities.Instance.GetNetBudget(Name)*scienceMultiplier;
+            double researchBudget = Utilities.Instance.GetNetBudget(Name)*ScienceMultiplier;
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (researchBudget == 0.0f) return;
             List<ScienceEvent> scienceCache = ProcessingScience;
@@ -74,7 +74,7 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Research Manager OnLoad");
             ConfigNode researchNode = node.GetNode("RESEARCH");
             if (researchNode == null) return;
-            float.TryParse(researchNode.GetValue("ScienceMultiplier"), out scienceMultiplier);
+            float.TryParse(researchNode.GetValue("ScienceMultiplier"), out ScienceMultiplier);
             int.TryParse(researchNode.GetValue("FundingAllocation"), out int funding);
             FundingAllocation = funding;
             ConfigNode[] scienceNodes = researchNode.GetNodes("SCIENCE_DATA");
@@ -95,7 +95,7 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Research Manager OnSave");
             ConfigNode researchNode = new ConfigNode("RESEARCH");
             researchNode.SetValue("FundingAllocation", FundingAllocation, true);
-            researchNode.SetValue("ScienceMultiplier", scienceMultiplier, true);
+            researchNode.SetValue("ScienceMultiplier", ScienceMultiplier, true);
             for (int i = 0; i < ProcessingScience.Count; i++)
             {
                 ScienceEvent se = ProcessingScience.ElementAt(i);
@@ -106,7 +106,7 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Research Manager OnSaveComplete");
         }
 
-        public void RemoveCompletedEvents()
+        private void RemoveCompletedEvents()
         {
             for (int i = 0; i < CompletedEvents.Count; i++)
             {

@@ -13,12 +13,10 @@ namespace Bureaucracy
         private bool recentlyUpgraded;
         public FacilityUpgradeEvent Upgrade;
         private bool isClosed;
-        public bool IsPriority = false;
+        public bool IsPriority;
         public int LaunchesThisMonth;
 
         public bool IsClosed => isClosed;
-
-        public int Level => level;
 
         private bool CanBeClosed { get; set; }
 
@@ -53,11 +51,11 @@ namespace Bureaucracy
 
         private int GetUpgradeableLevel()
         {
-            foreach (var config in ScenarioUpgradeableFacilities.protoUpgradeables)
+            foreach (KeyValuePair<string, ScenarioUpgradeableFacilities.ProtoUpgradeable> config in ScenarioUpgradeableFacilities.protoUpgradeables)
             {
                 if (!config.Key.Contains(Name)) continue;
                 List<UpgradeableFacility> upgradeables = config.Value.facilityRefs;
-                foreach (var upgradeableBuilding in upgradeables)
+                foreach (UpgradeableFacility upgradeableBuilding in upgradeables)
                 {
                     return upgradeableBuilding.FacilityLevel;
                 }
@@ -195,7 +193,7 @@ namespace Bureaucracy
             {
                 if (!kvp.Key.Contains(Name)) continue;
                 List<DestructibleBuilding> buildingsToDestroy = kvp.Value.dBuildingRefs;
-                foreach (var building in buildingsToDestroy)
+                foreach (DestructibleBuilding building in buildingsToDestroy)
                 {
                     if (building.IsDestroyed) return true;
                 }

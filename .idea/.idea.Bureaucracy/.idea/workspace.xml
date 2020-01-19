@@ -4,11 +4,25 @@
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" afterDir="false" />
@@ -93,10 +107,8 @@
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityReport.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/UI/MainUI.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/EventManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/ExplosionEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAReversalEvent.cs" />
@@ -109,29 +121,31 @@
         <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/PublicInterestEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceReport.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/InternalListeners.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" />
       </list>
     </option>
   </component>
@@ -244,6 +258,8 @@
       <workItem from="1579358861043" duration="6089000" />
       <workItem from="1579372245721" duration="3536000" />
       <workItem from="1579431607265" duration="1483000" />
+      <workItem from="1579459938412" duration="636000" />
+      <workItem from="1579471197603" duration="967000" />
     </task>
     <servers />
   </component>
@@ -439,65 +455,65 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs</url>
-          <line>68</line>
+          <line>65</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" initialLine="67">
             <startOffsets>
-              <option value="2279" />
+              <option value="2241" />
             </startOffsets>
             <endOffsets>
-              <option value="2291" />
+              <option value="2253" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs</url>
-          <line>82</line>
+          <line>83</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" initialLine="82">
             <startOffsets>
-              <option value="3318" />
+              <option value="3364" />
             </startOffsets>
             <endOffsets>
-              <option value="3425" />
+              <option value="3471" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs</url>
-          <line>141</line>
+          <line>138</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" initialLine="141">
             <startOffsets>
-              <option value="6940" />
+              <option value="6902" />
             </startOffsets>
             <endOffsets>
-              <option value="7051" />
+              <option value="7013" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/Utilities.cs</url>
-          <line>79</line>
+          <line>77</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" initialLine="76">
             <startOffsets>
-              <option value="3005" />
+              <option value="2966" />
             </startOffsets>
             <endOffsets>
-              <option value="3061" />
+              <option value="3022" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs</url>
-          <line>93</line>
+          <line>92</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" initialLine="93">
             <startOffsets>
-              <option value="3442" />
+              <option value="3412" />
             </startOffsets>
             <endOffsets>
-              <option value="3456" />
+              <option value="3426" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="96" />

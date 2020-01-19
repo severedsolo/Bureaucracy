@@ -39,7 +39,7 @@ namespace Bureaucracy
 
         public void AddTimer(BureaucracyEvent eventToAdd)
         {
-            //Timers will need to be readded in OnLoad on a scene change. TimerScript doesn't save them.
+            //Timers will need to be re-added in OnLoad on a scene change. TimerScript doesn't save them.
             events.Add(eventToAdd, eventToAdd.CompletionTime);
         }
 

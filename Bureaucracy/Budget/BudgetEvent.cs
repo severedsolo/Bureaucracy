@@ -6,10 +6,10 @@ namespace Bureaucracy
 {
     public class BudgetEvent : BureaucracyEvent
     {
-        public float monthLength;
+        public readonly float MonthLength;
         public BudgetEvent(double budgetTime, BudgetManager manager, bool newKacAlarm)
         {
-            monthLength = SettingsClass.Instance.TimeBetweenBudgets;
+            MonthLength = SettingsClass.Instance.TimeBetweenBudgets;
             CompletionTime = budgetTime;
             Name = "Next Budget";
             ParentManager = manager;
@@ -20,7 +20,7 @@ namespace Bureaucracy
         public override void OnEventCompleted()
         {
             Debug.Log("Bureaucracy]: OnBudgetAboutToFire");
-            //Allows other Managers to do prebudget work, as once the budget is done alot of stuff gets reset.
+            //Allows other Managers to do pre-budget work, as once the budget is done alot of stuff gets reset.
             InternalListeners.OnBudgetAboutToFire.Fire();
             RepDecay repDecay = new RepDecay();
             repDecay.ApplyHardMode();

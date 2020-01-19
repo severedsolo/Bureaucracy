@@ -1,15 +1,14 @@
 using System;
-using UnityEngine;
 
 namespace Bureaucracy
 {
     public class CurrencyEvent : RandomEventBase
     {
-        private string currency;
+        private readonly string currency;
         public CurrencyEvent(ConfigNode eventNode)
         {
             LoadConfig(eventNode);
-            if(!eventNode.TryGetValue("CurrencyType", ref currency)) throw new ArgumentException(name+" is designated as Currency Event but no currency declared");
+            if(!eventNode.TryGetValue("CurrencyType", ref currency)) throw new ArgumentException(Name+" is designated as Currency Event but no currency declared");
         }
 
 
@@ -21,15 +20,15 @@ namespace Bureaucracy
                 switch (currency)
                 {
                     case "Funds":
-                        if (eventEffect < 0 && !Funding.CanAfford(eventEffect)) return false;
+                        if (EventEffect < 0 && !Funding.CanAfford(EventEffect)) return false;
                         break;
                     case "Science":
-                        if (ResearchManager.Instance.scienceMultiplier > 1.2f && eventEffect > 0) return false;
-                        if (ResearchManager.Instance.scienceMultiplier < 0.8f && eventEffect < 0) return false;
+                        if (ResearchManager.Instance.ScienceMultiplier > 1.2f && EventEffect > 0) return false;
+                        if (ResearchManager.Instance.ScienceMultiplier < 0.8f && EventEffect < 0) return false;
                         break;
                     case "Reputation":
-                        if (Reputation.Instance.reputation > 500 && eventEffect > 0) return false;
-                        if (Reputation.Instance.reputation < 45 && eventEffect < 0) return false;
+                        if (Reputation.Instance.reputation > 500 && EventEffect > 0) return false;
+                        if (Reputation.Instance.reputation < 45 && EventEffect < 0) return false;
                         break;
                 }
 
@@ -46,20 +45,19 @@ namespace Bureaucracy
             switch (currency)
             {
                 case "Funds":
-                    Funding.Instance.AddFunds(eventEffect, TransactionReasons.None);
+                    Funding.Instance.AddFunds(EventEffect, TransactionReasons.None);
                     break;
                 case "Science":
-                    ResearchManager.Instance.scienceMultiplier += eventEffect;
+                    ResearchManager.Instance.ScienceMultiplier += EventEffect;
                     break;
                 case "Reputation":
-                    Reputation.Instance.AddReputation(Reputation.Instance.reputation * eventEffect, TransactionReasons.None);
+                    Reputation.Instance.AddReputation(Reputation.Instance.reputation * EventEffect, TransactionReasons.None);
                     break;
             }
         }
 
         protected override void OnEventDeclined()
         {
-            return;
         }
     }
 }

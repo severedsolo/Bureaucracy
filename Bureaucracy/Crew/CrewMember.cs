@@ -8,8 +8,8 @@ namespace Bureaucracy
     {
         private double bonusAwaitingPayment;
         private ProtoCrewMember crewRef;
-        public readonly int maxStrikes;
-        public readonly List<CrewUnhappiness> unhappinessEvents = new List<CrewUnhappiness>();
+        public readonly int MaxStrikes;
+        public readonly List<CrewUnhappiness> UnhappinessEvents = new List<CrewUnhappiness>();
         public bool Unhappy;
         
         public string Name { get; private set; }
@@ -28,7 +28,7 @@ namespace Bureaucracy
         public CrewMember(string kerbalName)
         {
             Name = kerbalName;
-            maxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
+            MaxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
             Debug.Log("[Bureaucracy]: New CrewMember setup: "+kerbalName);
         }
         
@@ -56,6 +56,7 @@ namespace Bureaucracy
             //Newly hired crew members aren't actually in the crew yet, so we need to check the Applicants too.
             if (crewRef == null)
             {
+                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 Debug.Log("[Bureaucracy]: Couldn't find " + Name + " in the crew list. Checking Applicants");
                 crew = HighLogic.CurrentGame.CrewRoster.Applicants.ToList();
                 for (int i = 0; i < crew.Count; i++)
@@ -67,6 +68,7 @@ namespace Bureaucracy
                 }
             }
 
+            // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             if (crewRef == null) Debug.Log("[Bureaucracy]: Couldn't find a crew ref for " + Name);
             return crewRef;
         }
@@ -83,9 +85,9 @@ namespace Bureaucracy
             ConfigNode crewNode = new ConfigNode("CREW_MEMBER");
             crewNode.SetValue("Name", Name, true);
             crewNode.SetValue("Bonus", bonusAwaitingPayment, true);
-            for (int i = 0; i < unhappinessEvents.Count; i++)
+            for (int i = 0; i < UnhappinessEvents.Count; i++)
             {
-                CrewUnhappiness cu = unhappinessEvents.ElementAt(i);
+                CrewUnhappiness cu = UnhappinessEvents.ElementAt(i);
                 cu.OnSave(crewNode);
             }
             crewManagerNode.AddNode(crewNode);
@@ -100,29 +102,29 @@ namespace Bureaucracy
             {
                 CrewUnhappiness cu = new CrewUnhappiness("loading", this);
                 cu.OnLoad(unhappyNodes.ElementAt(i));
-                unhappinessEvents.Add(cu);
+                UnhappinessEvents.Add(cu);
             }
         }
 
         public string UnhappyOutcome()
         {
             if (CrewReference().rosterStatus == ProtoCrewMember.RosterStatus.Assigned) return " is not happy but will continue for the sake of the mission";
-            if(unhappinessEvents.Count >= maxStrikes) return " Quit the space program due to "+unhappinessEvents.Last().Reason;
-            return "is not happy due to " + unhappinessEvents.Last().Reason;
+            if(UnhappinessEvents.Count >= MaxStrikes) return " Quit the space program due to "+UnhappinessEvents.Last().Reason;
+            return "is not happy due to " + UnhappinessEvents.Last().Reason;
         }
 
         public void MonthWithoutIncident()
         {
-            for (int i = unhappinessEvents.Count-1; i >= 0; i--)
+            for (int i = UnhappinessEvents.Count-1; i >= 0; i--)
             {
-                CrewUnhappiness cu = unhappinessEvents.ElementAt(i);
-                if (cu.ClearStrike()) unhappinessEvents.Remove(cu);
+                CrewUnhappiness cu = UnhappinessEvents.ElementAt(i);
+                if (cu.ClearStrike()) UnhappinessEvents.Remove(cu);
             }
         }
 
         public void AddUnhappiness(string reason)
         {
-            unhappinessEvents.Add(new CrewUnhappiness(reason, this));
+            UnhappinessEvents.Add(new CrewUnhappiness(reason, this));
             Unhappy = true;
         }
     }

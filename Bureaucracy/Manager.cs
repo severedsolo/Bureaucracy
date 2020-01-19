@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using KSP.UI.Screens;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Bureaucracy
         //obviously you change these in the constructor.
         public string Name = "Blank Manager";
         public float FundingAllocation = 0.3f;
-        public bool ShowOnUi = true;
+
         public void MakeReport() 
         {                
             Report r = GetReport();
@@ -20,6 +21,7 @@ namespace Bureaucracy
         public virtual void UnregisterEvents() { Debug.Log("[Bureaucracy]: No Events to Unregister for "+Name); }
 
 
+        [UsedImplicitly]
         public virtual double GetAllocatedFunding() { return 0; }
         
 

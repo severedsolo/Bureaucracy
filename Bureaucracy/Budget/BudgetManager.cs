@@ -1,6 +1,4 @@
-using System.Dynamic;
 using System.Linq;
-using KSPAchievements;
 using UnityEngine;
 
 namespace Bureaucracy
@@ -32,7 +30,7 @@ namespace Bureaucracy
             NextBudget = new BudgetEvent(GetNextBudgetTime(), this, true);
         }
 
-        public double GetNextBudgetTime()
+        private double GetNextBudgetTime()
         {
             double time = SettingsClass.Instance.TimeBetweenBudgets;
             time *= FlightGlobals.GetHomeBody().solarDayLength;
@@ -54,19 +52,19 @@ namespace Bureaucracy
                 FundingAllocation = i;
                 double.TryParse(managerNode.GetValue("nextBudget"), out nextBudgetTime);
             }
-            NextBudget = new BudgetEvent(nextBudgetTime, this, NeedNewKACAlarm());
+            NextBudget = new BudgetEvent(nextBudgetTime, this, NeedNewKacAlarm());
             ConfigNode costsNode = cn.GetNode("COSTS");
             Costs.Instance.OnLoad(costsNode);
             Debug.Log("[Bureaucracy]: Budget Manager: OnLoad Complete");
         }
 
-        private bool NeedNewKACAlarm()
+        private bool NeedNewKacAlarm()
         {
             if (!SettingsClass.Instance.StopTimeWarp) return false;
             if (!KacWrapper.AssemblyExists)
             {
                 Debug.Log("[Bureaucracy]: Couldn't find KAC. I'll try again in 1 second");
-                Bureaucracy.Instance.Invoke(nameof(Bureaucracy.Instance.RetryKACAlarm), 1.0f);
+                Bureaucracy.Instance.Invoke(nameof(Bureaucracy.Instance.RetryKacAlarm), 1.0f);
                 return false;
             }
             KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;

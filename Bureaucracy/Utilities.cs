@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FlightTracker;
-using UnityEngine;
 using Random = System.Random;
 
 namespace Bureaucracy
@@ -42,7 +40,7 @@ namespace Bureaucracy
             {
                 case "Budget":
                 {
-                    //Budget just gets whatever's left, so we need to figure out how much the other departments are getting first.
+                    //Budget just gets whatever is left, so we need to figure out how much the other departments are getting first.
                     for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
                     {
                         Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
@@ -109,7 +107,7 @@ namespace Bureaucracy
             }
         }
 
-        public void SabotageLaunch(string facilityName)
+        public void SabotageLaunch()
         {
             for (int i = 0; i < FlightGlobals.ActiveVessel.Parts.Count; i++)
             {
@@ -150,19 +148,12 @@ namespace Bureaucracy
         {
             List<ProtoCrewMember> crew = HighLogic.CurrentGame.CrewRoster.Crew.ToList();
             int tries = 0;
-            if (crew.Count != 0)
+            if (crew.Count == 0) return "Wernher Von Kerman";
+            while (tries < 100)
             {
-                while (tries < 100)
-                {
-                    ProtoCrewMember p = crew.ElementAt(Randomise.Next(0, crew.Count));
-                    if (p.rosterStatus != ProtoCrewMember.RosterStatus.Available)
-                    {
-                        tries++;
-                        continue;
-                    }
-
-                    return p.name;
-                }
+                ProtoCrewMember p = crew.ElementAt(Randomise.Next(0, crew.Count));
+                if (p.rosterStatus == ProtoCrewMember.RosterStatus.Available) return p.name;
+                tries++;
             }
 
             return "Wernher Von Kerman";

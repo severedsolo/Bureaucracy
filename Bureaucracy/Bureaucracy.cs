@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Smooth.Compare.Utilities;
 using UnityEngine;
 
 namespace Bureaucracy
@@ -53,7 +52,7 @@ namespace Bureaucracy
             registeredManagers.Add(new CrewManager(HighLogic.CurrentGame.CrewRoster.Crew.ToList()));
         }
 
-        public void RetryKACAlarm()
+        public void RetryKacAlarm()
         {
             //KAC API isn't always ready when we try to add an alarm, so we retry after a few seconds.
             if (!KacWrapper.AssemblyExists) return;

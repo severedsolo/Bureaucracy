@@ -25,7 +25,7 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Applying Rep Decay");
             float decayFactor = decayPercent / 100.0f;
             Debug.Log("[Bureaucracy]: Rep Decay: "+Reputation.Instance.reputation*decayFactor);
-            Reputation.Instance.SetReputation(Reputation.Instance.reputation-(Reputation.Instance.reputation*decayFactor), TransactionReasons.Contracts);
+            Reputation.Instance.SetReputation(Reputation.Instance.reputation-Reputation.Instance.reputation*decayFactor, TransactionReasons.Contracts);
         }
     }
 }

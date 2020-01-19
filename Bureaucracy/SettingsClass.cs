@@ -1,5 +1,3 @@
-
-using System.ComponentModel;
 using System.IO;
 using UnityEngine;
 
@@ -9,20 +7,20 @@ namespace Bureaucracy
     {
         public static SettingsClass Instance;
         public bool ContractInterceptor = true;
-        public bool AutoBalanceSettings = true;
+        private bool autoBalanceSettings = true;
         public bool KctError = true;
         public bool HandleKscUpgrades = true;
         public bool StopTimeWarp = true;
         public bool UseItOrLoseIt = true;
-        public bool HardMode = false;
-        public bool RepDecayEnabled = false;
+        public bool HardMode;
+        public bool RepDecayEnabled;
         public bool RandomEventsEnabled = true;
         public float RandomEventChance = 0.1f;
         public bool AstronautTraining = true;
         public float TimeBetweenBudgets = 30.0f;
         public int BudgetMultiplier = 2227;
         public int ScienceMultiplier = 1000;
-        public int RepDecayPercent = 0;
+        public int RepDecayPercent;
         public int AdminCost = 4000;
         public int AstronautComplexCost = 2000;
         public int MissionControlCost = 6000;
@@ -39,10 +37,10 @@ namespace Bureaucracy
         public int BaseStrikesToQuit = 6;
         public int StrikeMemory = 6;
         public int DeadKerbalPenalty = 25;
-        private string defaultPath;
-        private string settingsVersion = "0.2";
-        private string previousVersion = "1.0";
-        private string savePath;
+        private readonly string defaultPath;
+        private const string SettingsVersion = "0.2";
+        private const string PreviousVersion = "1.0";
+        private readonly string savePath;
 
         public SettingsClass()
         {
@@ -72,18 +70,18 @@ namespace Bureaucracy
         {
             OnLoad(savePath);
         }
-        
-        public void OnLoad(string path)
+
+        private void OnLoad(string path)
         {
             Debug.Log("[Bureaucracy]: Loading Settings");
             ConfigNode cn = ConfigNode.Load(path);
             string saveVersion = cn.GetValue("Version");
-            if (saveVersion != settingsVersion && saveVersion != previousVersion)
+            if (saveVersion != SettingsVersion && saveVersion != PreviousVersion)
             {
                 Debug.Log("[Bureaucracy]: Settings are not compatible with this version of Bureaucracy. Aborting Load");
                 return;
             }
-            if(saveVersion == "0.2") bool.TryParse(cn.GetValue("AutoBalanceSettings"), out AutoBalanceSettings);
+            if(saveVersion == "0.2") bool.TryParse(cn.GetValue("AutoBalanceSettings"), out autoBalanceSettings);
             bool.TryParse(cn.GetValue("ShowKCTWarning"), out KctError);
             bool.TryParse(cn.GetValue("ContractInterceptorEnabled"), out ContractInterceptor);
             bool.TryParse(cn.GetValue("HandleKSCUpgrades"), out HandleKscUpgrades);
@@ -121,7 +119,7 @@ namespace Bureaucracy
                 BudgetManager.Instance.NextBudget = new BudgetEvent(Planetarium.GetUniversalTime()+TimeBetweenBudgets*FlightGlobals.GetHomeBody().solarDayLength, BudgetManager.Instance, true);
             }
 
-            if (AutoBalanceSettings) BalanceSettings();
+            if (autoBalanceSettings) BalanceSettings();
             if(saveVersion != "0.2") OnSave(defaultPath); 
             Debug.Log("[Bureaucracy]: Settings Loaded");
         }
@@ -154,16 +152,17 @@ namespace Bureaucracy
         {
             if (BudgetManager.Instance == null) return false;
             if (BudgetManager.Instance.NextBudget == null) return false;
-            if (BudgetManager.Instance.NextBudget.monthLength == TimeBetweenBudgets) return false;
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
+            if (BudgetManager.Instance.NextBudget.MonthLength == TimeBetweenBudgets) return false;
             return true;
         }
 
-        public void OnSave(string path)
+        private void OnSave(string path)
         {
             Debug.Log("[Bureaucracy]: Saving Settings");
             ConfigNode cn = new ConfigNode("SETTINGS");
-            cn.SetValue("Version", settingsVersion, true);
-            cn.SetValue("AutoBalanceSettings", AutoBalanceSettings, true);
+            cn.SetValue("Version", SettingsVersion, true);
+            cn.SetValue("AutoBalanceSettings", autoBalanceSettings, true);
             cn.SetValue("ShowKCTWarning", KctError, true);
             cn.SetValue("ContractInterceptorEnabled", ContractInterceptor, true);
             cn.SetValue("HandleKSCUpgrades", HandleKscUpgrades, true);

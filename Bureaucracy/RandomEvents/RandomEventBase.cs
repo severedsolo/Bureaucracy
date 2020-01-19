@@ -1,54 +1,50 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Expansions.Missions.Tests;
-using KSPAchievements;
-using UniLinq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Bureaucracy
 {
     public abstract class RandomEventBase
     {
-        protected PopupDialog EventDialog;
-        public string name;
-        protected string title;
-        protected string body;
-        protected string acceptString;
-        protected string declineString;
-        protected bool canBeDeclined = false;
-        protected float eventEffect;
-        protected string kerbalName;
-        protected string bodyName;
+        [UsedImplicitly] private PopupDialog eventDialog;
+        public string Name;
+        private string title;
+        private string body;
+        private string acceptString;
+        protected string DeclineString;
+        protected bool CanBeDeclined;
+        protected float EventEffect;
+        protected string KerbalName;
+        private string bodyName;
 
         public abstract bool EventCanFire();
 
         protected void LoadConfig(ConfigNode cn)
         {
-            if(!cn.TryGetValue("Name", ref name)) throw new ArgumentException("Event is missing a Name!");
-            if(!cn.TryGetValue("Title", ref title)) throw new ArgumentException(name+" has no title!");
-            if(!cn.TryGetValue("Body", ref body)) throw new ArgumentException(name+" has no body!");
-            if(!cn.TryGetValue("AcceptButtonText", ref acceptString)) throw new ArgumentException(name + " missing AcceptButtonText");
-            if(cn.TryGetValue("canBeDeclined", ref canBeDeclined) && !cn.TryGetValue("DeclineButtonText", ref declineString)) throw new ArgumentException(name + "Can be declined but DeclineButtonText not set");
-            if(!cn.TryGetValue("Effect", ref eventEffect)) throw new ArgumentException(name+" has no Effect defined in cfg");
+            if(!cn.TryGetValue("Name", ref Name)) throw new ArgumentException("Event is missing a Name!");
+            if(!cn.TryGetValue("Title", ref title)) throw new ArgumentException(Name+" has no title!");
+            if(!cn.TryGetValue("Body", ref body)) throw new ArgumentException(Name+" has no body!");
+            if(!cn.TryGetValue("AcceptButtonText", ref acceptString)) throw new ArgumentException(Name + " missing AcceptButtonText");
+            if(cn.TryGetValue("canBeDeclined", ref CanBeDeclined) && !cn.TryGetValue("DeclineButtonText", ref DeclineString)) throw new ArgumentException(Name + "Can be declined but DeclineButtonText not set");
+            if(!cn.TryGetValue("Effect", ref EventEffect)) throw new ArgumentException(Name+" has no Effect defined in cfg");
             ReplaceStrings();
         }
 
         private void ReplaceStrings()
         {
             bodyName = Utilities.Instance.GetARandomBody();
-            kerbalName = Utilities.Instance.GetARandomKerbal();
-            name = name.Replace("<kerbal>", kerbalName);
-            name = name.Replace("<body>", bodyName);
-            title = title.Replace("<kerbal>", kerbalName);
+            KerbalName = Utilities.Instance.GetARandomKerbal();
+            Name = Name.Replace("<kerbal>", KerbalName);
+            Name = Name.Replace("<body>", bodyName);
+            title = title.Replace("<kerbal>", KerbalName);
             title = title.Replace("<body>", bodyName);
-            body = body.Replace("<kerbal>", kerbalName);
+            body = body.Replace("<kerbal>", KerbalName);
             body = body.Replace("<body>", bodyName);
-            acceptString = acceptString.Replace("<kerbal>", kerbalName);
+            acceptString = acceptString.Replace("<kerbal>", KerbalName);
             acceptString = acceptString.Replace("<body>", bodyName);
-            if (declineString != null) declineString = declineString.Replace("<kerbal>", kerbalName);
-            if (declineString != null) declineString = declineString.Replace("<body>", bodyName);
+            if (DeclineString != null) DeclineString = DeclineString.Replace("<kerbal>", KerbalName);
+            if (DeclineString != null) DeclineString = DeclineString.Replace("<body>", bodyName);
         }
 
         protected abstract void OnEventAccepted();
@@ -64,11 +60,11 @@ namespace Bureaucracy
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
             dialogElements.Add(new DialogGUIButton(acceptString, OnEventAccepted));
-            if(canBeDeclined) dialogElements.Add(new DialogGUIButton(declineString, OnEventDeclined));
-            EventDialog = PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("EventDialog", "", title, UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 300, 200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+            if(CanBeDeclined) dialogElements.Add(new DialogGUIButton(DeclineString, OnEventDeclined));
+            eventDialog = PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("EventDialog", "", title, UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 300, 200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
-        
-        protected DialogGUIBase[] PaddedLabel(string stringToPad)
+
+        private DialogGUIBase[] PaddedLabel(string stringToPad)
         {
             DialogGUIBase[] paddedLayout = new DialogGUIBase[2];
             paddedLayout[0] = new DialogGUISpace(10);

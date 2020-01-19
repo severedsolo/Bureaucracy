@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using Upgradeables;
 
@@ -10,7 +11,7 @@ namespace Bureaucracy
     {
         public readonly List<BureaucracyFacility> Facilities = new List<BureaucracyFacility>();
         public static FacilityManager Instance;
-        private PopupDialog warningDialog;
+        [UsedImplicitly] private PopupDialog warningDialog;
 
         public FacilityManager()
         {
@@ -181,7 +182,7 @@ namespace Bureaucracy
             }
         }
 
-        public void SetPriority(BureaucracyFacility priorityFacility, bool b)
+        private void SetPriority(BureaucracyFacility priorityFacility, bool b)
         {
             for (int i = 0; i < Facilities.Count; i++)
             {

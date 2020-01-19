@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FlightTracker;
-using KSP.UI;
+using JetBrains.Annotations;
 using KSP.UI.Screens;
-using KSP.UI.Screens.Settings;
 using UnityEngine;
-using Upgradeables;
 
 namespace Bureaucracy
 {
@@ -22,9 +19,9 @@ namespace Bureaucracy
         private int fundingAllocation;
         private int constructionAllocation;
         private int researchAllocation;
-        public PopupDialog errorWindow;
-        private int padding = 0;
-        private int padFactor = 10;
+        [UsedImplicitly] public PopupDialog errorWindow;
+        private int padding;
+        private const int PadFactor = 10;
 
         private void Awake()
         {
@@ -163,7 +160,7 @@ namespace Bureaucracy
             return new Rect(0.5f, 0.5f, 300, 265) {height = 150 + 50 * dialogElements.Count, width = Math.Max(padding, 280)};
         }
 
-        public DialogGUIBase[] PaddedLabel(string stringToPad, bool largePrint)
+        private DialogGUIBase[] PaddedLabel(string stringToPad, bool largePrint)
         {
             DialogGUIBase[] paddedLayout = new DialogGUIBase[2];
             paddedLayout[0] = new DialogGUISpace(10);
@@ -174,7 +171,7 @@ namespace Bureaucracy
 
         private void EvaluatePadding(string stringToEvaluate)
         {
-            if (stringToEvaluate.Length *padFactor > padding) padding = stringToEvaluate.Length * padFactor;
+            if (stringToEvaluate.Length *PadFactor > padding) padding = stringToEvaluate.Length * PadFactor;
         }
 
         private UIStyle MessageStyle(bool largePrint)
@@ -192,12 +189,6 @@ namespace Bureaucracy
             };
             if (largePrint) style.fontSize = 23;
             return style;
-        }
-
-        private DialogGUIButton CloseButton()
-        {
-            return new DialogGUIButton("Close", () => { }, true);
-            
         }
 
         private int GetBonusesToPay()
@@ -252,7 +243,7 @@ namespace Bureaucracy
             DialogGUIBase[] horizontal = new DialogGUIBase[3];
             horizontal[0] = new DialogGUILabel("Processing Science: " + Math.Round(scienceCount, 1));
             horizontal[1] = new DialogGUILabel("|");
-            double scienceOutput = ResearchManager.Instance.GetAllocatedFunding() / SettingsClass.Instance.ScienceMultiplier * ResearchManager.Instance.scienceMultiplier;
+            double scienceOutput = ResearchManager.Instance.GetAllocatedFunding() / SettingsClass.Instance.ScienceMultiplier * ResearchManager.Instance.ScienceMultiplier;
             horizontal[2] = new DialogGUILabel("Maximum Output: "+Math.Round(scienceOutput, 1));
             dialogElements.Add(new DialogGUIHorizontalLayout(horizontal));
             dialogElements.Add(GetBoxes("research"));

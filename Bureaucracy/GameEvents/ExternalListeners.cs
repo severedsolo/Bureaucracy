@@ -2,6 +2,7 @@ using Contracts;
 using KSP.UI.Screens;
 using UnityEngine;
 using FlightTracker;
+using JetBrains.Annotations;
 
 namespace Bureaucracy
 {
@@ -9,7 +10,7 @@ namespace Bureaucracy
     public class ExternalListeners : MonoBehaviour
     {
 
-        private Utilities utilitiesReference = new Utilities();
+        [UsedImplicitly] private Utilities utilitiesReference = new Utilities();
         private void Awake()
         {
             Debug.Log("[Bureaucracy]: Waking GameEvents");
@@ -41,13 +42,13 @@ namespace Bureaucracy
 
         private void AstronautComplexDespawned()
         {
-            AstronautComplexOverride.Instance.AstronautComplexSpawned = false;
+            AstronautComplexOverride.Instance.astronautComplexSpawned = false;
         }
 
         private void AstronautComplexSpawned()
         {
             AstronautComplexOverride.Instance.updateCount = 4;
-            AstronautComplexOverride.Instance.AstronautComplexSpawned = true;
+            AstronautComplexOverride.Instance.astronautComplexSpawned = true;
         }
 
         private void AddToolbarButton()
@@ -103,14 +104,14 @@ namespace Bureaucracy
         {
             if (Utilities.Instance.Randomise.NextDouble() > Bureaucracy.Instance.qaModifier)
             {
-                ExplosionEvent e = new ExplosionEvent();
+                ExplosionEvent unused = new ExplosionEvent();
             }
             Costs.Instance.AddLaunch(ship);
             string editor = ship.shipFacility == EditorFacility.VAB ? "VehicleAssemblyBuilding" : "SpaceplaneHangar";
             BureaucracyFacility bf = FacilityManager.Instance.GetFacilityByName(editor);
             if (!bf.IsClosed) return;
             bf.LaunchesThisMonth++;
-            if (bf.LaunchesThisMonth > 2) Utilities.Instance.SabotageLaunch(editor);
+            if (bf.LaunchesThisMonth > 2) Utilities.Instance.SabotageLaunch();
 
         }
 
