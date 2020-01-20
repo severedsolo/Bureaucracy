@@ -2,19 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/ExplosionEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,10 +45,11 @@
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/46/317f403c/GameEvents.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/ExplosionEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/cf/f3a31ee7/UpgradeableObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Report.cs" root0="FORCE_HIGHLIGHTING" />
@@ -75,16 +87,16 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D2EC5C92-492F-4D6B-A8C4-22BDF574B786/b7/169e7512/NullReferenceException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/FacilityMaintenanceEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/89/640b0569/CelestialBodyScience.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43475113-B694-4B29-8C64-B75A52B4A061/6a/3986af47/ActiveFlightTracker.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/cb/7780fd16/ResearchAndDevelopment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/18/b2c18f97/ProtoCrewMember.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/Bureaucracy/KSCButtonOverride.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/TestHarmonyPatch.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/KSCButtonHook.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/OverrideKSCButtons.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewReport.cs" />
@@ -97,11 +109,13 @@
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/EventManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/ExplosionEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAReversalEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityMenuOverride.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/MunchiesEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/AliensEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEvents.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" />
@@ -113,29 +127,25 @@
         <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/CostIncreaseEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/FacilityMaintenanceEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" />
       </list>
     </option>
   </component>
@@ -152,7 +162,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TWShift.4" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ExperienceTest/ExperienceTest.sln" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -249,10 +259,7 @@
       <workItem from="1579372245721" duration="3536000" />
       <workItem from="1579431607265" duration="1483000" />
       <workItem from="1579459938412" duration="636000" />
-      <workItem from="1579471197603" duration="1044000" />
-      <workItem from="1579499161962" duration="659000" />
-      <workItem from="1579544498898" duration="3875000" />
-      <workItem from="1579548434431" duration="4720000" />
+      <workItem from="1579471197603" duration="967000" />
     </task>
     <servers />
   </component>
@@ -291,11 +298,11 @@
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state x="2358" y="381" key="#xdebugger.evaluate/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1577786423804" />
-    <state x="2446" y="517" width="316" height="354" key="FileChooserDialogImpl" timestamp="1579553280592">
+    <state x="2446" y="517" width="316" height="354" key="FileChooserDialogImpl" timestamp="1579435952073">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state x="743" y="277" width="424" height="479" key="FileChooserDialogImpl/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577561043328" />
-    <state x="2446" y="517" width="316" height="354" key="FileChooserDialogImpl/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579553280592" />
+    <state x="2446" y="517" width="316" height="354" key="FileChooserDialogImpl/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579435952073" />
     <state width="1318" height="157" key="GridCell.Tab.0.bottom" timestamp="1579378277928">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
@@ -376,10 +383,10 @@
     </state>
     <state width="1878" height="209" key="GridCell.Tab.3.right/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
     <state width="1318" height="157" key="GridCell.Tab.3.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579378277929" />
-    <state x="2419" y="380" width="351" height="585" key="RiderGenerateDialog" timestamp="1579547592954">
+    <state x="2419" y="380" width="351" height="585" key="RiderGenerateDialog" timestamp="1578344283698">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
-    <state x="2419" y="380" width="351" height="585" key="RiderGenerateDialog/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579547592954" />
+    <state x="2419" y="380" width="351" height="585" key="RiderGenerateDialog/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1578344283698" />
     <state x="2249" y="310" width="992" height="730" key="SettingsEditor" timestamp="1578162625572">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
@@ -1618,14 +1625,14 @@
       <configuration name="LinuxPlayer(10.82.10.6)">
         <watch expression="c.Name" language="C#" custom="RiderImportsList:" />
       </configuration>
+      <configuration name="LinuxPlayer(10.30.1.18)">
+        <watch expression="strikesToQuit" language="C#" custom="RiderImportsList:" />
+        <watch expression="ActiveFlightTracker.instance" language="C#" custom="RiderImportsList:" />
+      </configuration>
       <configuration name="LinuxPlayer(10.45.10.6)">
         <watch expression="e.title" language="C#" custom="RiderImportsList:" />
         <watch expression="e.acceptString" language="C#" custom="RiderImportsList:" />
         <watch expression="ResearchManager.Instance.scienceMultiplier" language="C#" custom="RiderImportsList:" />
-      </configuration>
-      <configuration name="LinuxPlayer(10.30.1.18)">
-        <watch expression="strikesToQuit" language="C#" custom="RiderImportsList:" />
-        <watch expression="ActiveFlightTracker.instance" language="C#" custom="RiderImportsList:" />
       </configuration>
       <configuration name="LinuxPlayer(10.21.10.6)">
         <watch expression="KacWrapper.AssemblyExists" language="C#" custom="RiderImportsList:" />
