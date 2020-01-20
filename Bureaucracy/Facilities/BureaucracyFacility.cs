@@ -156,6 +156,7 @@ namespace Bureaucracy
                 int.TryParse(cn.GetValue("Level"), out level);
                 bool.TryParse(cn.GetValue("RecentlyUpgraded"), out recentlyUpgraded);
                 bool.TryParse(cn.GetValue("Closed"), out isClosed);
+                bool.TryParse(cn.GetValue("isPriority"), out IsPriority);
                 int.TryParse(cn.GetValue("LaunchesThisMonth"), out LaunchesThisMonth);
                 SetCosts();
                 ConfigNode upgradeNode = cn.GetNode("UPGRADE");
@@ -170,6 +171,7 @@ namespace Bureaucracy
         {
             ConfigNode thisNode = new ConfigNode("FACILITY");
             thisNode.SetValue("Name", Name, true);
+            thisNode.SetValue("isPriority", IsPriority, true);
             thisNode.SetValue("Level", level, true);
             thisNode.SetValue("RecentlyUpgraded", recentlyUpgraded, true);
             thisNode.SetValue("Closed", isClosed, true);
@@ -183,6 +185,7 @@ namespace Bureaucracy
             Upgrading = false;
             Upgrade = null;
             recentlyUpgraded = true;
+            IsPriority = false;
             level++;
             Debug.Log("[Bureaucracy]: Upgrade of " + Name + " completed");
         }
