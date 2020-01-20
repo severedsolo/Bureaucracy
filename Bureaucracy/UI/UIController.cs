@@ -148,6 +148,14 @@ namespace Bureaucracy
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Net Budget: $"+Utilities.Instance.GetNetBudget("Budget"), false)));
                 DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
                 dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+                DialogGUIBase[] horizontal = new DialogGUIBase[6];
+                horizontal[0] = new DialogGUILabel("Allocations: ");
+                horizontal[1] = new DialogGUILabel("Funds: "+fundingAllocation+"%");
+                horizontal[2] = new DialogGUILabel("|");
+                horizontal[3] = new DialogGUILabel("Construction: "+constructionAllocation+"%");
+                horizontal[4] = new DialogGUILabel("|");
+                horizontal[5] = new DialogGUILabel("Research: "+researchAllocation+"%");
+                dialogElements.Add(new DialogGUIHorizontalLayout(horizontal));
                 dialogElements.Add(GetBoxes("main"));
             }
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
@@ -209,17 +217,21 @@ namespace Bureaucracy
             List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
             int upgradeCount = 0;
             innerElements.Add(new DialogGUISpace(10));
+            float investmentNeeded = 0;
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
                 if (!bf.Upgrading) continue;
                 upgradeCount++;
-                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(bf.Name+": $"+(bf.Upgrade.OriginalCost-bf.Upgrade.RemainingInvestment)+" / $"+bf.Upgrade.OriginalCost, false)));
+                investmentNeeded += bf.Upgrade.RemainingInvestment;
+                float percentage = bf.Upgrade.OriginalCost - bf.Upgrade.RemainingInvestment;
+                percentage = (float)Math.Round(percentage / bf.Upgrade.OriginalCost * 100,0);
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(bf.Name + " "+percentage + "% ($" + bf.Upgrade.RemainingInvestment + " needed)", false)));
             }
             if (upgradeCount == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No Facility Upgrades in progress", false)));
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, false, vertical));
-            dialogElements.Add(new DialogGUILabel("QA: "+Math.Round(Bureaucracy.Instance.qaModifier*100, 0)+"%"));
+            dialogElements.Add(new DialogGUILabel("Processing: $"+investmentNeeded));
             dialogElements.Add(GetBoxes("facility"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("FacilitiesDialog", "", "Bureaucracy: Facilities", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 320, 350), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
@@ -244,7 +256,7 @@ namespace Bureaucracy
             horizontal[0] = new DialogGUILabel("Processing Science: " + Math.Round(scienceCount, 1));
             horizontal[1] = new DialogGUILabel("|");
             double scienceOutput = ResearchManager.Instance.GetAllocatedFunding() / SettingsClass.Instance.ScienceMultiplier * ResearchManager.Instance.ScienceMultiplier;
-            horizontal[2] = new DialogGUILabel("Maximum Output: "+Math.Round(scienceOutput, 1));
+            horizontal[2] = new DialogGUILabel("Research Output: "+Math.Round(scienceOutput, 1));
             dialogElements.Add(new DialogGUIHorizontalLayout(horizontal));
             dialogElements.Add(GetBoxes("research"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("ResearchDialog", "", "Bureaucracy: Research", UISkinManager.GetSkin("MainMenuSkin"), GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
