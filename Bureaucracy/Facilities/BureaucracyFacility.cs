@@ -157,6 +157,7 @@ namespace Bureaucracy
                 bool.TryParse(cn.GetValue("RecentlyUpgraded"), out recentlyUpgraded);
                 bool.TryParse(cn.GetValue("Closed"), out isClosed);
                 int.TryParse(cn.GetValue("LaunchesThisMonth"), out LaunchesThisMonth);
+                bool.TryParse(cn.GetValue("isPriority"), out IsPriority);
                 SetCosts();
                 ConfigNode upgradeNode = cn.GetNode("UPGRADE");
                 if (upgradeNode == null) return;
@@ -174,6 +175,7 @@ namespace Bureaucracy
             thisNode.SetValue("RecentlyUpgraded", recentlyUpgraded, true);
             thisNode.SetValue("Closed", isClosed, true);
             thisNode.SetValue("LaunchesThisMonth", LaunchesThisMonth, true);
+            thisNode.SetValue("isPriority", IsPriority, true);
             if (Upgrading) Upgrade.OnSave(thisNode);
             cn.AddNode(thisNode);
         }
@@ -184,23 +186,39 @@ namespace Bureaucracy
             Upgrade = null;
             recentlyUpgraded = true;
             level++;
+            IsPriority = false;
             Debug.Log("[Bureaucracy]: Upgrade of " + Name + " completed");
         }
 
         public bool IsDestroyed()
         {
+            List<DestructibleBuilding> buildingsToDestroy = GetDestructibles();
+            foreach (DestructibleBuilding building in buildingsToDestroy)
+            {
+                if (building.IsDestroyed) return true;
+            }
+            return false;
+        }
+
+        public void DestroyFacility()
+        {
+            for (int i = 0; i < GetDestructibles().Count; i++)
+            {
+                DestructibleBuilding db = GetDestructibles().ElementAt(i);
+                db.Demolish();
+            }
+        }
+
+        private List<DestructibleBuilding> GetDestructibles()
+        {
             foreach (KeyValuePair<string, ScenarioDestructibles.ProtoDestructible> kvp in ScenarioDestructibles.protoDestructibles)
             {
                 if (!kvp.Key.Contains(Name)) continue;
-                List<DestructibleBuilding> buildingsToDestroy = kvp.Value.dBuildingRefs;
-                foreach (DestructibleBuilding building in buildingsToDestroy)
-                {
-                    if (building.IsDestroyed) return true;
-                }
+                return kvp.Value.dBuildingRefs;
             }
-
-            return false;
+            return null;
         }
+
 
         public void CancelUpgrade()
         {

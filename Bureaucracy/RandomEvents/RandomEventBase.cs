@@ -12,8 +12,8 @@ namespace Bureaucracy
         private string title;
         private string body;
         private string acceptString;
-        protected string DeclineString;
-        protected bool CanBeDeclined;
+        private string declineString;
+        private bool canBeDeclined;
         protected float EventEffect;
         protected string KerbalName;
         private string bodyName;
@@ -26,7 +26,7 @@ namespace Bureaucracy
             if(!cn.TryGetValue("Title", ref title)) throw new ArgumentException(Name+" has no title!");
             if(!cn.TryGetValue("Body", ref body)) throw new ArgumentException(Name+" has no body!");
             if(!cn.TryGetValue("AcceptButtonText", ref acceptString)) throw new ArgumentException(Name + " missing AcceptButtonText");
-            if(cn.TryGetValue("canBeDeclined", ref CanBeDeclined) && !cn.TryGetValue("DeclineButtonText", ref DeclineString)) throw new ArgumentException(Name + "Can be declined but DeclineButtonText not set");
+            if(cn.TryGetValue("canBeDeclined", ref canBeDeclined) && !cn.TryGetValue("DeclineButtonText", ref declineString)) throw new ArgumentException(Name + "Can be declined but DeclineButtonText not set");
             if(!cn.TryGetValue("Effect", ref EventEffect)) throw new ArgumentException(Name+" has no Effect defined in cfg");
             ReplaceStrings();
         }
@@ -43,8 +43,8 @@ namespace Bureaucracy
             body = body.Replace("<body>", bodyName);
             acceptString = acceptString.Replace("<kerbal>", KerbalName);
             acceptString = acceptString.Replace("<body>", bodyName);
-            if (DeclineString != null) DeclineString = DeclineString.Replace("<kerbal>", KerbalName);
-            if (DeclineString != null) DeclineString = DeclineString.Replace("<body>", bodyName);
+            if (declineString != null) declineString = declineString.Replace("<kerbal>", KerbalName);
+            if (declineString != null) declineString = declineString.Replace("<body>", bodyName);
         }
 
         protected abstract void OnEventAccepted();
@@ -60,7 +60,7 @@ namespace Bureaucracy
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
             dialogElements.Add(new DialogGUIButton(acceptString, OnEventAccepted));
-            if(CanBeDeclined) dialogElements.Add(new DialogGUIButton(DeclineString, OnEventDeclined));
+            if(canBeDeclined) dialogElements.Add(new DialogGUIButton(declineString, OnEventDeclined));
             eventDialog = PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("EventDialog", "", title, UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 300, 200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
