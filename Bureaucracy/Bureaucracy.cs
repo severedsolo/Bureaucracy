@@ -24,7 +24,6 @@ namespace Bureaucracy
     {
         public SettingsClass settings;
         public static Bureaucracy Instance;
-        public float qaModifier = 1.0f;
         public List<Manager> registeredManagers = new List<Manager>();
 
         private void Awake()
@@ -90,7 +89,6 @@ namespace Bureaucracy
         {
             //ScenarioModule OnLoad event redirects here, each class handles it's own saving/loading (for better encapsulation).
             Debug.Log("[Bureaucracy]: OnLoad");
-            if(float.TryParse(node.GetValue("QAModifier"), out float f))qaModifier = f;
             SettingsClass.Instance.InGameLoad();
             BudgetManager.Instance.OnLoad(node);
             FacilityManager.Instance.OnLoad(node);
@@ -105,7 +103,6 @@ namespace Bureaucracy
         {
             //ScenarioModule OnLoad event redirects here, each class handles it's own saving/loading (for better encapsulation).
             Debug.Log("[Bureaucracy]: OnSave");
-            node.SetValue("QAModifier", qaModifier, true);
             SettingsClass.Instance.InGameSave();
             BudgetManager.Instance.OnSave(node);
             FacilityManager.Instance.OnSave(node);

@@ -34,6 +34,7 @@ namespace Bureaucracy
         private void LoadEvents()
         {
             ConfigNode[] eventCache = GameDatabase.Instance.GetConfigNodes("BUREAUCRACY_EVENT");
+            loadedEvents.Add(new FireEvent());
             for (int i = 0; i < eventCache.Length; i++)
             {
                 ConfigNode eventNode = eventCache.ElementAt(i);
@@ -52,6 +53,10 @@ namespace Bureaucracy
                             break;
                         case "QA":
                             re = new QaEvent(eventNode);
+                            loadedEvents.Add(re);
+                            break;
+                        case "Wage":
+                            re = new WageEvent(eventNode);
                             loadedEvents.Add(re);
                             break;
                         default:

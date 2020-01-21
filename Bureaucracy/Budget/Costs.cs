@@ -80,7 +80,7 @@ namespace Bureaucracy
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
                 if(bf.IsClosed) continue;
-                d += bf.MaintenanceCost*Bureaucracy.Instance.qaModifier;
+                d += bf.MaintenanceCost*FacilityManager.Instance.CostMultiplier;
             }
             return d;
         }

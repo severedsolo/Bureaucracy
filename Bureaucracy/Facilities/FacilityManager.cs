@@ -12,6 +12,8 @@ namespace Bureaucracy
         public readonly List<BureaucracyFacility> Facilities = new List<BureaucracyFacility>();
         public static FacilityManager Instance;
         [UsedImplicitly] private PopupDialog warningDialog;
+        public float FireChance = 0.0f;
+        public float CostMultiplier = 1.0f;
 
         public FacilityManager()
         {
@@ -76,6 +78,9 @@ namespace Bureaucracy
             if (managerNode == null) return;
             int.TryParse(managerNode.GetValue("FundingAllocation"), out int funding);
             FundingAllocation = funding;
+            float.TryParse(managerNode.GetValue("CostMultiplier"), out CostMultiplier);
+            float.TryParse(managerNode.GetValue("FireChance"), out FireChance);
+            if (CostMultiplier < 1.0f) CostMultiplier = 1.0f; 
             ConfigNode[] facilityNodes = managerNode.GetNodes("FACILITY");
             for (int i = 0; i < Facilities.Count; i++)
             {
@@ -93,6 +98,8 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: FacilityManager OnSave");
             ConfigNode managerNode = new ConfigNode("FACILITY_MANAGER");
             managerNode.SetValue("FundingAllocation", FundingAllocation, true);
+            managerNode.SetValue("CostMultiplier", CostMultiplier, true);
+            managerNode.SetValue("FireChance", FireChance, true);
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);

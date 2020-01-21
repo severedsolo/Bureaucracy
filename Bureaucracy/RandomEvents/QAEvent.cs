@@ -5,24 +5,22 @@ namespace Bureaucracy
         public QaEvent(ConfigNode eventNode)
         {
             LoadConfig(eventNode);
-            CanBeDeclined = true;
-            DeclineString = "No thanks";
         }
 
         public override bool EventCanFire()
         {
-            if (Bureaucracy.Instance.qaModifier < 0.8f && EventEffect < 0) return false;
-            if (Bureaucracy.Instance.qaModifier >= 1.0f && EventEffect > 0) return false;
+            if (EventEffect < 0.0f && FacilityManager.Instance.FireChance <= 0.0f) return false;
             return true;
         }
 
         protected override void OnEventAccepted()
         {
-            Bureaucracy.Instance.qaModifier += EventEffect;
+            FacilityManager.Instance.CostMultiplier += EventEffect;
         }
 
         protected override void OnEventDeclined()
         {
+            FacilityManager.Instance.FireChance += EventEffect;
         }
     }
 }

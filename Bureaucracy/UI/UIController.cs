@@ -231,7 +231,11 @@ namespace Bureaucracy
             if (upgradeCount == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No Facility Upgrades in progress", false)));
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, false, vertical));
-            dialogElements.Add(new DialogGUILabel("Processing: $"+investmentNeeded));
+            DialogGUIBase[] horizontal = new DialogGUIBase[3];
+            horizontal[0] = new DialogGUILabel("Total Investment Needed: $"+investmentNeeded);
+            horizontal[1] = new DialogGUILabel("|");
+            horizontal[2] = new DialogGUILabel("Chance of Fire: "+Math.Round(FacilityManager.Instance.FireChance*100, 0)+"%");
+            dialogElements.Add(new DialogGUIHorizontalLayout(horizontal));
             dialogElements.Add(GetBoxes("facility"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("FacilitiesDialog", "", "Bureaucracy: Facilities", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 320, 350), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }

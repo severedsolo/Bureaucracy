@@ -8,13 +8,15 @@ namespace Bureaucracy
 {
     public class BureaucracyFacility
     {
-        private int level = 1;
+        private int level;
         private readonly int upkeepCost;
         private bool recentlyUpgraded;
         public FacilityUpgradeEvent Upgrade;
         private bool isClosed;
         public bool IsPriority;
         public int LaunchesThisMonth;
+
+        public int Level => level;
 
         public bool IsClosed => isClosed;
 
@@ -45,11 +47,11 @@ namespace Bureaucracy
         {
             Name = SetName(spf);
             upkeepCost = SetCosts();
-            level = GetUpgradeableLevel();
+            level = GetFacilityLevel();
             Debug.Log("[Bureaucracy]: Setup Facility " + Name);
         }
 
-        private int GetUpgradeableLevel()
+        private int GetFacilityLevel()
         {
             foreach (KeyValuePair<string, ScenarioUpgradeableFacilities.ProtoUpgradeable> config in ScenarioUpgradeableFacilities.protoUpgradeables)
             {
@@ -192,19 +194,38 @@ namespace Bureaucracy
 
         public bool IsDestroyed()
         {
-            foreach (KeyValuePair<string, ScenarioDestructibles.ProtoDestructible> kvp in ScenarioDestructibles.protoDestructibles)
+            foreach (DestructibleBuilding building in Destructibles())
             {
-                if (!kvp.Key.Contains(Name)) continue;
-                List<DestructibleBuilding> buildingsToDestroy = kvp.Value.dBuildingRefs;
-                foreach (DestructibleBuilding building in buildingsToDestroy)
-                {
-                    if (building.IsDestroyed) return true;
-                }
+                if (building.IsDestroyed) return true;
             }
 
             return false;
         }
 
+        public void DestroyBuilding()
+        {
+            if (!CanBeDestroyed()) return;
+            foreach (DestructibleBuilding building in Destructibles())
+            {
+                building.Demolish();
+            }
+        }
+
+        public bool CanBeDestroyed()
+        {
+            return level > 2;
+        }
+
+        private List<DestructibleBuilding> Destructibles()
+        {
+            foreach (KeyValuePair<string, ScenarioDestructibles.ProtoDestructible> kvp in ScenarioDestructibles.protoDestructibles)
+            {
+                if (!kvp.Key.Contains(Name)) continue;
+                return kvp.Value.dBuildingRefs;
+            }
+            return null;
+        }
+    
         public void CancelUpgrade()
         {
             Upgrade = null;

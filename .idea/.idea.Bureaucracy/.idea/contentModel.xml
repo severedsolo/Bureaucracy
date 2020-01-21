@@ -43,10 +43,12 @@
         <e p="RandomEvents" t="Include">
           <e p="CurrencyEvent.cs" t="Include" />
           <e p="ExplosionEvent.cs" t="Include" />
+          <e p="FireEvent.cs" t="Include" />
           <e p="QAEvent.cs" t="Include" />
           <e p="RandomEventBase.cs" t="Include" />
           <e p="RandomEventLoader.cs" t="Include" />
           <e p="TrainingEvent.cs" t="Include" />
+          <e p="WageEvent.cs" t="Include" />
         </e>
         <e p="Report.cs" t="Include" />
         <e p="Science" t="Include">

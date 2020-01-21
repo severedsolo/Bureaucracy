@@ -9,9 +9,9 @@ namespace Bureaucracy
     {
         [UsedImplicitly] private PopupDialog eventDialog;
         public string Name;
-        private string title;
-        private string body;
-        private string acceptString;
+        protected string title;
+        protected string body;
+        protected string acceptString;
         protected string DeclineString;
         protected bool CanBeDeclined;
         protected float EventEffect;

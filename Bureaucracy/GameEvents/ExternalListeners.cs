@@ -102,10 +102,6 @@ namespace Bureaucracy
 
         private void AddLaunch(ShipConstruct ship)
         {
-            if (Utilities.Instance.Randomise.NextDouble() > Bureaucracy.Instance.qaModifier)
-            {
-                ExplosionEvent unused = new ExplosionEvent();
-            }
             Costs.Instance.AddLaunch(ship);
             string editor = ship.shipFacility == EditorFacility.VAB ? "VehicleAssemblyBuilding" : "SpaceplaneHangar";
             BureaucracyFacility bf = FacilityManager.Instance.GetFacilityByName(editor);

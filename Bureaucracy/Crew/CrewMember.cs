@@ -11,6 +11,7 @@ namespace Bureaucracy
         public readonly int MaxStrikes;
         public readonly List<CrewUnhappiness> UnhappinessEvents = new List<CrewUnhappiness>();
         public bool Unhappy;
+        public float WageModifier = 1.0f;
         
         public string Name { get; private set; }
 
@@ -21,7 +22,7 @@ namespace Bureaucracy
                 float experienceLevel = crewRef.experienceLevel;
                 // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (experienceLevel == 0) experienceLevel = 0.5f;
-                return experienceLevel * SettingsClass.Instance.KerbalBaseWage;
+                return experienceLevel * SettingsClass.Instance.KerbalBaseWage*WageModifier;
             }
         }
 
