@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using UnityEngine;
 using Upgradeables;
 
 namespace Bureaucracy
@@ -11,6 +14,8 @@ namespace Bureaucracy
         private int levelRequested = 1;
         private float originalCost;
         private readonly BureaucracyFacility parentFacility;
+        private PopupDialog kctWarning;
+        public bool UpgradeHeld;
 
         public FacilityUpgradeEvent(string id, BureaucracyFacility passingFacility)
         {
@@ -54,9 +59,27 @@ namespace Bureaucracy
             for (int i = 0; i < facilitiesToUpgrade.Count; i++)
             {
                 UpgradeableFacility facilityToUpgrade = facilitiesToUpgrade.ElementAt(i);
+                if (facilityToUpgrade.FacilityLevel != levelRequested - 1 && Directory.Exists(KSPUtil.ApplicationRootPath + "/GameData/KerbalConstructionTime"))
+                {
+                    UpgradeHeld = true;
+                    kctWarning = GenerateKctWarning(facilityToUpgrade.FacilityLevel);
+                    return;
+                }
                 facilityToUpgrade.SetLevel(levelRequested);
+                UpgradeHeld = false;
             }
             parentFacility.OnUpgradeCompleted();
+        }
+
+        private PopupDialog GenerateKctWarning(int facilityLevel)
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            dialogElements.Add(new DialogGUILabel("Facility level doesn't match requested upgrade!"));
+            dialogElements.Add(new DialogGUILabel("Expected a level "+levelRequested+" "+parentFacility.Name+" - Got level "+(facilityLevel+1)));
+            dialogElements.Add(new DialogGUILabel("If KCT is installed, make sure you have the right launchpad selected"));
+            dialogElements.Add(new DialogGUILabel("When you are ready, right click the launchpad and click \"Upgrade\" to proceed"));
+            dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("ResearchDialog", "", "Bureaucracy: Research", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 200, 200), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
         public void OnSave(ConfigNode facilityNode)
@@ -66,6 +89,7 @@ namespace Bureaucracy
             upgradeNode.SetValue("cost", remainingInvestment, true);
             upgradeNode.SetValue("originalCost", originalCost, true);
             upgradeNode.SetValue("level", levelRequested, true);
+            upgradeNode.SetValue("upgradeHeld", UpgradeHeld, true);
             facilityNode.AddNode(upgradeNode);
         }
 
@@ -75,6 +99,7 @@ namespace Bureaucracy
             float.TryParse(upgradeNode.GetValue("cost"), out remainingInvestment);
             int.TryParse(upgradeNode.GetValue("level"), out levelRequested);
             float.TryParse(upgradeNode.GetValue("originalCost"), out originalCost);
+            bool.TryParse(upgradeNode.GetValue("upgradeHeld"), out UpgradeHeld);
         }
     }
 }

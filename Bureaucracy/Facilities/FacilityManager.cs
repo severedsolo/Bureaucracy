@@ -128,6 +128,11 @@ namespace Bureaucracy
                 return;
             }
 
+            if (facilityToUpgrade.Upgrading && facilityToUpgrade.Upgrade.UpgradeHeld)
+            {
+                facilityToUpgrade.Upgrade.OnEventCompleted();
+                return;
+            }
             if (facilityToUpgrade.Upgrading)
             {
                 if (facilityToUpgrade.IsPriority)
