@@ -15,7 +15,7 @@ namespace Bureaucracy
         public bool HardMode;
         public bool RepDecayEnabled;
         public bool RandomEventsEnabled = true;
-        public float RandomEventChance = 0.1f;
+        public float RandomEventChance = 0.05f;
         public bool AstronautTraining = true;
         public float TimeBetweenBudgets = 30.0f;
         public int BudgetMultiplier = 2227;
