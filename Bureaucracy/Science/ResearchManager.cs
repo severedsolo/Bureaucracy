@@ -16,6 +16,7 @@ namespace Bureaucracy
         {
             Name = "Research";
             Instance = this;
+            ThisMonthsBudget = HighLogic.CurrentGame.Parameters.Career.StartingFunds * FundingAllocation;
             Debug.Log("[Bureaucracy]: Research Manager Ready");
         }
         
@@ -69,8 +70,9 @@ namespace Bureaucracy
             ConfigNode researchNode = node.GetNode("RESEARCH");
             if (researchNode == null) return;
             float.TryParse(researchNode.GetValue("ScienceMultiplier"), out ScienceMultiplier);
-            int.TryParse(researchNode.GetValue("FundingAllocation"), out int funding);
-            double.TryParse(researchNode.GetValue("thisMonth"), out ThisMonthsBudget);
+            float.TryParse(researchNode.GetValue("FundingAllocation"), out float funding);
+            if(double.TryParse(researchNode.GetValue("thisMonth"), out double d)) ThisMonthsBudget = d;
+            else ThisMonthsBudget = Utilities.Instance.GetNetBudget(Name);
             FundingAllocation = funding;
             ConfigNode[] scienceNodes = researchNode.GetNodes("SCIENCE_DATA");
             if (scienceNodes.Length == 0) return;

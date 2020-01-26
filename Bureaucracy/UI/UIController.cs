@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using KSP.UI.Screens;
@@ -26,7 +27,7 @@ namespace Bureaucracy
         private void Awake()
         {
             Instance = this;
-            SetAllocation("Budget Manager", "40");
+            SetAllocation("Budget", "40");
             SetAllocation("Research", "30");
             SetAllocation("Construction", "30");
         }
@@ -67,7 +68,7 @@ namespace Bureaucracy
             horizontalArray[0] = new DialogGUISpace(10);
             horizontalArray[1] = new DialogGUILabel("Budget", MessageStyle(true));
             horizontalArray[2] = new DialogGUISpace(70);
-            horizontalArray[3] = new DialogGUITextInput(fundingAllocation.ToString(), false, 3, s => SetAllocation("Budget Manager", s), 40.0f, 30.0f);
+            horizontalArray[3] = new DialogGUITextInput(fundingAllocation.ToString(), false, 3, s => SetAllocation("Budget", s), 40.0f, 30.0f);
             innerElements.Add(new DialogGUIHorizontalLayout(horizontalArray));
             horizontalArray = new DialogGUIBase[4];
             horizontalArray[0] = new DialogGUISpace(10);
@@ -81,6 +82,16 @@ namespace Bureaucracy
             horizontalArray[2] = new DialogGUISpace(45);
             horizontalArray[3] = new DialogGUITextInput(researchAllocation.ToString(), false, 3, s => SetAllocation("Research", s), 40.0f, 30.0f);
             innerElements.Add(new DialogGUIHorizontalLayout(horizontalArray));
+            for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
+            {
+                Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
+                if (Utilities.Instance.GetNetBudget(m.Name) == -1.0f) continue;
+                horizontalArray = new DialogGUIBase[3];
+                horizontalArray[0] = new DialogGUISpace(10);
+                horizontalArray[1] = new DialogGUILabel(m.Name+": ");
+                horizontalArray[2] = new DialogGUILabel(() => ShowFunding(m));
+                innerElements.Add(new DialogGUIHorizontalLayout(horizontalArray));
+            }
             horizontalArray = new DialogGUIBase[2];
             horizontalArray[0] = new DialogGUISpace(10);
             horizontalArray[1] = new DialogGUIButton("Load Settings", () => SettingsClass.Instance.InGameLoad(), false); 
@@ -93,6 +104,11 @@ namespace Bureaucracy
                     GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
+        private string ShowFunding(Manager manager)
+        {
+            return "$"+Math.Round(Utilities.Instance.GetNetBudget(manager.Name),0).ToString(CultureInfo.CurrentCulture);
+        }
+
         private string SetAllocation(string managerName, string passedString)
         {
             int.TryParse(passedString, out int i);
@@ -101,7 +117,7 @@ namespace Bureaucracy
             m.FundingAllocation = actualAllocation;
             switch (managerName)
             {
-                case "Budget Manager":
+                case "Budget":
                     fundingAllocation = i;
                     break;
                 case "Research":
@@ -218,6 +234,7 @@ namespace Bureaucracy
             int upgradeCount = 0;
             innerElements.Add(new DialogGUISpace(10));
             float investmentNeeded = 0;
+            innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("This Month's Budget: $"+Math.Round(FacilityManager.Instance.ThisMonthsBudget, 0), false)));;
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
@@ -260,7 +277,7 @@ namespace Bureaucracy
             DialogGUIBase[] horizontal = new DialogGUIBase[3];
             horizontal[0] = new DialogGUILabel("Processing Science: " + Math.Round(scienceCount, 1));
             horizontal[1] = new DialogGUILabel("|");
-            double scienceOutput = ResearchManager.Instance.GetAllocatedFunding() / SettingsClass.Instance.ScienceMultiplier * ResearchManager.Instance.ScienceMultiplier;
+            double scienceOutput = ResearchManager.Instance.ThisMonthsBudget / SettingsClass.Instance.ScienceMultiplier * ResearchManager.Instance.ScienceMultiplier;
             horizontal[2] = new DialogGUILabel("Research Output: "+Math.Round(scienceOutput, 1));
             dialogElements.Add(new DialogGUIHorizontalLayout(horizontal));
             dialogElements.Add(GetBoxes("research"));
@@ -351,7 +368,7 @@ namespace Bureaucracy
             ConfigNode uiNode = cn.GetNode("UI");
             if (uiNode == null) return;
             int.TryParse(uiNode.GetValue("FundingAllocation"), out fundingAllocation);
-            SetAllocation("Budget Manager", fundingAllocation.ToString());
+            SetAllocation("Budget", fundingAllocation.ToString());
             int.TryParse(uiNode.GetValue("ResearchAllocation"), out researchAllocation);
             SetAllocation("Research", researchAllocation.ToString());
             int.TryParse(uiNode.GetValue("ConstructionAllocation"), out constructionAllocation);

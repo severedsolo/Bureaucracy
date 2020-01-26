@@ -10,7 +10,7 @@ namespace Bureaucracy
         //obviously you change these in the constructor.
         public string Name = "Blank Manager";
         public float FundingAllocation = 0.3f;
-        public double ThisMonthsBudget = 0;
+        public double ThisMonthsBudget;
 
         protected double ProgressTime()
         {

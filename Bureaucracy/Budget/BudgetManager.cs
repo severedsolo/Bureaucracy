@@ -13,9 +13,9 @@ namespace Bureaucracy
 
         public BudgetManager()
         {
-            Name = "Budget Manager";
+            Name = "Budget";
             Instance = this;
-            FundingAllocation = 40;
+            FundingAllocation = 0.4f;
             Debug.Log("[Bureaucracy]: Budget Manager is ready");
         }
 

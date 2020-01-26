@@ -24,8 +24,8 @@ namespace Bureaucracy
                 SpaceCenterFacility spf = spaceCentreFacilities.ElementAt(i);
                 Facilities.Add(new BureaucracyFacility(spf));
             }
-
             Name = "Construction";
+            ThisMonthsBudget = HighLogic.CurrentGame.Parameters.Career.StartingFunds * FundingAllocation;
             Instance = this;
             Debug.Log("[Bureaucracy]: Facility Manager Ready");
         }
@@ -80,8 +80,9 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: FacilityManager OnLoad");
             ConfigNode managerNode = cn.GetNode("FACILITY_MANAGER");
             if (managerNode == null) return;
-            int.TryParse(managerNode.GetValue("FundingAllocation"), out int funding);
-            double.TryParse(managerNode.GetValue("thisMonth"), out ThisMonthsBudget);
+            float.TryParse(managerNode.GetValue("FundingAllocation"), out float funding);
+            if(double.TryParse(managerNode.GetValue("thisMonth"), out double d)) ThisMonthsBudget = d;
+            else ThisMonthsBudget = Utilities.Instance.GetNetBudget(Name);
             FundingAllocation = funding;
             float.TryParse(managerNode.GetValue("CostMultiplier"), out CostMultiplier);
             float.TryParse(managerNode.GetValue("FireChance"), out FireChance);
