@@ -35,7 +35,7 @@ namespace Bureaucracy
 
         public void SetupToolbarButton()
         {
-            if(HighLogic.CurrentGame.Mode == Game.Modes.CAREER) toolbarButton = ApplicationLauncher.Instance.AddModApplication(() => ActivateUi("main"), () => ActivateUi("main"), null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
+            if(HighLogic.CurrentGame.Mode == Game.Modes.CAREER) toolbarButton = ApplicationLauncher.Instance.AddModApplication(() => ActivateUi("main"), () => ActivateUi("main"), null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.FLIGHT, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
         }
         private void ActivateUi(string screen)
         {

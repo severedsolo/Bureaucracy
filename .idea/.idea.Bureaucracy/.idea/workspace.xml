@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,13 +28,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/46/317f403c/GameEvents.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/cf/f3a31ee7/UpgradeableObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Report.cs" root0="FORCE_HIGHLIGHTING" />
@@ -48,7 +44,6 @@
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/45/760a2e3a/FlightGlobals.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/9b/35faf2d0/InternalModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" root0="FORCE_HIGHLIGHTING" />
@@ -129,11 +124,11 @@
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
       </list>
     </option>
   </component>
@@ -253,6 +248,8 @@
       <workItem from="1579605303877" duration="3919000" />
       <workItem from="1579679198300" duration="27000" />
       <workItem from="1579702541253" duration="4601000" />
+      <workItem from="1579962674923" duration="607000" />
+      <workItem from="1580052912766" duration="237000" />
     </task>
     <servers />
   </component>
