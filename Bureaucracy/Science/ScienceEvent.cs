@@ -8,7 +8,7 @@ namespace Bureaucracy
         private float scienceLeftToProcess;
         private readonly string scienceSubject;
         public readonly string UiName;
-        private bool isComplete;
+        public bool IsComplete;
 
         public float OriginalScience => originalScience;
 
@@ -31,12 +31,13 @@ namespace Bureaucracy
             float.TryParse(dataNode.GetValue("scienceLeftToProcess"), out scienceLeftToProcess);
             scienceSubject = dataNode.GetValue("scienceSubject");
             UiName = dataNode.GetValue("UiName");
-            bool.TryParse(dataNode.GetValue("isComplete"), out isComplete);
+            bool.TryParse(dataNode.GetValue("isComplete"), out IsComplete);
             ParentManager = passingManager;
         }
 
         public double ProgressResearch(double funding)
         {
+            if (IsComplete) return funding;
             float scienceAvailable = (float)funding / SettingsClass.Instance.ScienceMultiplier;
             float originalScienceRemaining = scienceLeftToProcess;
             scienceLeftToProcess -= scienceAvailable;
@@ -57,7 +58,8 @@ namespace Bureaucracy
 
         public override void OnEventCompleted()
         {
-            isComplete = true;
+            IsComplete = true;
+            ScreenMessages.PostScreenMessage(UiName + ": Research Complete");
             Debug.Log("[Bureaucracy]: Science Event "+UiName+" completed");
             InformParent();
         }
@@ -69,7 +71,7 @@ namespace Bureaucracy
             dataNode.SetValue("scienceLeftToProcess", scienceLeftToProcess, true);
             dataNode.SetValue("scienceSubject", scienceSubject, true);
             dataNode.SetValue("UiName", UiName, true);
-            dataNode.SetValue("isComplete", isComplete, true);
+            dataNode.SetValue("isComplete", IsComplete, true);
             researchNode.AddNode(dataNode);
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using Upgradeables;
 
@@ -16,7 +17,7 @@ namespace Bureaucracy
         public bool IsPriority;
         public int LaunchesThisMonth;
 
-        public int Level => level;
+        [UsedImplicitly] public int Level => level;
 
         public bool IsClosed => isClosed;
 
@@ -216,7 +217,7 @@ namespace Bureaucracy
             return level > 2;
         }
 
-        private List<DestructibleBuilding> Destructibles()
+        private IEnumerable<DestructibleBuilding> Destructibles()
         {
             foreach (KeyValuePair<string, ScenarioDestructibles.ProtoDestructible> kvp in ScenarioDestructibles.protoDestructibles)
             {

@@ -1,5 +1,6 @@
 
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Bureaucracy
@@ -14,6 +15,7 @@ namespace Bureaucracy
             Name = "Next Budget";
             ParentManager = manager;
             if(newKacAlarm) Utilities.Instance.NewKacAlarm("Next Budget", CompletionTime);
+            StopTimewarpOnCompletion = true;
             AddTimer();
         }
 
@@ -42,6 +44,11 @@ namespace Bureaucracy
             InternalListeners.OnBudgetAwarded.Fire(funding, facilityDebt);
             Costs.Instance.ResetLaunchCosts();
             repDecay.ApplyRepDecay(Bureaucracy.Instance.settings.RepDecayPercent);
+            for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
+            {
+                Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
+                m.ThisMonthsBudget = Utilities.Instance.GetNetBudget(m.Name);
+            }
             InformParent();
         }
         

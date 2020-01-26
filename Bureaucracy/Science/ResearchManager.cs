@@ -14,7 +14,6 @@ namespace Bureaucracy
 
         public ResearchManager()
         {
-            InternalListeners.OnBudgetAboutToFire.Add(RunResearchBudget);
             Name = "Research";
             Instance = this;
             Debug.Log("[Bureaucracy]: Research Manager Ready");
@@ -25,15 +24,10 @@ namespace Bureaucracy
             return Math.Round(Utilities.Instance.GetNetBudget(Name), 0);
         }
 
-        
-        public override void UnregisterEvents()
-        {
-            InternalListeners.OnBudgetAboutToFire.Remove(RunResearchBudget);
-        }
 
-        private void RunResearchBudget()
+        public override void ProgressTask()
         {
-            double researchBudget = Utilities.Instance.GetNetBudget(Name)*ScienceMultiplier;
+            double researchBudget = Utilities.Instance.ConvertMonthlyBudgetToDaily(ThisMonthsBudget) * ProgressTime() * ScienceMultiplier;
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (researchBudget == 0.0f) return;
             List<ScienceEvent> scienceCache = ProcessingScience;
@@ -76,6 +70,7 @@ namespace Bureaucracy
             if (researchNode == null) return;
             float.TryParse(researchNode.GetValue("ScienceMultiplier"), out ScienceMultiplier);
             int.TryParse(researchNode.GetValue("FundingAllocation"), out int funding);
+            double.TryParse(researchNode.GetValue("thisMonth"), out ThisMonthsBudget);
             FundingAllocation = funding;
             ConfigNode[] scienceNodes = researchNode.GetNodes("SCIENCE_DATA");
             if (scienceNodes.Length == 0) return;
@@ -96,6 +91,7 @@ namespace Bureaucracy
             ConfigNode researchNode = new ConfigNode("RESEARCH");
             researchNode.SetValue("FundingAllocation", FundingAllocation, true);
             researchNode.SetValue("ScienceMultiplier", ScienceMultiplier, true);
+            researchNode.SetValue("thisMonth", ThisMonthsBudget, true);
             for (int i = 0; i < ProcessingScience.Count; i++)
             {
                 ScienceEvent se = ProcessingScience.ElementAt(i);

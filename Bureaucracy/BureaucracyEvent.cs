@@ -8,6 +8,7 @@ namespace Bureaucracy
         protected Manager ParentManager;
         // ReSharper disable once NotAccessedField.Global
         protected string Name = "Uninitialised Event";
+        public bool StopTimewarpOnCompletion = false;
 
         protected void AddTimer()
         {

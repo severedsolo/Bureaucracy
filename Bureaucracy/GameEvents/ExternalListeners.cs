@@ -86,6 +86,7 @@ namespace Bureaucracy
 
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
         {
+            if (!SettingsClass.Instance.HandleScience) return;
             ResearchManager.Instance.NewScienceReceived(science, subject);
         }
 

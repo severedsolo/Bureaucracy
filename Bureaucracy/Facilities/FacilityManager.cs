@@ -12,12 +12,12 @@ namespace Bureaucracy
         public readonly List<BureaucracyFacility> Facilities = new List<BureaucracyFacility>();
         public static FacilityManager Instance;
         [UsedImplicitly] private PopupDialog warningDialog;
-        public float FireChance = 0.0f;
+        public float FireChance;
         public float CostMultiplier = 1.0f;
 
         public FacilityManager()
         {
-            InternalListeners.OnBudgetAboutToFire.Add(RunFacilityBudget);
+            InternalListeners.OnBudgetAboutToFire.Add(OnBudgetAboutToFire);
             SpaceCenterFacility[] spaceCentreFacilities = (SpaceCenterFacility[]) Enum.GetValues(typeof(SpaceCenterFacility));
             for (int i = 0; i < spaceCentreFacilities.Length; i++)
             {
@@ -30,9 +30,14 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Facility Manager Ready");
         }
 
+        private void OnBudgetAboutToFire()
+        {
+            ReopenAllFacilities();
+        }
+
         public override void UnregisterEvents()
         {
-            InternalListeners.OnBudgetAboutToFire.Remove(RunFacilityBudget);
+            InternalListeners.OnBudgetAboutToFire.Remove(OnBudgetAboutToFire);
         }
 
         public override double GetAllocatedFunding()
@@ -45,10 +50,9 @@ namespace Bureaucracy
             return new FacilityReport();
         }
 
-        private void RunFacilityBudget()
+        public override void ProgressTask()
         {
-            ReopenAllFacilities();
-            double facilityBudget = Utilities.Instance.GetNetBudget(Name);
+            double facilityBudget = Utilities.Instance.ConvertMonthlyBudgetToDaily(ThisMonthsBudget) * ProgressTime();
             //Find the priority build first
             for (int i = 0; i < Facilities.Count; i++)
             {
@@ -77,6 +81,7 @@ namespace Bureaucracy
             ConfigNode managerNode = cn.GetNode("FACILITY_MANAGER");
             if (managerNode == null) return;
             int.TryParse(managerNode.GetValue("FundingAllocation"), out int funding);
+            double.TryParse(managerNode.GetValue("thisMonth"), out ThisMonthsBudget);
             FundingAllocation = funding;
             float.TryParse(managerNode.GetValue("CostMultiplier"), out CostMultiplier);
             float.TryParse(managerNode.GetValue("FireChance"), out FireChance);
@@ -100,6 +105,7 @@ namespace Bureaucracy
             managerNode.SetValue("FundingAllocation", FundingAllocation, true);
             managerNode.SetValue("CostMultiplier", CostMultiplier, true);
             managerNode.SetValue("FireChance", FireChance, true);
+            managerNode.SetValue("thisMonth", ThisMonthsBudget, true);
             for (int i = 0; i < Facilities.Count; i++)
             {
                 BureaucracyFacility bf = Facilities.ElementAt(i);

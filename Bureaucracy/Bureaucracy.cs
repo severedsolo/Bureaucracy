@@ -25,6 +25,9 @@ namespace Bureaucracy
         public SettingsClass settings;
         public static Bureaucracy Instance;
         public List<Manager> registeredManagers = new List<Manager>();
+        public bool existingSave;
+        public ManagerProgressEvent progressEvent;
+        public double lastProgressUpdate = 0;
 
         private void Awake()
         {
@@ -32,6 +35,7 @@ namespace Bureaucracy
             settings = new SettingsClass();
             RegisterBureaucracyManagers();
             Instance = this;
+            lastProgressUpdate = Planetarium.GetUniversalTime();
             Debug.Log("[Bureaucracy]: Awake");
         }
 
@@ -96,6 +100,8 @@ namespace Bureaucracy
             CrewManager.Instance.OnLoad(node);
             RandomEventLoader.Instance.OnLoad(node);
             UiController.Instance.OnLoad(node);
+            node.TryGetValue("existingSave", ref existingSave);
+            if(progressEvent == null) progressEvent = new ManagerProgressEvent();
             Debug.Log("[Bureaucracy]: OnLoad Complete");
         }
 
@@ -110,6 +116,7 @@ namespace Bureaucracy
             CrewManager.Instance.OnSave(node);
             RandomEventLoader.Instance.OnSave(node);
             UiController.Instance.OnSave(node);
+            node.SetValue("existingSave", existingSave, true);
             Debug.Log("[Bureaucracy]: OnSave Complete");
         }
 

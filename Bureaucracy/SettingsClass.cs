@@ -10,6 +10,7 @@ namespace Bureaucracy
         private bool autoBalanceSettings = true;
         public bool KctError = true;
         public bool HandleKscUpgrades = true;
+        public bool HandleScience = true;
         public bool StopTimeWarp = true;
         public bool UseItOrLoseIt = true;
         public bool HardMode;
@@ -38,8 +39,8 @@ namespace Bureaucracy
         public int StrikeMemory = 6;
         public int DeadKerbalPenalty = 25;
         private readonly string defaultPath;
-        private const string SettingsVersion = "0.2";
-        private const string PreviousVersion = "1.0";
+        private const string SettingsVersion = "1.1";
+        private const string PreviousVersion = "0.2";
         private readonly string savePath;
 
         public SettingsClass()
@@ -81,7 +82,8 @@ namespace Bureaucracy
                 Debug.Log("[Bureaucracy]: Settings are not compatible with this version of Bureaucracy. Aborting Load");
                 return;
             }
-            if(saveVersion == "0.2") bool.TryParse(cn.GetValue("AutoBalanceSettings"), out autoBalanceSettings);
+            bool.TryParse(cn.GetValue("AutoBalanceSettings"), out autoBalanceSettings);
+            if (saveVersion == "1.1") bool.TryParse(cn.GetValue("HandleScience"), out HandleScience);
             bool.TryParse(cn.GetValue("ShowKCTWarning"), out KctError);
             bool.TryParse(cn.GetValue("ContractInterceptorEnabled"), out ContractInterceptor);
             bool.TryParse(cn.GetValue("HandleKSCUpgrades"), out HandleKscUpgrades);
@@ -120,7 +122,7 @@ namespace Bureaucracy
             }
 
             if (autoBalanceSettings) BalanceSettings();
-            if(saveVersion != "0.2") OnSave(defaultPath); 
+            if(saveVersion != SettingsVersion) OnSave(defaultPath); 
             Debug.Log("[Bureaucracy]: Settings Loaded");
         }
 
@@ -166,6 +168,7 @@ namespace Bureaucracy
             cn.SetValue("ShowKCTWarning", KctError, true);
             cn.SetValue("ContractInterceptorEnabled", ContractInterceptor, true);
             cn.SetValue("HandleKSCUpgrades", HandleKscUpgrades, true);
+            cn.SetValue("HandleScience", HandleScience, true);
             cn.SetValue("StopTimeWarp", StopTimeWarp, true);
             cn.SetValue("UseItOrLoseIt", UseItOrLoseIt, true);
             cn.SetValue("HardModeEnabled", HardMode, true);

@@ -78,6 +78,12 @@ namespace Bureaucracy
             return new KeyValuePair<int, string>(timeStamp, "days");
         }
 
+        public double ConvertMonthlyBudgetToDaily(double amountToConvert)
+        {
+            double multiplier = 1 / SettingsClass.Instance.TimeBetweenBudgets;
+            return amountToConvert * multiplier;
+        }
+        
         public void PayWageDebt(double debt)
         {
             debt = Math.Abs(debt);

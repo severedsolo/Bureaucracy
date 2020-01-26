@@ -61,7 +61,7 @@ namespace Bureaucracy
                 if(v.Value > time) continue;
                 v.Key.OnEventCompleted();
                 events.Remove(v.Key);
-                if (SettingsClass.Instance.StopTimeWarp) TimeWarp.SetRate(0, true);
+                if (SettingsClass.Instance.StopTimeWarp && v.Key.StopTimewarpOnCompletion) TimeWarp.SetRate(0, true);
             }
         }
     }

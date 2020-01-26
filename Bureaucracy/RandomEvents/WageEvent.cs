@@ -4,7 +4,7 @@ namespace Bureaucracy
 {
     public class WageEvent : RandomEventBase
     {
-        private CrewMember crewMember;
+        private readonly CrewMember crewMember;
 
         public WageEvent(ConfigNode eventNode)
         {
@@ -12,8 +12,8 @@ namespace Bureaucracy
             if (c == null) return;
             crewMember = c;
             LoadConfig(eventNode);
-            body = body.Replace("<crew>", c.Name);
-            acceptString = acceptString.Replace("<crew>", c.Name);
+            Body = Body.Replace("<crew>", c.Name);
+            AcceptString = AcceptString.Replace("<crew>", c.Name);
         }
 
         private CrewMember FindCrew()

@@ -15,7 +15,7 @@ namespace Bureaucracy
         private PopupDialog mainWindow;
         private PopupDialog facilitiesWindow;
         private PopupDialog researchWindow;
-        private PopupDialog allocationWindow;
+        public PopupDialog allocationWindow;
         private int fundingAllocation;
         private int constructionAllocation;
         private int researchAllocation;
@@ -251,6 +251,7 @@ namespace Bureaucracy
             for (int i = 0; i < ResearchManager.Instance.ProcessingScience.Count; i++)
             {
                 ScienceEvent se = ResearchManager.Instance.ProcessingScience.ElementAt(i);
+                if (se.IsComplete) continue;
                 scienceCount += se.RemainingScience;
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(se.UiName+": "+Math.Round(se.OriginalScience-se.RemainingScience, 1)+"/"+Math.Round(se.OriginalScience, 1), false)));
             }

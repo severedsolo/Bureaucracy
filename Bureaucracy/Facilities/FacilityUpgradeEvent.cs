@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
+using JetBrains.Annotations;
 using UnityEngine;
 using Upgradeables;
 
@@ -14,7 +14,7 @@ namespace Bureaucracy
         private int levelRequested = 1;
         private float originalCost;
         private readonly BureaucracyFacility parentFacility;
-        private PopupDialog kctWarning;
+        [UsedImplicitly] private PopupDialog kctWarning;
         public bool UpgradeHeld;
 
         public FacilityUpgradeEvent(string id, BureaucracyFacility passingFacility)
@@ -43,6 +43,7 @@ namespace Bureaucracy
             if (remainingFunding > 0)
             {
                 OnEventCompleted();
+                ScreenMessages.PostScreenMessage(parentFacility.Name + ": Upgrade Complete");
                 return  (float)remainingFunding;
             }
             remainingInvestment -= (float)funding;

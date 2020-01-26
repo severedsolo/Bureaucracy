@@ -10,7 +10,16 @@ namespace Bureaucracy
         //obviously you change these in the constructor.
         public string Name = "Blank Manager";
         public float FundingAllocation = 0.3f;
+        public double ThisMonthsBudget = 0;
 
+        protected double ProgressTime()
+        {
+            //How long since the last update?
+            double timeElapsed = Planetarium.GetUniversalTime() - Bureaucracy.Instance.lastProgressUpdate;
+            //convert that into days
+            timeElapsed /= FlightGlobals.GetHomeBody().solarDayLength;
+            return timeElapsed;
+        }
         public void MakeReport() 
         {                
             Report r = GetReport();
@@ -19,6 +28,8 @@ namespace Bureaucracy
         }
 
         public virtual void UnregisterEvents() { Debug.Log("[Bureaucracy]: No Events to Unregister for "+Name); }
+
+        public virtual void ProgressTask() { }
 
 
         [UsedImplicitly]

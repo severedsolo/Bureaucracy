@@ -2,8 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/ExplosionEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +40,6 @@
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Science/ScienceReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/2b/4a9d2a66/KerbalRoster.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/ExplosionEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/68/1dd9cf42/ExperimentResultDialogPage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" root0="FORCE_HIGHLIGHTING" />
@@ -35,6 +53,7 @@
     <setting file="file://$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/cf/f3a31ee7/UpgradeableObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Report.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/ManagerProgressEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C9E31D6-5A60-4D19-80FB-0CB89728FC1E/bb/d699a6e5/SpaceCenterBuilding.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityMenuOverride.cs" root0="FORCE_HIGHLIGHTING" />
@@ -78,7 +97,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Bureaucracy/TestHarmonyPatch.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/KSCButtonHook.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/OverrideKSCButtons.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewReport.cs" />
@@ -97,38 +115,39 @@
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/AliensEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEvents.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/PublicInterestEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceReport.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" />
         <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/InternalListeners.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/ManagerProgressEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
       </list>
     </option>
   </component>
@@ -249,7 +268,7 @@
       <workItem from="1579679198300" duration="27000" />
       <workItem from="1579702541253" duration="4601000" />
       <workItem from="1579962674923" duration="607000" />
-      <workItem from="1580052912766" duration="237000" />
+      <workItem from="1580052912766" duration="10566000" />
     </task>
     <servers />
   </component>
@@ -293,86 +312,86 @@
     </state>
     <state x="743" y="277" width="424" height="479" key="FileChooserDialogImpl/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577561043328" />
     <state x="2446" y="517" width="316" height="354" key="FileChooserDialogImpl/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579435952073" />
-    <state width="1318" height="157" key="GridCell.Tab.0.bottom" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.0.bottom" timestamp="1580065355438">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.0.center" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355438" />
+    <state width="1318" height="157" key="GridCell.Tab.0.center" timestamp="1580065355438">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.0.center/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.0.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.0.left" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.0.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355438" />
+    <state width="1318" height="157" key="GridCell.Tab.0.left" timestamp="1580065355438">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.0.left/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.0.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.0.right" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.0.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355438" />
+    <state width="1318" height="157" key="GridCell.Tab.0.right" timestamp="1580065355438">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.0.right/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.0.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.1.bottom" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.0.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355438" />
+    <state width="1318" height="157" key="GridCell.Tab.1.bottom" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.1.center" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.1.center" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.1.center/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.1.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.1.left" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.1.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.1.left" timestamp="1580065355438">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.1.left/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.1.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.1.right" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.1.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355438" />
+    <state width="1318" height="157" key="GridCell.Tab.1.right" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.1.right/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.1.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.2.bottom" timestamp="1579707214574">
+    <state width="1318" height="157" key="GridCell.Tab.1.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.2.bottom" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214574" />
-    <state width="1318" height="157" key="GridCell.Tab.2.center" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.2.center" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.2.center/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.2.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.2.left" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.2.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.2.left" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.2.left/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.2.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.2.right" timestamp="1579707214573">
+    <state width="1318" height="157" key="GridCell.Tab.2.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.2.right" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.2.right/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.2.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214573" />
-    <state width="1318" height="157" key="GridCell.Tab.3.bottom" timestamp="1579707214574">
+    <state width="1318" height="157" key="GridCell.Tab.2.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.3.bottom" timestamp="1580065355440">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.3.bottom/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.3.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214574" />
-    <state width="1318" height="157" key="GridCell.Tab.3.center" timestamp="1579707214574">
+    <state width="1318" height="157" key="GridCell.Tab.3.bottom/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355440" />
+    <state width="1318" height="157" key="GridCell.Tab.3.center" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.3.center/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.3.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214574" />
-    <state width="1318" height="157" key="GridCell.Tab.3.left" timestamp="1579707214574">
+    <state width="1318" height="157" key="GridCell.Tab.3.center/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.3.left" timestamp="1580065355439">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.3.left/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.3.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214574" />
-    <state width="1318" height="157" key="GridCell.Tab.3.right" timestamp="1579707214574">
+    <state width="1318" height="157" key="GridCell.Tab.3.left/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355439" />
+    <state width="1318" height="157" key="GridCell.Tab.3.right" timestamp="1580065355440">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="1878" height="209" key="GridCell.Tab.3.right/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577477238040" />
-    <state width="1318" height="157" key="GridCell.Tab.3.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579707214574" />
+    <state width="1318" height="157" key="GridCell.Tab.3.right/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580065355440" />
     <state x="704" y="92" width="351" height="585" key="RiderGenerateDialog" timestamp="1579607243840">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -387,37 +406,28 @@
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state width="680" height="364" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1578168973493" />
+    <state x="2313" y="337" width="564" height="670" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1580061774017">
+      <screen x="1920" y="312" width="1360" height="768" />
+    </state>
+    <state x="2313" y="337" width="564" height="670" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580061774017" />
     <state x="2151" y="414" width="887" height="517" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1577291945473">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state x="2151" y="414" width="887" height="517" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1577291945473" />
-    <state x="760" y="0" width="807" height="747" maximized="true" key="dock-window-1" timestamp="1578171773644">
+    <state x="292" y="0" width="1318" height="688" maximized="true" key="dock-window-1" timestamp="1580061774377">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1920" y="312" width="1360" height="728" key="dock-window-1/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1578122672977" />
-    <state x="760" y="0" width="807" height="747" maximized="true" key="dock-window-1/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1578171773644" />
-    <state x="2361" y="480" width="672" height="501" key="search.everywhere.popup" timestamp="1579374738507">
+    <state x="292" y="0" width="1318" height="688" maximized="true" key="dock-window-1/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580061774377" />
+    <state x="2361" y="480" width="672" height="501" key="search.everywhere.popup" timestamp="1580064295389">
       <screen x="1920" y="312" width="1360" height="768" />
     </state>
     <state x="623" y="228" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.312.1360.768@0.0.1920.1040" timestamp="1577468043891" />
-    <state x="2361" y="480" width="672" height="501" key="search.everywhere.popup/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1579374738507" />
+    <state x="2361" y="480" width="672" height="501" key="search.everywhere.popup/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1580064295389" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs</url>
-          <line>39</line>
-          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" initialLine="39">
-            <startOffsets>
-              <option value="1493" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1576" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/Science/ScienceReport.cs</url>
           <line>17</line>
@@ -498,16 +508,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs</url>
-          <line>114</line>
+          <line>120</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" initialLine="114">
             <startOffsets>
-              <option value="4350" />
+              <option value="4615" />
             </startOffsets>
             <endOffsets>
-              <option value="4428" />
+              <option value="4693" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bureaucracy/ManagerProgressEvent.cs</url>
+          <line>14</line>
+          <properties documentPath="$PROJECT_DIR$/Bureaucracy/ManagerProgressEvent.cs" initialLine="14">
+            <startOffsets>
+              <option value="366" />
+            </startOffsets>
+            <endOffsets>
+              <option value="437" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs</url>
+          <line>54</line>
+          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" initialLine="54">
+            <startOffsets>
+              <option value="1680" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1769" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
