@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameData/Bureaucracy/Bureaucracy.version" beforeDir="false" afterPath="$PROJECT_DIR$/GameData/Bureaucracy/Bureaucracy.version" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,8 +129,8 @@
         <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
         <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
+        <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
       </list>
     </option>
   </component>
@@ -255,7 +251,7 @@
       <workItem from="1579679198300" duration="27000" />
       <workItem from="1579702541253" duration="4601000" />
       <workItem from="1579962674923" duration="607000" />
-      <workItem from="1580052912766" duration="17227000" />
+      <workItem from="1580052912766" duration="19899000" />
     </task>
     <servers />
   </component>
@@ -498,10 +494,10 @@
           <line>121</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" initialLine="114">
             <startOffsets>
-              <option value="4757" />
+              <option value="4816" />
             </startOffsets>
             <endOffsets>
-              <option value="4835" />
+              <option value="4894" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="98" />
@@ -524,10 +520,10 @@
           <line>54</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" initialLine="54">
             <startOffsets>
-              <option value="1726" />
+              <option value="1785" />
             </startOffsets>
             <endOffsets>
-              <option value="1815" />
+              <option value="1874" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="101" />
@@ -537,10 +533,10 @@
           <line>68</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" initialLine="67">
             <startOffsets>
-              <option value="2577" />
+              <option value="2608" />
             </startOffsets>
             <endOffsets>
-              <option value="2629" />
+              <option value="2660" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="102" />
@@ -550,10 +546,10 @@
           <line>79</line>
           <properties documentPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" initialLine="78">
             <startOffsets>
-              <option value="2823" />
+              <option value="2882" />
             </startOffsets>
             <endOffsets>
-              <option value="2874" />
+              <option value="2933" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="103" />
