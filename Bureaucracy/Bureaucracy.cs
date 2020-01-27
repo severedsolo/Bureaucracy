@@ -101,6 +101,7 @@ namespace Bureaucracy
             RandomEventLoader.Instance.OnLoad(node);
             UiController.Instance.OnLoad(node);
             node.TryGetValue("existingSave", ref existingSave);
+            node.TryGetValue("lastProgressUpdate", ref lastProgressUpdate);
             if(progressEvent == null) progressEvent = new ManagerProgressEvent();
             Debug.Log("[Bureaucracy]: OnLoad Complete");
         }
@@ -117,6 +118,7 @@ namespace Bureaucracy
             RandomEventLoader.Instance.OnSave(node);
             UiController.Instance.OnSave(node);
             node.SetValue("existingSave", existingSave, true);
+            node.SetValue("lastProgressUpdate", lastProgressUpdate, true);
             Debug.Log("[Bureaucracy]: OnSave Complete");
         }
 
