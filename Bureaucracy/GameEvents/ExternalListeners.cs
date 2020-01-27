@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Contracts;
 using KSP.UI.Screens;
 using UnityEngine;
@@ -9,7 +11,8 @@ namespace Bureaucracy
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
     public class ExternalListeners : MonoBehaviour
     {
-
+        private KerbalismApi kerbalism;
+        private EventData<List<ScienceSubject>, List<double>> onKerbalismScience;
         [UsedImplicitly] private Utilities utilitiesReference = new Utilities();
         private void Awake()
         {
@@ -27,19 +30,28 @@ namespace Bureaucracy
 
         private void Start()
         {
+            Debug.Log("[Bureaucracy]: Registering Events");
             GameEvents.OnVesselRollout.Add(AddLaunch);
             GameEvents.Contract.onOffered.Add(OnContractOffered);
             GameEvents.onFacilityContextMenuSpawn.Add(OnFacilityContextMenuSpawn);
             GameEvents.OnScienceRecieved.Add(OnScienceReceived);
             GameEvents.OnCrewmemberHired.Add(OnCrewMemberHired);
-            FlightTrackerApi.OnFlightTrackerUpdated.Add(AllocateCrewBonuses);
             GameEvents.onKerbalStatusChanged.Add(PotentialKerbalDeath);
             GameEvents.onGUIApplicationLauncherReady.Add(AddToolbarButton);
             GameEvents.onGUIApplicationLauncherUnreadifying.Add(RemoveToolbarButton);
             GameEvents.onGUIAstronautComplexSpawn.Add(AstronautComplexSpawned);
             GameEvents.onGUIAstronautComplexDespawn.Add(AstronautComplexDespawned);
+            Debug.Log("[Bureaucracy]: Stock Events Registered");
+            FlightTrackerApi.OnFlightTrackerUpdated.Add(AllocateCrewBonuses);
+            Debug.Log("[Bureaucracy]: FlightTracker Events Registered");
+            kerbalism = new KerbalismApi();
+            if (!kerbalism.ActivateKerbalismInterface() || !SettingsClass.Instance.HandleScience) return;
+            onKerbalismScience = GameEvents.FindEvent<EventData<List<ScienceSubject>, List<double>>>("onSubjectsReceived");
+            if (onKerbalismScience == null) return;
+            onKerbalismScience.Add(OnKerbalismScienceReceived);
+            Debug.Log("[Bureaucracy]: Kerbalism Event Registered");
         }
-
+        
         private void AstronautComplexDespawned()
         {
             AstronautComplexOverride.Instance.astronautComplexSpawned = false;
@@ -87,7 +99,17 @@ namespace Bureaucracy
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
         {
             if (!SettingsClass.Instance.HandleScience) return;
+            ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
             ResearchManager.Instance.NewScienceReceived(science, subject);
+        }
+
+        private void OnKerbalismScienceReceived(List<ScienceSubject> subjects, List<double> data)
+        {
+            if (!SettingsClass.Instance.HandleScience) return;
+            for (int i = 0; i < subjects.Count; i++)
+            {
+                ResearchManager.Instance.NewScienceReceived((float)data.ElementAt(i), subjects.ElementAt(i));
+            }
         }
 
         private void OnFacilityContextMenuSpawn(KSCFacilityContextMenu menu)
@@ -114,17 +136,23 @@ namespace Bureaucracy
 
         private void OnDisable()
         {
+            Debug.Log("[Bureaucracy]: Unregistering Events");
             GameEvents.OnVesselRollout.Remove(AddLaunch);
             GameEvents.Contract.onOffered.Remove(OnContractOffered);
             GameEvents.onFacilityContextMenuSpawn.Remove(OnFacilityContextMenuSpawn);
             GameEvents.OnScienceRecieved.Remove(OnScienceReceived);
             GameEvents.OnCrewmemberHired.Remove(OnCrewMemberHired);
-            FlightTrackerApi.OnFlightTrackerUpdated.Remove(AllocateCrewBonuses);
             GameEvents.onKerbalStatusChanged.Remove(PotentialKerbalDeath);
             GameEvents.onGUIApplicationLauncherReady.Remove(AddToolbarButton);
             GameEvents.onGUIApplicationLauncherUnreadifying.Remove(RemoveToolbarButton);
             GameEvents.onGUIAstronautComplexSpawn.Remove(AstronautComplexSpawned);
             GameEvents.onGUIAstronautComplexDespawn.Remove(AstronautComplexDespawned);
+            Debug.Log("[Bureaucracy] Unregistered Stock Events");
+            FlightTrackerApi.OnFlightTrackerUpdated.Remove(AllocateCrewBonuses);
+            Debug.Log("[Bureaucracy] Unregistered Flight Tracker Event");
+            if (onKerbalismScience == null) return;
+            onKerbalismScience.Remove(OnKerbalismScienceReceived);
+            Debug.Log("[Bureaucracy]: Unregistered Kerbalism Event");
         }
     }
 }

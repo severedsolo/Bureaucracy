@@ -54,7 +54,6 @@ namespace Bureaucracy
                 Debug.Log("[Bureaucracy]: "+subject.title+" worth less than 0.1 science. Skipping");
                 return;
             }
-            ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
             ProcessingScience.Add(new ScienceEvent(science, subject, this));
             Debug.Log("[Bureaucracy]: Registered new science event "+subject.title+" for "+science+" science");
         }
