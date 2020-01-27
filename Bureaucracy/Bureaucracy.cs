@@ -27,7 +27,7 @@ namespace Bureaucracy
         public List<Manager> registeredManagers = new List<Manager>();
         public bool existingSave;
         public ManagerProgressEvent progressEvent;
-        public double lastProgressUpdate = 0;
+        public double lastProgressUpdate;
 
         private void Awake()
         {

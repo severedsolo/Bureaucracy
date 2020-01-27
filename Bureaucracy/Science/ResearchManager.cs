@@ -8,7 +8,7 @@ namespace Bureaucracy
     public class ResearchManager : Manager
     {
         public static ResearchManager Instance;
-        public readonly List<ScienceEvent> ProcessingScience = new List<ScienceEvent>();
+        public readonly Dictionary<string, ScienceEvent> ProcessingScience = new Dictionary<string, ScienceEvent>();
         public readonly List<ScienceEvent> CompletedEvents = new List<ScienceEvent>();
         public float ScienceMultiplier = 1.0f;
 
@@ -31,7 +31,7 @@ namespace Bureaucracy
             double researchBudget = Utilities.Instance.ConvertMonthlyBudgetToDaily(ThisMonthsBudget) * ProgressTime() * ScienceMultiplier;
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (researchBudget == 0.0f) return;
-            List<ScienceEvent> scienceCache = ProcessingScience;
+            List<ScienceEvent> scienceCache = ProcessingScience.Values.ToList();
             for (int i = 0; i < scienceCache.Count; i++)
             {
                 ScienceEvent se = scienceCache.ElementAt(i);
@@ -49,13 +49,12 @@ namespace Bureaucracy
         public void NewScienceReceived(float science, ScienceSubject subject)
         {
             Debug.Log("[Bureaucracy]: New Science Received "+subject.title+" for "+science+" science");
-            if (science < 0.1f)
+            if(ProcessingScience.TryGetValue(subject.id, out ScienceEvent se)) se.AddScience(science);
+            else
             {
-                Debug.Log("[Bureaucracy]: "+subject.title+" worth less than 0.1 science. Skipping");
-                return;
+                ProcessingScience.Add(subject.id, new ScienceEvent(science, subject, this));
+                Debug.Log("[Bureaucracy]: Registered new science event " + subject.title + " for " + science + " science");
             }
-            ProcessingScience.Add(new ScienceEvent(science, subject, this));
-            Debug.Log("[Bureaucracy]: Registered new science event "+subject.title+" for "+science+" science");
         }
 
         public override void OnEventCompletedManagerActions(BureaucracyEvent eventCompleted)
@@ -81,7 +80,7 @@ namespace Bureaucracy
                 bool.TryParse(cn.GetValue("isComplete"), out bool isComplete);
                 ScienceEvent se = new ScienceEvent(cn, this);
                 if(isComplete) CompletedEvents.Add(se);
-                else ProcessingScience.Add(se);
+                else ProcessingScience.Add(se.ScienceSubject, se);
             }
             Debug.Log("[Bureaucracy]: Research Manager OnLoad Complete");
         }
@@ -95,7 +94,7 @@ namespace Bureaucracy
             researchNode.SetValue("thisMonth", ThisMonthsBudget, true);
             for (int i = 0; i < ProcessingScience.Count; i++)
             {
-                ScienceEvent se = ProcessingScience.ElementAt(i);
+                ScienceEvent se = ProcessingScience.ElementAt(i).Value;
                 se.OnSave(researchNode);
             }
 
@@ -108,7 +107,7 @@ namespace Bureaucracy
             for (int i = 0; i < CompletedEvents.Count; i++)
             {
                 ScienceEvent se = CompletedEvents.ElementAt(i);
-                ProcessingScience.Remove(se);
+                ProcessingScience.Remove(se.ScienceSubject);
             }
         }
     }

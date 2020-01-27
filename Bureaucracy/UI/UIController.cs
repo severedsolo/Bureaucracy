@@ -85,6 +85,7 @@ namespace Bureaucracy
             for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
             {
                 Manager m = Bureaucracy.Instance.registeredManagers.ElementAt(i);
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (Utilities.Instance.GetNetBudget(m.Name) == -1.0f) continue;
                 horizontalArray = new DialogGUIBase[3];
                 horizontalArray[0] = new DialogGUISpace(10);
@@ -234,7 +235,7 @@ namespace Bureaucracy
             int upgradeCount = 0;
             innerElements.Add(new DialogGUISpace(10));
             float investmentNeeded = 0;
-            innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("This Month's Budget: $"+Math.Round(FacilityManager.Instance.ThisMonthsBudget, 0), false)));;
+            innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("This Month's Budget: $"+Math.Round(FacilityManager.Instance.ThisMonthsBudget, 0), false)));
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
                 BureaucracyFacility bf = FacilityManager.Instance.Facilities.ElementAt(i);
@@ -267,7 +268,7 @@ namespace Bureaucracy
             if(ResearchManager.Instance.ProcessingScience.Count == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No research in progress", false)));
             for (int i = 0; i < ResearchManager.Instance.ProcessingScience.Count; i++)
             {
-                ScienceEvent se = ResearchManager.Instance.ProcessingScience.ElementAt(i);
+                ScienceEvent se = ResearchManager.Instance.ProcessingScience.ElementAt(i).Value;
                 if (se.IsComplete) continue;
                 scienceCount += se.RemainingScience;
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(se.UiName+": "+Math.Round(se.OriginalScience-se.RemainingScience, 1)+"/"+Math.Round(se.OriginalScience, 1), false)));
