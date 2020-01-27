@@ -16,6 +16,7 @@ namespace Bureaucracy
 
         private bool Available()
         {
+            //Borrowed from Kerbalism.Contracts
             foreach (var a in AssemblyLoader.loadedAssemblies)
             {
                 if (kerbalismApi != null && addScienceBlocker != null && enableEvent != null) return true;
