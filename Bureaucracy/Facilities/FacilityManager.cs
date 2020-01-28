@@ -145,14 +145,12 @@ namespace Bureaucracy
                 if (facilityToUpgrade.IsPriority)
                 {
                     warningDialog = DrawWarningDialog(facilityToUpgrade);
-                }
-                else
-                {
-                    Debug.Log("[Bureaucracy]: " + facility.id + " is already being upgraded. Prioritising");
-                    SetPriority(facilityToUpgrade, true);
-                    ScreenMessages.PostScreenMessage("Upgrade of " + facilityToUpgrade.Name + " prioritised");
                     return;
                 }
+                Debug.Log("[Bureaucracy]: " + facility.id + " is already being upgraded. Prioritising");
+                SetPriority(facilityToUpgrade, true);
+                ScreenMessages.PostScreenMessage("Upgrade of " + facilityToUpgrade.Name + " prioritised");
+                return;
             }
 
             facilityToUpgrade.StartUpgrade(facility);
@@ -161,7 +159,7 @@ namespace Bureaucracy
         private PopupDialog DrawWarningDialog(BureaucracyFacility facility)
         {
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
-            dialogElements.Add(new DialogGUILabel("Upgrade of "+facility.Name+" will be cancelled. "+(facility.Upgrade.RemainingInvestment-facility.Upgrade.OriginalCost+" will be lost. Are you sure?")));
+            dialogElements.Add(new DialogGUILabel("Upgrade of "+facility.Name+" will be cancelled. "+(facility.Upgrade.OriginalCost-facility.Upgrade.RemainingInvestment+" will be lost. Are you sure?")));
             dialogElements.Add(new DialogGUIButton("Yes", facility.CancelUpgrade, true));
             dialogElements.Add(new DialogGUIButton("No", () => { }, true));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("CancelUpgradeDialog", "", "Bureaucracy: Cancel Upgrade", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 210, 100), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
