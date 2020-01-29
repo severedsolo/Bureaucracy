@@ -62,8 +62,8 @@ namespace Bureaucracy
 
         private void PotentialKerbalDeath(ProtoCrewMember crewMember, ProtoCrewMember.RosterStatus statusFrom, ProtoCrewMember.RosterStatus statusTo)
         {
-            //No need to check if the Kerbal hasn't died. Kerbals always go missing before they go dead, so just check for Missing.
-            if (statusTo != ProtoCrewMember.RosterStatus.Missing) return;
+            //Apparently Kerbals can go straight to Dead now, so we need to check for both.
+            if (statusTo != ProtoCrewMember.RosterStatus.Missing && statusTo != ProtoCrewMember.RosterStatus.Dead) return;
             CrewManager.Instance.ProcessDeadKerbal(crewMember);
         }
 

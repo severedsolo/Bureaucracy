@@ -176,7 +176,7 @@ namespace Bureaucracy
             if (!CrewOnValidVessel(crewMember)) return false;
             if (crewMember.seat.vessel.id == lastProcessedVessel) return true;
             lastProcessedVessel = crewMember.seat.vessel.id;
-            return true;
+            return false;
         }
 
         private bool CrewOnValidVessel(ProtoCrewMember crewMember)

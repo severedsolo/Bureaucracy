@@ -152,6 +152,7 @@ namespace Bureaucracy
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Gross Budget: $" + Utilities.Instance.GetGrossBudget(), false)));
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Wage Costs: $" + Costs.Instance.GetWageCosts(), false)));
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Facility Maintenance Costs: $" + Costs.Instance.GetFacilityMaintenanceCosts(), false)));
+                innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Launch Costs: $"+Costs.Instance.GetLaunchCosts(), false)));
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Mission Bonuses: $" + GetBonusesToPay(), false)));
                 for (int i = 0; i < Bureaucracy.Instance.registeredManagers.Count; i++)
                 {
