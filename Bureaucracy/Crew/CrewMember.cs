@@ -86,6 +86,7 @@ namespace Bureaucracy
             ConfigNode crewNode = new ConfigNode("CREW_MEMBER");
             crewNode.SetValue("Name", Name, true);
             crewNode.SetValue("Bonus", bonusAwaitingPayment, true);
+            crewNode.SetValue("WageModifier", WageModifier, true);
             for (int i = 0; i < UnhappinessEvents.Count; i++)
             {
                 CrewUnhappiness cu = UnhappinessEvents.ElementAt(i);
@@ -98,6 +99,7 @@ namespace Bureaucracy
         {
             Name = crewConfig.GetValue("Name");
             double.TryParse(crewConfig.GetValue("Bonus"), out bonusAwaitingPayment);
+            if (!crewConfig.TryGetValue("WageModifier", ref WageModifier)) WageModifier = 1.0f;
             ConfigNode[] unhappyNodes = crewConfig.GetNodes("UNHAPPINESS");
             for (int i = 0; i < unhappyNodes.Length; i++)
             {
