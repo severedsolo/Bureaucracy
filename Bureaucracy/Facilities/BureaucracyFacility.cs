@@ -195,12 +195,19 @@ namespace Bureaucracy
 
         public bool IsDestroyed()
         {
-            foreach (DestructibleBuilding building in Destructibles())
+            try
             {
-                if (building.IsDestroyed) return true;
-            }
+                foreach (DestructibleBuilding building in Destructibles())
+                {
+                    if (building.IsDestroyed) return true;
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public void DestroyBuilding()
