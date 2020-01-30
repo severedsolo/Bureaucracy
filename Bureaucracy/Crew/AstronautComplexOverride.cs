@@ -42,6 +42,7 @@ namespace Bureaucracy
             if (c.CrewReference().inactive) return "In Training | " + "Wage: " + c.Wage;
             float morale = (1-(float)c.UnhappinessEvents.Count / c.MaxStrikes)*100;
             if (float.IsNaN(morale)) morale = 100;
+            if (float.IsNegativeInfinity(morale)) morale = 0;
             return "Morale: " + Math.Round(morale, 0)+"% | Wage: "+c.Wage;
         }
     }

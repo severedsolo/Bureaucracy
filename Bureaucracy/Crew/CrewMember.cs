@@ -106,6 +106,7 @@ namespace Bureaucracy
                 CrewUnhappiness cu = new CrewUnhappiness("loading", this);
                 cu.OnLoad(unhappyNodes.ElementAt(i));
                 UnhappinessEvents.Add(cu);
+                Unhappy = true;
             }
         }
 
