@@ -9,15 +9,12 @@ namespace Bureaucracy
 {
     public class BureaucracyFacility
     {
-        private int level;
         private readonly int upkeepCost;
         private bool recentlyUpgraded;
         public FacilityUpgradeEvent Upgrade;
         private bool isClosed;
         public bool IsPriority;
         public int LaunchesThisMonth;
-
-        [UsedImplicitly] public int Level => level;
 
         public bool IsClosed => isClosed;
 
@@ -40,7 +37,7 @@ namespace Bureaucracy
 
         public bool Upgrading { get; private set; }
 
-        public int MaintenanceCost => upkeepCost * level;
+        public int MaintenanceCost => upkeepCost * GetFacilityLevel();
 
         public string Name { get; }
 
@@ -48,7 +45,6 @@ namespace Bureaucracy
         {
             Name = SetName(spf);
             upkeepCost = SetCosts();
-            level = GetFacilityLevel();
             Debug.Log("[Bureaucracy]: Setup Facility " + Name);
         }
 
@@ -60,10 +56,10 @@ namespace Bureaucracy
                 List<UpgradeableFacility> upgradeables = config.Value.facilityRefs;
                 foreach (UpgradeableFacility upgradeableBuilding in upgradeables)
                 {
-                    return upgradeableBuilding.FacilityLevel;
+                    return upgradeableBuilding.FacilityLevel + 1;
                 }
             }
-            return level;
+            return 1;
         }
 
         private string SetName(SpaceCenterFacility spf)
@@ -156,7 +152,6 @@ namespace Bureaucracy
             {
                 ConfigNode cn = facilityNodes.ElementAt(i);
                 if (cn.GetValue("Name") != Name) continue;
-                int.TryParse(cn.GetValue("Level"), out level);
                 bool.TryParse(cn.GetValue("RecentlyUpgraded"), out recentlyUpgraded);
                 bool.TryParse(cn.GetValue("Closed"), out isClosed);
                 bool.TryParse(cn.GetValue("isPriority"), out IsPriority);
@@ -175,7 +170,6 @@ namespace Bureaucracy
             ConfigNode thisNode = new ConfigNode("FACILITY");
             thisNode.SetValue("Name", Name, true);
             thisNode.SetValue("isPriority", IsPriority, true);
-            thisNode.SetValue("Level", level, true);
             thisNode.SetValue("RecentlyUpgraded", recentlyUpgraded, true);
             thisNode.SetValue("Closed", isClosed, true);
             thisNode.SetValue("LaunchesThisMonth", LaunchesThisMonth, true);
@@ -189,7 +183,6 @@ namespace Bureaucracy
             Upgrade = null;
             recentlyUpgraded = true;
             IsPriority = false;
-            level++;
             Debug.Log("[Bureaucracy]: Upgrade of " + Name + " completed");
         }
 
@@ -220,7 +213,7 @@ namespace Bureaucracy
 
         public bool CanBeDestroyed()
         {
-            return level > 2;
+            return GetFacilityLevel() > 2;
         }
 
         private IEnumerable<DestructibleBuilding> Destructibles()
