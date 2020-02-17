@@ -237,7 +237,6 @@ namespace Bureaucracy
             int upgradeCount = 0;
             innerElements.Add(new DialogGUISpace(10));
             float investmentNeeded = 0;
-            innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("This Month's Budget: $"+Math.Round(FacilityManager.Instance.ThisMonthsBudget, 0), false)));;
             innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("This Month's Budget: $"+Math.Round(FacilityManager.Instance.ThisMonthsBudget, 0), false)));
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
