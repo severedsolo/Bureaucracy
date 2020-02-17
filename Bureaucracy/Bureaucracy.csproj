@@ -87,6 +87,7 @@
     <Compile Include="BureaucracyScenario.cs" />
     <Compile Include="BureaucracyEvent.cs" />
     <Compile Include="KACWrapper.cs" />
+    <Compile Include="KerbalismAPI.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="ManagerProgressEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

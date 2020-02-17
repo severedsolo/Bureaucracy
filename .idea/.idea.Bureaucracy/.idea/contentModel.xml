@@ -36,6 +36,7 @@
           <e p="InternalListeners.cs" t="Include" />
         </e>
         <e p="KACWrapper.cs" t="Include" />
+        <e p="KerbalismAPI.cs" t="Include" />
         <e p="Manager.cs" t="Include" />
         <e p="ManagerProgressEvent.cs" t="Include" />
         <e p="Properties" t="Include">
