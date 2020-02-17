@@ -14,18 +14,11 @@ namespace Bureaucracy
         private KerbalismApi kerbalism;
         private EventData<List<ScienceSubject>, List<double>> onKerbalismScience;
         [UsedImplicitly] private Utilities utilitiesReference = new Utilities();
+
         private void Awake()
         {
             Debug.Log("[Bureaucracy]: Waking GameEvents");
-            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
-            {
-                Destroy(this);
-                Debug.Log("[Bureaucracy]: Game Mode is not career. Destroying Event Handler");
-            }
-            else
-            {
-                DontDestroyOnLoad(this);
-            }
+            DontDestroyOnLoad(this);
         }
 
         private void Start()
@@ -37,8 +30,6 @@ namespace Bureaucracy
             GameEvents.OnScienceRecieved.Add(OnScienceReceived);
             GameEvents.OnCrewmemberHired.Add(OnCrewMemberHired);
             GameEvents.onKerbalStatusChanged.Add(PotentialKerbalDeath);
-            GameEvents.onGUIApplicationLauncherReady.Add(AddToolbarButton);
-            GameEvents.onGUIApplicationLauncherUnreadifying.Add(RemoveToolbarButton);
             GameEvents.onGUIAstronautComplexSpawn.Add(AstronautComplexSpawned);
             GameEvents.onGUIAstronautComplexDespawn.Add(AstronautComplexDespawned);
             Debug.Log("[Bureaucracy]: Stock Events Registered");
@@ -59,21 +50,14 @@ namespace Bureaucracy
 
         private void AstronautComplexSpawned()
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             AstronautComplexOverride.Instance.updateCount = 4;
             AstronautComplexOverride.Instance.astronautComplexSpawned = true;
         }
 
-        private void AddToolbarButton()
-        {
-            UiController.Instance.SetupToolbarButton();
-        }
-        private void RemoveToolbarButton(GameScenes data)
-        {
-            UiController.Instance.RemoveToolbarButton();
-        }
-
         private void PotentialKerbalDeath(ProtoCrewMember crewMember, ProtoCrewMember.RosterStatus statusFrom, ProtoCrewMember.RosterStatus statusTo)
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             //No need to check if the Kerbal hasn't died. Kerbals always go missing before they go dead, so just check for Missing.
             if (statusTo != ProtoCrewMember.RosterStatus.Missing) return;
             CrewManager.Instance.ProcessDeadKerbal(crewMember);
@@ -81,6 +65,7 @@ namespace Bureaucracy
 
         private void OnCrewMemberHired(ProtoCrewMember crewMember, int numberOfActiveKerbals)
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             if (FacilityManager.Instance.GetFacilityByName("AstronautComplex").IsClosed)
             {
                 Funding.Instance.AddFunds(GameVariables.Instance.GetRecruitHireCost(numberOfActiveKerbals - 1), TransactionReasons.CrewRecruited);
@@ -93,12 +78,14 @@ namespace Bureaucracy
 
         private void AllocateCrewBonuses(ProtoCrewMember crewMember)
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             CrewManager.Instance.UpdateCrewBonus(crewMember, FlightTrackerApi.Instance.GetLaunchTime(crewMember.name));
         }
 
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
         {
             if (!SettingsClass.Instance.HandleScience) return;
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             if (science < 0.1f) return;
             ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);
             ResearchManager.Instance.NewScienceReceived(science, subject);
@@ -107,6 +94,7 @@ namespace Bureaucracy
         private void OnKerbalismScienceReceived(List<ScienceSubject> subjects, List<double> data)
         {
             if (!SettingsClass.Instance.HandleScience) return;
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             for (int i = 0; i < subjects.Count; i++)
             {
                 ResearchManager.Instance.NewScienceReceived((float)data.ElementAt(i), subjects.ElementAt(i));
@@ -115,17 +103,20 @@ namespace Bureaucracy
 
         private void OnFacilityContextMenuSpawn(KSCFacilityContextMenu menu)
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             FacilityMenuOverride.Instance.FacilityMenuSpawned(menu);
         }
 
 
         private void OnContractOffered(Contract contract)
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             ContractInterceptor.Instance.OnContractOffered(contract);
         }
 
         private void AddLaunch(ShipConstruct ship)
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             Costs.Instance.AddLaunch(ship);
             string editor = ship.shipFacility == EditorFacility.VAB ? "VehicleAssemblyBuilding" : "SpaceplaneHangar";
             BureaucracyFacility bf = FacilityManager.Instance.GetFacilityByName(editor);
@@ -144,8 +135,6 @@ namespace Bureaucracy
             GameEvents.OnScienceRecieved.Remove(OnScienceReceived);
             GameEvents.OnCrewmemberHired.Remove(OnCrewMemberHired);
             GameEvents.onKerbalStatusChanged.Remove(PotentialKerbalDeath);
-            GameEvents.onGUIApplicationLauncherReady.Remove(AddToolbarButton);
-            GameEvents.onGUIApplicationLauncherUnreadifying.Remove(RemoveToolbarButton);
             GameEvents.onGUIAstronautComplexSpawn.Remove(AstronautComplexSpawned);
             GameEvents.onGUIAstronautComplexDespawn.Remove(AstronautComplexDespawned);
             Debug.Log("[Bureaucracy] Unregistered Stock Events");

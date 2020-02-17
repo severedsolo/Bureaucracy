@@ -13,6 +13,7 @@ namespace Bureaucracy
 
         private bool Available()
         {
+            Debug.Log("[Bureaucracy]: Attempting to find Kerbalism");
             //Borrowed from Kerbalism.Contracts
             foreach (AssemblyLoader.LoadedAssembly a in AssemblyLoader.loadedAssemblies)
             {
@@ -22,7 +23,6 @@ namespace Bureaucracy
                 // there also is a KerbalismBootLoader, possibly a KerbalismContracts and other mods
                 // that start with Kerbalism, so explicitly request equality or test for anything
                 // that starts with Kerbalism1
-                Debug.Log("[Bureaucracy]: Attempting to find Kerbalism");
                 if (!a.name.Equals("Kerbalism") && !a.name.StartsWith("Kerbalism1", StringComparison.Ordinal)) continue;
                 kerbalismApi = a.assembly.GetType("KERBALISM.API");
                 Debug.Log("Found KERBALISM API in " + a.name + ": " + kerbalismApi);
@@ -43,6 +43,7 @@ namespace Bureaucracy
             if (addScienceBlocker == null || enableEvent == null) return false;
             addScienceBlocker.SetValue(null, true);
             enableEvent.SetValue(null, true);
+            Debug.Log("[Bureaucracy]: Kerbalism Science Suppressed");
             return (bool) enableEvent.GetValue(kerbalismApi);
         }
     }

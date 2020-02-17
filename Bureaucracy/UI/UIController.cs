@@ -30,8 +30,9 @@ namespace Bureaucracy
             SetAllocation("Budget", "40");
             SetAllocation("Research", "30");
             SetAllocation("Construction", "30");
+            GameEvents.onGUIApplicationLauncherReady.Add(SetupToolbarButton);
+            GameEvents.onGUIApplicationLauncherUnreadifying.Add(RemoveToolbarButton);
         }
-
 
 
         public void SetupToolbarButton()
@@ -328,7 +329,7 @@ namespace Bureaucracy
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("AllocationError", "", "Bureaucracy: Error", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 200,90), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
 
-        public void RemoveToolbarButton()
+        public void RemoveToolbarButton(GameScenes data)
         {
             if (toolbarButton == null) return;
             ApplicationLauncher.Instance.RemoveModApplication(toolbarButton);
@@ -336,7 +337,7 @@ namespace Bureaucracy
 
         private void OnDisable()
         {
-            RemoveToolbarButton();
+            RemoveToolbarButton(HighLogic.LoadedScene);
         }
 
         public PopupDialog NoHireWindow()
