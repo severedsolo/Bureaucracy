@@ -179,7 +179,7 @@ namespace Bureaucracy
             }
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new MultiOptionDialog("BureaucracyMain", "", "Bureaucracy: Budget", UISkinManager.GetSkin("MainMenuSkin"),
-                    GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+                    GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
         }
 
         private Rect GetRect(List<DialogGUIBase> dialogElements)
@@ -395,6 +395,12 @@ namespace Bureaucracy
             dialogElements.Add(new DialogGUIToggle(() => SettingsClass.Instance.KctError, "Show this again", b => SettingsClass.Instance.KctError = b ));
             dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("KCTError", "", "KCT Detected!", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 400,100), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.onGUIApplicationLauncherReady.Remove(SetupToolbarButton);
+            GameEvents.onGUIApplicationLauncherUnreadifying.Remove(RemoveToolbarButton);
         }
     }
 }
