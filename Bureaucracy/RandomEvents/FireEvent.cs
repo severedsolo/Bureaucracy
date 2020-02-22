@@ -16,6 +16,7 @@ namespace Bureaucracy
         public override bool EventCanFire()
         {
             if (Utilities.Instance.Randomise.NextDouble() > FacilityManager.Instance.FireChance) return false;
+            if (facilityToBurn.IsDestroyed()) return false;
             return facilityToBurn.CanBeDestroyed();
         }
 

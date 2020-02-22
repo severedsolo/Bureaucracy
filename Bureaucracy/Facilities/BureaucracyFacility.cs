@@ -188,7 +188,9 @@ namespace Bureaucracy
 
         public bool IsDestroyed()
         {
-            foreach (DestructibleBuilding building in Destructibles())
+            IEnumerable<DestructibleBuilding> destructibles = Destructibles();
+            if (destructibles == null) return false;
+            foreach (DestructibleBuilding building in destructibles)
             {
                 try
                 {
@@ -221,6 +223,7 @@ namespace Bureaucracy
             foreach (KeyValuePair<string, ScenarioDestructibles.ProtoDestructible> kvp in ScenarioDestructibles.protoDestructibles)
             {
                 if (!kvp.Key.Contains(Name)) continue;
+                if (kvp.Value == null) continue;
                 return kvp.Value.dBuildingRefs;
             }
             return null;
