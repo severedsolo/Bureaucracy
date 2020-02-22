@@ -32,8 +32,8 @@ namespace Bureaucracy
                     enableEvent = kerbalismApi.GetField("subjectsReceivedEventEnabled", BindingFlags.Public | BindingFlags.Static);
                 }
                 available = kerbalismApi != null;
-                Debug.Log("[Bureaucracy]: Kerbalism found: " + available);
             }
+            Debug.Log("[Bureaucracy]: Kerbalism found: " + available);
             return available;
         }
 

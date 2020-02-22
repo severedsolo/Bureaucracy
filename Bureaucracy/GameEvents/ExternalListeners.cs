@@ -74,6 +74,7 @@ namespace Bureaucracy
                 return;
             }
             CrewManager.Instance.AddNewCrewMember(crewMember);
+            KerbalRoster.SetExperienceLevel(crewMember, 1);
         }
 
         private void AllocateCrewBonuses(ProtoCrewMember crewMember)
