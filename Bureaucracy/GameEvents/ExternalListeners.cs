@@ -14,7 +14,6 @@ namespace Bureaucracy
         private KerbalismApi kerbalism;
         private EventData<List<ScienceSubject>, List<double>> onKerbalismScience;
         [UsedImplicitly] private Utilities utilitiesReference = new Utilities();
-        private bool modInitiatedScienceEvent = false;
 
         private void Awake()
         {
@@ -44,6 +43,7 @@ namespace Bureaucracy
                 onKerbalismScience.Add(OnKerbalismScienceReceived);
                 Debug.Log("[Bureaucracy]: Kerbalism Event Registered");
             }
+            Debug.Log("[Bureaucracy]: All Events Successfully Registered");
         }
         
         private void AstronautComplexDespawned()
@@ -89,11 +89,6 @@ namespace Bureaucracy
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
         {
             if (!SettingsClass.Instance.HandleScience) return;
-            if (modInitiatedScienceEvent)
-            {
-                modInitiatedScienceEvent = false;
-                return;
-            }
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             if (science < 0.1f) return;
             ResearchAndDevelopment.Instance.AddScience(-science, TransactionReasons.ScienceTransmission);

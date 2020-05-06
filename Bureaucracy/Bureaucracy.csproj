@@ -39,7 +39,7 @@
       <HintPath>..\..\..\..\.steam\steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="FlightTracker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\Bureaucracy\Bureaucracy\bin\Debug\FlightTracker.dll</HintPath>
+      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\Bureaucracy\Bureaucracy\bin\Release\FlightTracker.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -112,7 +112,7 @@
     <PostBuildEvent>bash "/home/martin/Documents/BureaucracyDebug.sh"
     </PostBuildEvent>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration' == 'Release' ">
+  <PropertyGroup>
     <PostBuildEvent>
       bash "/home/martin/Documents/BureaucracyRelease.sh"
     </PostBuildEvent>
