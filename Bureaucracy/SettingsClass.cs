@@ -36,6 +36,8 @@ namespace Bureaucracy
         public float LongTermBonusYears = 10000;
         public float LongTermBonusDays = 30;
         public int BaseStrikesToQuit = 10;
+        public int minimumTerm = 1;
+        public int maximumTerm = 5;
         public bool RetirementEnabled = true;
         public double RetirementExtensionFactor = 0.33f;
         public int StrikeMemory = 6;
@@ -120,6 +122,8 @@ namespace Bureaucracy
             {
                 bool.TryParse(cn.GetValue("RetirementEnabled"), out RetirementEnabled);
                 double.TryParse(cn.GetValue("RetirementExtensionFactor"), out RetirementExtensionFactor);
+                int.TryParse(cn.GetValue("MinimumTerm"), out minimumTerm);
+                int.TryParse(cn.GetValue("MaximumTerm"), out maximumTerm);
             }
             if (RefreshBudget())
             {
@@ -186,6 +190,8 @@ namespace Bureaucracy
             cn.SetValue("RandomEventChance", RandomEventChance, true);
             cn.SetValue("RetirementEnabled", RetirementEnabled, true);
             cn.SetValue("RetirementExtensionFactor", RetirementExtensionFactor, true);
+            cn.SetValue("MinimumTerm", minimumTerm, true);
+            cn.SetValue("MaximumTerm", maximumTerm, true);
             cn.SetValue("TimeBetweenBudgetsDays", TimeBetweenBudgets, true);
             cn.SetValue("RepToFundsMultiplier", BudgetMultiplier, true);
             cn.SetValue("ScienceToFundsMultiplier", ScienceMultiplier, true);

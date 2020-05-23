@@ -33,7 +33,9 @@ namespace Bureaucracy
         {
             Name = kerbalName;
             MaxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
-            retirementDate = Utilities.Instance.Randomise.Next(1, 5) * FlightGlobals.GetHomeBody().orbit.period;
+            int minTerm = SettingsClass.Instance.minimumTerm;
+            int maxTerm = SettingsClass.Instance.maximumTerm;
+            retirementDate = Utilities.Instance.Randomise.Next(minTerm, maxTerm) * FlightGlobals.GetHomeBody().orbit.period;
             Debug.Log("[Bureaucracy]: New CrewMember setup: "+kerbalName);
         }
         
