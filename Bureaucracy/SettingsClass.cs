@@ -35,7 +35,7 @@ namespace Bureaucracy
         public int KerbalBaseWage = 1000;
         public float LongTermBonusYears = 10000;
         public float LongTermBonusDays = 30;
-        public int BaseStrikesToQuit = 6;
+        public int BaseStrikesToQuit = 10;
         public bool RetirementEnabled = true;
         public double RetirementExtensionFactor = 0.33f;
         public int StrikeMemory = 6;

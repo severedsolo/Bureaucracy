@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using KSP.UI;
 using UnityEngine;
 
@@ -38,12 +39,20 @@ namespace Bureaucracy
             CrewMember c = CrewManager.Instance.Kerbals[kerbalName];
             //if for whatever reason we can't find the CrewMember just leave it at default
             if (c == null) return "Available For Next Mission";
+            StringBuilder sb = new StringBuilder();
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
-            if (c.CrewReference().inactive) return "In Training | " + "Wage: " + c.Wage;
-            float morale = (1-(float)c.UnhappinessEvents.Count / c.MaxStrikes)*100;
-            if (float.IsNaN(morale)) morale = 100;
-            if (float.IsNegativeInfinity(morale)) morale = 0;
-            return "Morale: " + Math.Round(morale, 0)+"% | Wage: "+c.Wage;
+            if (c.CrewReference().inactive) sb.AppendLine( "In Training | " + "Wage: " + c.Wage);
+            else
+            {
+                float morale = (1 - (float) c.UnhappinessEvents.Count / c.MaxStrikes) * 100;
+                if (float.IsNaN(morale)) morale = 100;
+                if (float.IsNegativeInfinity(morale)) morale = 0;
+                sb.AppendLine("Morale: " + Math.Round(morale, 0) + "% | Wage: " + c.Wage);
+            }
+
+            KeyValuePair<int, string> retirementDate = Utilities.Instance.ConvertUtToRealTime(c.retirementDate - Planetarium.GetUniversalTime());
+            sb.AppendLine("Retires in " + retirementDate.Key + " " + retirementDate.Value);
+            return sb.ToString();
         }
     }
 }

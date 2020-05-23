@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Bureaucracy
@@ -22,6 +23,7 @@ namespace Bureaucracy
     }
     public class Bureaucracy : MonoBehaviour
     {
+        [UsedImplicitly] private Utilities utilitiesReference = new Utilities();
         public SettingsClass settings;
         public static Bureaucracy Instance;
         public List<Manager> registeredManagers = new List<Manager>();

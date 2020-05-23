@@ -108,12 +108,9 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <PostBuildEvent>bash "/home/martin/Documents/BureaucracyDebug.sh"
-    </PostBuildEvent>
-  </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
+      bash /home/martin/Documents/BureaucracyDebug.sh
       bash "/home/martin/Documents/BureaucracyRelease.sh"
     </PostBuildEvent>
   </PropertyGroup>

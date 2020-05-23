@@ -85,12 +85,13 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Crew Manager OnLoad Complete");
         }
 
-        private void ProcessRetirees()
+        public void ProcessRetirees()
         {
             Debug.Log("[Bureaucracy]: Processing Retirees");
             for (int i = 0; i < Kerbals.Count; i++)
             {
                 KeyValuePair<string, CrewMember> kvp = Kerbals.ElementAt(i);
+                if (kvp.Value.CrewReference().rosterStatus != ProtoCrewMember.RosterStatus.Available) continue;
                 if (kvp.Value.retirementDate > Planetarium.GetUniversalTime()) continue;
                 Debug.Log("[Bureaucracy]: " + kvp.Value.Name + " has retired");
                 HighLogic.CurrentGame.CrewRoster.Remove(kvp.Value.CrewReference());

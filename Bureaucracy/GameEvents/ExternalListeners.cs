@@ -13,7 +13,6 @@ namespace Bureaucracy
     {
         private KerbalismApi kerbalism;
         private EventData<List<ScienceSubject>, List<double>> onKerbalismScience;
-        [UsedImplicitly] private Utilities utilitiesReference = new Utilities();
 
         private void Awake()
         {
@@ -85,6 +84,7 @@ namespace Bureaucracy
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             CrewManager.Instance.UpdateCrewBonus(crewMember, FlightTrackerApi.Instance.GetLaunchTime(crewMember.name));
             CrewManager.Instance.ExtendRetirement(crewMember, FlightTrackerApi.Instance.GetLaunchTime(crewMember.name));
+            CrewManager.Instance.ProcessRetirees();
         }
 
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)

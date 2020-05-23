@@ -12,7 +12,7 @@ namespace Bureaucracy
         public readonly List<CrewUnhappiness> UnhappinessEvents = new List<CrewUnhappiness>();
         public bool Unhappy;
         public float WageModifier = 1.0f;
-        private bool onVacation;
+        //private bool onVacation;
         public double retirementDate;
         public bool aboutToRetire = false;
 
@@ -33,7 +33,7 @@ namespace Bureaucracy
         {
             Name = kerbalName;
             MaxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
-            retirementDate = Utilities.Instance.Randomise.Next(1, 10) * FlightGlobals.GetHomeBody().orbit.period;
+            retirementDate = Utilities.Instance.Randomise.Next(1, 5) * FlightGlobals.GetHomeBody().orbit.period;
             Debug.Log("[Bureaucracy]: New CrewMember setup: "+kerbalName);
         }
         
