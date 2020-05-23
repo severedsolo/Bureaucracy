@@ -28,6 +28,11 @@ namespace Bureaucracy
             return Math.Round(Reputation.Instance.reputation * SettingsClass.Instance.BudgetMultiplier, 0);
         }
 
+        public double GetMonthLength()
+        {
+            return FlightGlobals.GetHomeBody().solarDayLength * SettingsClass.Instance.TimeBetweenBudgets;
+        }
+
         public double GetNetBudget(string department)
         {
             

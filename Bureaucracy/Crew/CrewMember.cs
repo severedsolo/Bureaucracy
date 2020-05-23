@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Expansions.Missions;
+using KSPAchievements;
 using UnityEngine;
 
 namespace Bureaucracy
@@ -33,9 +35,12 @@ namespace Bureaucracy
         {
             Name = kerbalName;
             MaxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
-            int minTerm = SettingsClass.Instance.minimumTerm;
-            int maxTerm = SettingsClass.Instance.maximumTerm;
-            retirementDate = Utilities.Instance.Randomise.Next(minTerm, maxTerm) * FlightGlobals.GetHomeBody().orbit.period;
+            if (SettingsClass.Instance.RetirementEnabled)
+            {
+                int minTerm = SettingsClass.Instance.MinimumTerm;
+                int maxTerm = SettingsClass.Instance.MaximumTerm;
+                retirementDate = Utilities.Instance.Randomise.Next(minTerm, maxTerm) * FlightGlobals.GetHomeBody().orbit.period + Planetarium.GetUniversalTime();
+            }
             Debug.Log("[Bureaucracy]: New CrewMember setup: "+kerbalName);
         }
         
@@ -78,6 +83,13 @@ namespace Bureaucracy
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
             if (crewRef == null) Debug.Log("[Bureaucracy]: Couldn't find a crew ref for " + Name);
             return crewRef;
+        }
+
+        public void Train()
+        {
+            int newLevel = CrewReference().experienceLevel + 1;
+            KerbalRoster.SetExperienceLevel(CrewReference(), newLevel);
+            CrewReference().SetInactive(newLevel * Utilities.Instance.GetMonthLength());
         }
 
         public int GetBonus(bool clearBonus)

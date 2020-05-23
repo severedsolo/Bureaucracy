@@ -50,8 +50,12 @@ namespace Bureaucracy
                 sb.AppendLine("Morale: " + Math.Round(morale, 0) + "% | Wage: " + c.Wage);
             }
 
-            KeyValuePair<int, string> retirementDate = Utilities.Instance.ConvertUtToRealTime(c.retirementDate - Planetarium.GetUniversalTime());
-            sb.AppendLine("Retires in " + retirementDate.Key + " " + retirementDate.Value);
+            if (SettingsClass.Instance.RetirementEnabled)
+            {
+                KeyValuePair<int, string> retirementDate = Utilities.Instance.ConvertUtToRealTime(c.retirementDate - Planetarium.GetUniversalTime());
+                sb.AppendLine("Retires in " + retirementDate.Key + " " + retirementDate.Value);
+            }
+
             return sb.ToString();
         }
     }

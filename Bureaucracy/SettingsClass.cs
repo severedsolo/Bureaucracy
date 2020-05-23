@@ -36,8 +36,9 @@ namespace Bureaucracy
         public float LongTermBonusYears = 10000;
         public float LongTermBonusDays = 30;
         public int BaseStrikesToQuit = 10;
-        public int minimumTerm = 1;
-        public int maximumTerm = 5;
+        public int MinimumTerm = 1;
+        public int MaximumTerm = 5;
+        public int BaseTrainingFee = 100000;
         public bool RetirementEnabled = true;
         public double RetirementExtensionFactor = 0.33f;
         public int StrikeMemory = 6;
@@ -118,12 +119,12 @@ namespace Bureaucracy
             int.TryParse(cn.GetValue("BaseStrikesBeforeKerbalQuits"), out BaseStrikesToQuit);
             int.TryParse(cn.GetValue("StrikeMemoryMonths"), out StrikeMemory);
             int.TryParse(cn.GetValue("DeadKerbalRepPenaltyPercent"), out DeadKerbalPenalty);
-            if (SettingsVersion == "1.4")
+            if (saveVersion == "1.4")
             {
                 bool.TryParse(cn.GetValue("RetirementEnabled"), out RetirementEnabled);
                 double.TryParse(cn.GetValue("RetirementExtensionFactor"), out RetirementExtensionFactor);
-                int.TryParse(cn.GetValue("MinimumTerm"), out minimumTerm);
-                int.TryParse(cn.GetValue("MaximumTerm"), out maximumTerm);
+                int.TryParse(cn.GetValue("MinimumTerm"), out MinimumTerm);
+                int.TryParse(cn.GetValue("MaximumTerm"), out MaximumTerm);
             }
             if (RefreshBudget())
             {
@@ -190,8 +191,8 @@ namespace Bureaucracy
             cn.SetValue("RandomEventChance", RandomEventChance, true);
             cn.SetValue("RetirementEnabled", RetirementEnabled, true);
             cn.SetValue("RetirementExtensionFactor", RetirementExtensionFactor, true);
-            cn.SetValue("MinimumTerm", minimumTerm, true);
-            cn.SetValue("MaximumTerm", maximumTerm, true);
+            cn.SetValue("MinimumTerm", MinimumTerm, true);
+            cn.SetValue("MaximumTerm", MaximumTerm, true);
             cn.SetValue("TimeBetweenBudgetsDays", TimeBetweenBudgets, true);
             cn.SetValue("RepToFundsMultiplier", BudgetMultiplier, true);
             cn.SetValue("ScienceToFundsMultiplier", ScienceMultiplier, true);

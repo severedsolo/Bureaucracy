@@ -9,6 +9,17 @@ using UnityEngine;
 namespace Bureaucracy
 {
     [KSPAddon(KSPAddon.Startup.SpaceCentre, false)]
+    public class UiControllerSpaceCentre : UiController
+    {
+        
+    }
+    
+    [KSPAddon(KSPAddon.Startup.Flight, false)]
+    public class UiControllerFlight : UiController
+    {
+        
+    }
+    
     public class UiController : MonoBehaviour
     {
         private ApplicationLauncherButton toolbarButton;
@@ -17,12 +28,14 @@ namespace Bureaucracy
         private PopupDialog facilitiesWindow;
         private PopupDialog researchWindow;
         public PopupDialog allocationWindow;
+        public PopupDialog crewWindow;
         private int fundingAllocation;
         private int constructionAllocation;
         private int researchAllocation;
         [UsedImplicitly] public PopupDialog errorWindow;
         private int padding;
         private const int PadFactor = 10;
+        private int startIndex = 0;
 
         private void Awake()
         {
@@ -37,8 +50,20 @@ namespace Bureaucracy
 
         public void SetupToolbarButton()
         {
-            if(HighLogic.CurrentGame.Mode == Game.Modes.CAREER) toolbarButton = ApplicationLauncher.Instance.AddModApplication(() => ActivateUi("main"), () => ActivateUi("main"), null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.FLIGHT, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
+            if(HighLogic.CurrentGame.Mode == Game.Modes.CAREER) toolbarButton = ApplicationLauncher.Instance.AddModApplication(ToggleUI, ToggleUI, null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.FLIGHT, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
         }
+
+        private void ToggleUI()
+        {
+            if(UiInactive()) ActivateUi("main");
+            else DismissAllWindows();
+        }
+
+        private bool UiInactive()
+        {
+            return mainWindow == null && facilitiesWindow == null && researchWindow == null && crewWindow == null;
+        }
+
         private void ActivateUi(string screen)
         {
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
@@ -57,7 +82,74 @@ namespace Bureaucracy
                 case "allocation":
                     allocationWindow = DrawBudgetAllocationUi();
                     break;
+                case "crew":
+                    crewWindow = DrawCrewUI();
+                    break;
             }
+        }
+
+        private PopupDialog DrawCrewUI()
+        {
+            List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
+            List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            DialogGUIBase[] horizontal;
+            int maxIndex = startIndex + 5;
+            bool newPage = true;
+            for (int i = startIndex; i <= maxIndex; i++)
+            {
+                if (i >= CrewManager.Instance.Kerbals.Count)
+                {
+                    newPage = false;
+                    break;
+                }
+                KeyValuePair<string, CrewMember> crew = CrewManager.Instance.Kerbals.ElementAt(i);
+                if (crew.Value.CrewReference().rosterStatus != ProtoCrewMember.RosterStatus.Available) continue;
+                if (crew.Value.CrewReference().inactive) continue;
+                if (crew.Value.CrewReference().experienceLevel >= 5) continue;
+                horizontal = new DialogGUIBase[3];
+                horizontal[0] = new DialogGUISpace(10);
+                horizontal[1] = new DialogGUILabel(crew.Key, MessageStyle(true));
+                horizontal[2] = new DialogGUIButton("Train", () => TrainKerbal(crew.Value), false);
+                innerElements.Add(new DialogGUIHorizontalLayout(horizontal));
+            }
+            if(newPage) innerElements.Add(new DialogGUIButton("Next", () => SwitchWindow(maxIndex)));
+            if(startIndex >0) innerElements.Add(new DialogGUIButton("Previous", () => SwitchWindow(startIndex -5)));
+            DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
+            dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+            dialogElements.Add(GetBoxes("crew"));
+            return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new MultiOptionDialog("Bureaucracy", "", "Bureaucracy: Crew Manager", UISkinManager.GetSkin("MainMenuSkin"),
+                    new Rect(0.5f, 0.5f, 350, 265), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
+        }
+
+        private void SwitchWindow(int newStartIndex)
+        {
+            startIndex = newStartIndex;
+            crewWindow.Dismiss();
+            Invoke(nameof(NewCrewWindow), 0.1f);
+        }
+
+        private void NewCrewWindow()
+        {
+            crewWindow = DrawCrewUI();
+        }
+        private void TrainKerbal(CrewMember crewMember)
+        {
+            int newLevel = crewMember.CrewReference().experienceLevel + 1;
+            float trainingFee = newLevel * SettingsClass.Instance.BaseTrainingFee;
+            if (crewMember.CrewReference().inactive)
+            {
+                ScreenMessages.PostScreenMessage(crewMember.Name + " is already in training");
+                return;
+            }
+            if (!Funding.CanAfford(trainingFee))
+            {
+                ScreenMessages.PostScreenMessage("Cannot afford training fee of $" + trainingFee);
+                return;
+            }
+            Funding.Instance.AddFunds(-trainingFee, TransactionReasons.CrewRecruited);
+            ScreenMessages.PostScreenMessage(crewMember.Name + " in training for " + newLevel + " months");
+            crewMember.Train();
         }
 
         private PopupDialog DrawBudgetAllocationUi()
@@ -103,7 +195,7 @@ namespace Bureaucracy
             dialogElements.Add(GetBoxes("allocation"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new MultiOptionDialog("Bureaucracy", "", "Bureaucracy: Budget Allocation", UISkinManager.GetSkin("MainMenuSkin"),
-                    GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+                    GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
         }
 
         private string ShowFunding(Manager manager)
@@ -139,6 +231,8 @@ namespace Bureaucracy
             if (facilitiesWindow != null) facilitiesWindow.Dismiss();
             if (researchWindow != null) researchWindow.Dismiss();
             if (allocationWindow != null) allocationWindow.Dismiss();
+            if(crewWindow != null) crewWindow.Dismiss();
+            startIndex = 0;
         }
 
         private PopupDialog DrawMainUi()
@@ -179,7 +273,7 @@ namespace Bureaucracy
             }
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new MultiOptionDialog("BureaucracyMain", "", "Bureaucracy: Budget", UISkinManager.GetSkin("MainMenuSkin"),
-                    GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
+                    GetRect(dialogElements), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
         }
 
         private Rect GetRect(List<DialogGUIBase> dialogElements)
@@ -290,7 +384,7 @@ namespace Bureaucracy
         private DialogGUIHorizontalLayout GetBoxes(string passingUi)
         {
             int arrayPointer = 0;
-            DialogGUIBase[] horizontal = new DialogGUIBase[4];
+            DialogGUIBase[] horizontal = new DialogGUIBase[5];
             if (passingUi != "main")
             {
                 horizontal[arrayPointer] = new DialogGUIButton("Budget", ()=> ActivateUi("main"));
@@ -309,6 +403,11 @@ namespace Bureaucracy
             if (passingUi != "allocation")
             {
                 horizontal[arrayPointer] = new DialogGUIButton("Allocation", () => ActivateUi("allocation"));
+                arrayPointer++;
+            }
+            if (passingUi != "crew")
+            {
+                horizontal[arrayPointer] = new DialogGUIButton("Crew", () => ActivateUi("crew"));
                 arrayPointer++;
             }
             horizontal[arrayPointer] = new DialogGUIButton("Close", ValidateAllocations, false);

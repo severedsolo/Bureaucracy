@@ -20,12 +20,17 @@ namespace Bureaucracy
                 KeyValuePair<CrewMember, string> unhappyCrewMember = unhappyCrew.ElementAt(i);
                 ReportBuilder.AppendLine(unhappyCrewMember.Key.Name + ": " + unhappyCrewMember.Value);
             }
-            CrewManager.Instance.ProcessQuitters();
-            for (int i = 0; i < CrewManager.Instance.Retirees.Count; i++)
+
+            if (SettingsClass.Instance.RetirementEnabled)
             {
-                string s = CrewManager.Instance.Retirees.ElementAt(i);
-                ReportBuilder.AppendLine(s + " has retired");
+                CrewManager.Instance.ProcessQuitters();
+                for (int i = 0; i < CrewManager.Instance.Retirees.Count; i++)
+                {
+                    string s = CrewManager.Instance.Retirees.ElementAt(i);
+                    ReportBuilder.AppendLine(s + " has retired");
+                }
             }
+
             return ReportBuilder.ToString();
         }
     }
