@@ -12,6 +12,7 @@ namespace Bureaucracy
         private int lastBonus;
         public readonly Dictionary<CrewMember, string> UnhappyCrewOutcomes = new Dictionary<CrewMember, string>();
         private Guid lastProcessedVessel = Guid.Empty;
+        public readonly List<string> Retirees = new List<string>();
 
         public int LastBonus
         {
@@ -51,6 +52,7 @@ namespace Bureaucracy
                 CrewMember c = Kerbals.ElementAt(i).Value;
                 c.MonthWithoutIncident();
             }
+            if(SettingsClass.Instance.RetirementEnabled)ProcessRetirees();
             Debug.Log("[Bureaucracy]: Crew Processed");
         }
 
@@ -81,6 +83,22 @@ namespace Bureaucracy
                 else Debug.Log("[Bureaucracy]: Loaded config for "+crewConfig.GetValue("Name")+" but actual CrewMember could not be found! Skipping");
             }
             Debug.Log("[Bureaucracy]: Crew Manager OnLoad Complete");
+        }
+
+        private void ProcessRetirees()
+        {
+            Debug.Log("[Bureaucracy]: Processing Retirees");
+            for (int i = 0; i < Kerbals.Count; i++)
+            {
+                KeyValuePair<string, CrewMember> kvp = Kerbals.ElementAt(i);
+                if (kvp.Value.retirementDate > Planetarium.GetUniversalTime()) continue;
+                Debug.Log("[Bureaucracy]: " + kvp.Value.Name + " has retired");
+                HighLogic.CurrentGame.CrewRoster.Remove(kvp.Value.CrewReference());
+                ScreenMessages.PostScreenMessage("[Bureaucracy]: " + kvp.Key + " has retired");
+                Retirees.Add(kvp.Key);
+                Kerbals.Remove(kvp.Value.Name);
+            }
+            Debug.Log("[Bureaucracy]: Retirees Processed");
         }
 
         public void UpdateCrewBonus(ProtoCrewMember crewMember, double launchTime)
@@ -150,7 +168,6 @@ namespace Bureaucracy
             double trainingPeriod = FlightGlobals.GetHomeBody().solarDayLength * SettingsClass.Instance.TimeBetweenBudgets;
             crewMember.SetInactive(trainingPeriod);
             Debug.Log("[Bureaucracy]: New Crewmember added: " + newCrew.Name + ". Training for " + trainingPeriod);
-            //TODO: Make the Astronaut Complex UI reflect that the astronaut is training;
         }
 
         public void ProcessDeadKerbal(ProtoCrewMember crewMember)
@@ -182,6 +199,12 @@ namespace Bureaucracy
         private bool CrewOnValidVessel(ProtoCrewMember crewMember)
         {
             return crewMember.seat != null && crewMember.seat.vessel != null;
+        }
+
+        public void ExtendRetirement(ProtoCrewMember crewMember, double launchTime)
+        {
+            double extension = (Planetarium.GetUniversalTime() - launchTime)*SettingsClass.Instance.RetirementExtensionFactor;
+            Kerbals[crewMember.name].ExtendRetirementAge(extension);
         }
     }
 }

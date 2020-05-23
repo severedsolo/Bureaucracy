@@ -33,7 +33,7 @@ namespace Bureaucracy
             GameEvents.onGUIAstronautComplexSpawn.Add(AstronautComplexSpawned);
             GameEvents.onGUIAstronautComplexDespawn.Add(AstronautComplexDespawned);
             Debug.Log("[Bureaucracy]: Stock Events Registered");
-            FlightTrackerApi.OnFlightTrackerUpdated.Add(AllocateCrewBonuses);
+            FlightTrackerApi.OnFlightTrackerUpdated.Add(HandleRecovery);
             Debug.Log("[Bureaucracy]: FlightTracker Events Registered");
             kerbalism = new KerbalismApi();
             if (SettingsClass.Instance.HandleScience && kerbalism.ActivateKerbalismInterface())
@@ -45,7 +45,7 @@ namespace Bureaucracy
             }
             Debug.Log("[Bureaucracy]: All Events Successfully Registered");
         }
-        
+
         private void AstronautComplexDespawned()
         {
             AstronautComplexOverride.Instance.astronautComplexSpawned = false;
@@ -80,10 +80,11 @@ namespace Bureaucracy
             KerbalRoster.SetExperienceLevel(crewMember, 1);
         }
 
-        private void AllocateCrewBonuses(ProtoCrewMember crewMember)
+        private void HandleRecovery(ProtoCrewMember crewMember)
         {
             if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return;
             CrewManager.Instance.UpdateCrewBonus(crewMember, FlightTrackerApi.Instance.GetLaunchTime(crewMember.name));
+            CrewManager.Instance.ExtendRetirement(crewMember, FlightTrackerApi.Instance.GetLaunchTime(crewMember.name));
         }
 
         private void OnScienceReceived(float science, ScienceSubject subject, ProtoVessel protoVessel, bool reverseEngineered)
@@ -142,7 +143,7 @@ namespace Bureaucracy
             GameEvents.onGUIAstronautComplexSpawn.Remove(AstronautComplexSpawned);
             GameEvents.onGUIAstronautComplexDespawn.Remove(AstronautComplexDespawned);
             Debug.Log("[Bureaucracy] Unregistered Stock Events");
-            FlightTrackerApi.OnFlightTrackerUpdated.Remove(AllocateCrewBonuses);
+            FlightTrackerApi.OnFlightTrackerUpdated.Remove(HandleRecovery);
             Debug.Log("[Bureaucracy] Unregistered Flight Tracker Event");
             if (onKerbalismScience == null) return;
             onKerbalismScience.Remove(OnKerbalismScienceReceived);

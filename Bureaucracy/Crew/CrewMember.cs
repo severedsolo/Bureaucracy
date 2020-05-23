@@ -12,7 +12,10 @@ namespace Bureaucracy
         public readonly List<CrewUnhappiness> UnhappinessEvents = new List<CrewUnhappiness>();
         public bool Unhappy;
         public float WageModifier = 1.0f;
-        
+        private bool onVacation;
+        public double retirementDate;
+        public bool aboutToRetire = false;
+
         public string Name { get; private set; }
 
         public double Wage
@@ -30,6 +33,7 @@ namespace Bureaucracy
         {
             Name = kerbalName;
             MaxStrikes = (int)(SettingsClass.Instance.BaseStrikesToQuit * CrewReference().stupidity);
+            retirementDate = Utilities.Instance.Randomise.Next(1, 10) * FlightGlobals.GetHomeBody().orbit.period;
             Debug.Log("[Bureaucracy]: New CrewMember setup: "+kerbalName);
         }
         
@@ -87,6 +91,7 @@ namespace Bureaucracy
             crewNode.SetValue("Name", Name, true);
             crewNode.SetValue("Bonus", bonusAwaitingPayment, true);
             crewNode.SetValue("WageModifier", WageModifier, true);
+            crewNode.SetValue("RetirementDate", retirementDate, true);
             for (int i = 0; i < UnhappinessEvents.Count; i++)
             {
                 CrewUnhappiness cu = UnhappinessEvents.ElementAt(i);
@@ -99,6 +104,7 @@ namespace Bureaucracy
         {
             Name = crewConfig.GetValue("Name");
             double.TryParse(crewConfig.GetValue("Bonus"), out bonusAwaitingPayment);
+            double.TryParse(crewConfig.GetValue("RetirementDate"), out retirementDate);
             if (!crewConfig.TryGetValue("WageModifier", ref WageModifier)) WageModifier = 1.0f;
             ConfigNode[] unhappyNodes = crewConfig.GetNodes("UNHAPPINESS");
             for (int i = 0; i < unhappyNodes.Length; i++)
@@ -130,6 +136,11 @@ namespace Bureaucracy
         {
             UnhappinessEvents.Add(new CrewUnhappiness(reason, this));
             Unhappy = true;
+        }
+
+        public void ExtendRetirementAge(double extension)
+        {
+            retirementDate += extension;
         }
     }
 }

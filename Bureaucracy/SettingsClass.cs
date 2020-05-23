@@ -36,11 +36,13 @@ namespace Bureaucracy
         public float LongTermBonusYears = 10000;
         public float LongTermBonusDays = 30;
         public int BaseStrikesToQuit = 6;
+        public bool RetirementEnabled = true;
+        public double RetirementExtensionFactor = 0.33f;
         public int StrikeMemory = 6;
         public int DeadKerbalPenalty = 25;
         private readonly string defaultPath;
-        private const string SettingsVersion = "1.1";
-        private const string PreviousVersion = "0.2";
+        private const string SettingsVersion = "1.4";
+        private const string PreviousVersion = "1.1";
         private readonly string savePath;
 
         public SettingsClass()
@@ -83,7 +85,7 @@ namespace Bureaucracy
                 return;
             }
             bool.TryParse(cn.GetValue("AutoBalanceSettings"), out autoBalanceSettings);
-            if (saveVersion == "1.1") bool.TryParse(cn.GetValue("HandleScience"), out HandleScience);
+            bool.TryParse(cn.GetValue("HandleScience"), out HandleScience);
             bool.TryParse(cn.GetValue("ShowKCTWarning"), out KctError);
             bool.TryParse(cn.GetValue("ContractInterceptorEnabled"), out ContractInterceptor);
             bool.TryParse(cn.GetValue("HandleKSCUpgrades"), out HandleKscUpgrades);
@@ -114,6 +116,11 @@ namespace Bureaucracy
             int.TryParse(cn.GetValue("BaseStrikesBeforeKerbalQuits"), out BaseStrikesToQuit);
             int.TryParse(cn.GetValue("StrikeMemoryMonths"), out StrikeMemory);
             int.TryParse(cn.GetValue("DeadKerbalRepPenaltyPercent"), out DeadKerbalPenalty);
+            if (SettingsVersion == "1.4")
+            {
+                bool.TryParse(cn.GetValue("RetirementEnabled"), out RetirementEnabled);
+                double.TryParse(cn.GetValue("RetirementExtensionFactor"), out RetirementExtensionFactor);
+            }
             if (RefreshBudget())
             {
                 TimerScript.Instance.RemoveTimer(BudgetManager.Instance.NextBudget);
@@ -173,13 +180,15 @@ namespace Bureaucracy
             cn.SetValue("UseItOrLoseIt", UseItOrLoseIt, true);
             cn.SetValue("HardModeEnabled", HardMode, true);
             cn.SetValue("RepDecayEnabled", RepDecayEnabled, true);
+            cn.SetValue("RepDecayPercent", RepDecayPercent, true);
             cn.SetValue("AstronautTrainingEnabled", AstronautTraining, true);
             cn.SetValue("RandomEventsEnabled", RandomEventsEnabled, true);
             cn.SetValue("RandomEventChance", RandomEventChance, true);
+            cn.SetValue("RetirementEnabled", RetirementEnabled, true);
+            cn.SetValue("RetirementExtensionFactor", RetirementExtensionFactor, true);
             cn.SetValue("TimeBetweenBudgetsDays", TimeBetweenBudgets, true);
             cn.SetValue("RepToFundsMultiplier", BudgetMultiplier, true);
             cn.SetValue("ScienceToFundsMultiplier", ScienceMultiplier, true);
-            cn.SetValue("RepDecayPercent", RepDecayPercent, true);
             cn.SetValue("AdminFacilityBaseCost", AdminCost, true);
             cn.SetValue("AstronautComplexBaseCost", AstronautComplexCost, true);
             cn.SetValue("MissionControlBaseCost", MissionControlCost, true);
