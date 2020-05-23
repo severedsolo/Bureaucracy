@@ -125,6 +125,7 @@ namespace Bureaucracy
                 double.TryParse(cn.GetValue("RetirementExtensionFactor"), out RetirementExtensionFactor);
                 int.TryParse(cn.GetValue("MinimumTerm"), out MinimumTerm);
                 int.TryParse(cn.GetValue("MaximumTerm"), out MaximumTerm);
+                int.TryParse(cn.GetValue("BaseTrainingFee"), out BaseTrainingFee);
             }
             if (RefreshBudget())
             {
@@ -193,6 +194,7 @@ namespace Bureaucracy
             cn.SetValue("RetirementExtensionFactor", RetirementExtensionFactor, true);
             cn.SetValue("MinimumTerm", MinimumTerm, true);
             cn.SetValue("MaximumTerm", MaximumTerm, true);
+            cn.SetValue("BaseTrainingFee", BaseTrainingFee, true);
             cn.SetValue("TimeBetweenBudgetsDays", TimeBetweenBudgets, true);
             cn.SetValue("RepToFundsMultiplier", BudgetMultiplier, true);
             cn.SetValue("ScienceToFundsMultiplier", ScienceMultiplier, true);
