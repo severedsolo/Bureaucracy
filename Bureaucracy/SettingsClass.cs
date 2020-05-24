@@ -38,7 +38,7 @@ namespace Bureaucracy
         public int BaseStrikesToQuit = 10;
         public int MinimumTerm = 1;
         public int MaximumTerm = 5;
-        public int BaseTrainingFee = 100000;
+        public int BaseTrainingFee = 60000;
         public bool RetirementEnabled = true;
         public double RetirementExtensionFactor = 0.33f;
         public int StrikeMemory = 6;
