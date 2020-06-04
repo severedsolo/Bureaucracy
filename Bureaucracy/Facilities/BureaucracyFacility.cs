@@ -48,6 +48,12 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Setup Facility " + Name);
         }
 
+        public BureaucracyFacility(string facilityName)
+        {
+            Name = facilityName;
+            upkeepCost = SetCosts();
+            Debug.Log("[Bureaucracy]: Setup Facility " + Name);
+        }
         private int GetFacilityLevel()
         {
             foreach (KeyValuePair<string, ScenarioUpgradeableFacilities.ProtoUpgradeable> config in ScenarioUpgradeableFacilities.protoUpgradeables)
@@ -117,6 +123,9 @@ namespace Bureaucracy
                     break;
                 case "VehicleAssemblyBuilding":
                     cost = SettingsClass.Instance.VabCost;
+                    break;
+                case "Observatory":
+                    cost = SettingsClass.Instance.ObservatoryCost;
                     break;
                 case "Other Facility":
                     cost = SettingsClass.Instance.OtherFacilityCost;

@@ -24,6 +24,9 @@ namespace Bureaucracy
                 SpaceCenterFacility spf = spaceCentreFacilities.ElementAt(i);
                 Facilities.Add(new BureaucracyFacility(spf));
             }
+            //RB loads super late, well after we're done here, so we need to check if it's installed and set up a BureaucracyFacility for the Observatory.
+            ResearchBodiesWrapper rw = new ResearchBodiesWrapper();
+            if(rw.RBInstalled()) Facilities.Add(new BureaucracyFacility("Observatory"));
             Name = "Construction";
             ThisMonthsBudget = HighLogic.CurrentGame.Parameters.Career.StartingFunds * FundingAllocation;
             Instance = this;

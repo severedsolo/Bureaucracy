@@ -99,6 +99,7 @@
     <Compile Include="RandomEvents\TrainingEvent.cs" />
     <Compile Include="RandomEvents\WageEvent.cs" />
     <Compile Include="Report.cs" />
+    <Compile Include="ResearchBodiesWrapper.cs" />
     <Compile Include="Science\ResearchManager.cs" />
     <Compile Include="Science\ScienceEvent.cs" />
     <Compile Include="Science\ScienceReport.cs" />

@@ -29,6 +29,7 @@ namespace Bureaucracy
         public int TrackingStationCost = 4000;
         public int RndCost = 8000;
         public int VabCost = 8000;
+        public int ObservatoryCost = 5000;
         public int OtherFacilityCost = 5000;
         public int LaunchCostSph = 100;
         public int LaunchCostVab = 1000;
@@ -44,7 +45,7 @@ namespace Bureaucracy
         public int StrikeMemory = 6;
         public int DeadKerbalPenalty = 25;
         private readonly string defaultPath;
-        private const string SettingsVersion = "1.4";
+        private const string SettingsVersion = "1.4.0.1";
         private const string PreviousVersion = "1.1";
         private readonly string savePath;
 
@@ -119,13 +120,14 @@ namespace Bureaucracy
             int.TryParse(cn.GetValue("BaseStrikesBeforeKerbalQuits"), out BaseStrikesToQuit);
             int.TryParse(cn.GetValue("StrikeMemoryMonths"), out StrikeMemory);
             int.TryParse(cn.GetValue("DeadKerbalRepPenaltyPercent"), out DeadKerbalPenalty);
-            if (saveVersion == "1.4")
+            if (saveVersion == "1.4.0.1")
             {
                 bool.TryParse(cn.GetValue("RetirementEnabled"), out RetirementEnabled);
                 double.TryParse(cn.GetValue("RetirementExtensionFactor"), out RetirementExtensionFactor);
                 int.TryParse(cn.GetValue("MinimumTerm"), out MinimumTerm);
                 int.TryParse(cn.GetValue("MaximumTerm"), out MaximumTerm);
                 int.TryParse(cn.GetValue("BaseTrainingFee"), out BaseTrainingFee);
+                int.TryParse(cn.GetValue("ObservatoryCost"), out ObservatoryCost);
             }
             if (RefreshBudget())
             {
@@ -205,6 +207,7 @@ namespace Bureaucracy
             cn.SetValue("TrackingStationBaseCost", TrackingStationCost, true);
             cn.SetValue("RndBaseCost", RndCost, true);
             cn.SetValue("VABBaseCost", VabCost, true);
+            cn.SetValue("ObservatoryCost", ObservatoryCost, true);
             cn.SetValue("ModFacilityBaseCost", OtherFacilityCost, true);
             cn.SetValue("BaseLaunchCostSPH", LaunchCostSph, true);
             cn.SetValue("BaseLaunchCostVAB", LaunchCostVab, true);

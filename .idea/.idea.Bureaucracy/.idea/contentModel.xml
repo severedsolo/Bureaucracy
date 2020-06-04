@@ -52,6 +52,7 @@
           <e p="WageEvent.cs" t="Include" />
         </e>
         <e p="Report.cs" t="Include" />
+        <e p="ResearchBodiesWrapper.cs" t="Include" />
         <e p="Science" t="Include">
           <e p="ResearchManager.cs" t="Include" />
           <e p="ScienceEvent.cs" t="Include" />
