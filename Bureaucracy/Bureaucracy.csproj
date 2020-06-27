@@ -39,7 +39,7 @@
       <HintPath>..\..\..\..\.steam\steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="FlightTracker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\Bureaucracy\Bureaucracy\bin\Release\FlightTracker.dll</HintPath>
+      <HintPath>bin\Release\FlightTracker.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,19 +49,16 @@
       <HintPath>..\..\..\..\.steam\steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\Bureaucracy\Bureaucracy\bin\Debug\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>bin\Release\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\..\..\.steam\steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\.steam\steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\Bureaucracy\Bureaucracy\bin\Debug\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>bin\Release\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\OneDrive\Documents\GitHub\Bureaucracy\Bureaucracy\bin\Debug\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\.steam\steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
