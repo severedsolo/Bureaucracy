@@ -68,8 +68,7 @@ namespace Bureaucracy
             {
                 try
                 {
-                    
-                    if (alarmCheck.title.Equals("Next Budget"))
+                    if (thisAlarm.title.Equals("Next Budget"))
                     {
                         return false;
                     }
