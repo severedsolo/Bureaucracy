@@ -44,7 +44,6 @@ namespace Bureaucracy
         private void Start()
         {
             InternalListeners.OnBudgetAwarded.Add(GeneratePostBudgetReport);
-            KacWrapper.InitKacWrapper();
             if (SettingsClass.Instance.KctError && Directory.Exists(KSPUtil.ApplicationRootPath + "/GameData/KerbalConstructionTime")) UiController.Instance.errorWindow = UiController.Instance.KctError();
         }
         
@@ -55,21 +54,6 @@ namespace Bureaucracy
             registeredManagers.Add(new FacilityManager());
             registeredManagers.Add(new ResearchManager());
             registeredManagers.Add(new CrewManager(HighLogic.CurrentGame.CrewRoster.Crew.ToList()));
-        }
-
-        public void RetryKacAlarm()
-        {
-            //KAC API isn't always ready when we try to add an alarm, so we retry after a few seconds.
-            if (!KacWrapper.AssemblyExists) return;
-            KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;
-            for (int i = 0; i < kacAlarms.Count; i++)
-            {
-                KacWrapper.Kacapi.KacAlarm alarm = kacAlarms.ElementAt(i);
-                if (alarm.Name == "Next Budget") return;
-            }
-
-            double alarmTime = Planetarium.GetUniversalTime() + SettingsClass.Instance.TimeBetweenBudgets * FlightGlobals.GetHomeBody().solarDayLength;
-            Utilities.Instance.NewKacAlarm("Next Budget", alarmTime);
         }
 
         public void SetCalcsDirty()
