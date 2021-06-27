@@ -18,10 +18,20 @@ namespace Bureaucracy
         public void NewKacAlarm(string alarmName, double alarmTime)
         {
             if (!Bureaucracy.Instance.settings.StopTimeWarp) return;
-            if (!KacWrapper.AssemblyExists) return;
-            if (!KacWrapper.ApiReady) return;
-            KacWrapper.Kac.CreateAlarm(KacWrapper.Kacapi.AlarmTypeEnum.Raw, alarmName, alarmTime);
-        }
+            AlarmTypeRaw alarmToSet = new AlarmTypeRaw
+            {
+                title = "Next Budget",
+                description = alarmName,
+                actions =
+                {
+                    warp = AlarmActions.WarpEnum.KillWarp,
+                    message = AlarmActions.MessageEnum.Yes
+                },
+                ut = alarmTime
+            };
+            AlarmClockScenario.AddAlarm(alarmToSet);
+
+            }
         
         public double GetGrossBudget()
         {
