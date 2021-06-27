@@ -63,19 +63,21 @@ namespace Bureaucracy
             if (!SettingsClass.Instance.StopTimeWarp) return false;
             double UT = Planetarium.GetUniversalTime();
             AlarmTypeBase alarmCheck = AlarmClockScenario.GetNextAlarm(UT);
+            AlarmTypeBase thisAlarm = alarmCheck;
             while (true)
             {
                 try
                 {
-                    alarmCheck = AlarmClockScenario.GetNextAlarm(alarmCheck.ut);
+                    
                     if (alarmCheck.title.Equals("Next Budget"))
                     {
                         return false;
                     }
-                    if (alarmCheck == null)
+                    else
                     {
-                        return true;
+                        alarmCheck = thisAlarm;
                     }
+                    thisAlarm = AlarmClockScenario.GetNextAlarm(alarmCheck.ut);
                 }
                 catch
                 {
