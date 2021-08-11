@@ -28,7 +28,7 @@
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/CD473063-D3A2-482F-8D93-D388D0C95035/0c/d3c65851/DialogGUIImage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/CD473063-D3A2-482F-8D93-D388D0C95035/0c/d3c65851/DialogGUIImage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" root0="FORCE_HIGHLIGHTING" />
@@ -210,6 +210,7 @@
       <workItem from="1593251067584" duration="2048000" />
       <workItem from="1628693583069" duration="4945000" />
       <workItem from="1628698800278" duration="6258000" />
+      <workItem from="1628714657640" duration="832000" />
     </task>
     <servers />
   </component>

@@ -73,15 +73,15 @@ namespace Bureaucracy
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
             dialogElements.Add(vertical);
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
-                new MultiOptionDialog("Bureaucracy", "", "Bank of "+FlightGlobals.GetHomeBody().displayName, UISkinManager.GetSkin("MainMenuSkin"),
+                new MultiOptionDialog("Bureaucracy", "", "Bank of "+FlightGlobals.GetHomeBody().bodyName, UISkinManager.GetSkin("MainMenuSkin"),
                     new Rect(0.5f, 0.5f, 350, 265), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
         }
 
         private void WithdrawFunds(int playerInput)
         {
-            double fundsToWithdraw = Math.Max(balance, playerInput) * -1;
+            double fundsToWithdraw = Math.Min(balance, playerInput);
             Funding.Instance.AddFunds(fundsToWithdraw, TransactionReasons.None);
-            balance += fundsToWithdraw *-1;
+            balance -= fundsToWithdraw;
         }
 
         private void DepositFunds(int playerInput)
