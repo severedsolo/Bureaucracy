@@ -68,8 +68,8 @@
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
-      <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/BankOfKerbin.cs" />
+      <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1VLQxrqy5dDiFJO1fP2ZvjzA70A" />
@@ -210,7 +210,7 @@
       <workItem from="1593251067584" duration="2048000" />
       <workItem from="1628693583069" duration="4945000" />
       <workItem from="1628698800278" duration="6258000" />
-      <workItem from="1628714657640" duration="832000" />
+      <workItem from="1628714657640" duration="4200000" />
     </task>
     <servers />
   </component>

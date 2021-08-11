@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using KSP.UI.Screens;
+using LibNoise.Modifiers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -99,6 +100,8 @@ namespace Bureaucracy
 
         private void OnDisable()
         {
+            GameEvents.onGUIApplicationLauncherReady.Remove(AddToolbarButton);
+            GameEvents.onGUIApplicationLauncherUnreadifying.Remove(RemoveToolbarButton);
             RemoveToolbarButton(HighLogic.LoadedScene);
         }
     }

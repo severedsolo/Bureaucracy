@@ -357,6 +357,7 @@ namespace Bureaucracy
             float scienceCount = 0;
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            innerElements.Add(new DialogGUIContentSizer(ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize, true));
             innerElements.Add(new DialogGUISpace(10));
             if(ResearchManager.Instance.ProcessingScience.Count == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No research in progress", false)));
             for (int i = 0; i < ResearchManager.Instance.ProcessingScience.Count; i++)
@@ -366,9 +367,12 @@ namespace Bureaucracy
                 scienceCount += se.RemainingScience;
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(se.UiName+": "+Math.Round(se.OriginalScience-se.RemainingScience, 1)+"/"+Math.Round(se.OriginalScience, 1), false)));
             }
-            DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-            vertical.AddChild(new DialogGUIContentSizer(widthMode: ContentSizeFitter.FitMode.Unconstrained, heightMode: ContentSizeFitter.FitMode.MinSize));
-            dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, vertical));
+
+            dialogElements.Add(
+                new DialogGUIScrollList(new Vector2(300, 300), false, true,
+                    //new DialogGUIScrollList(Vector2.one, false, true,
+                    new DialogGUIVerticalLayout(10, 100, 4, new RectOffset(6, 24, 10, 10), TextAnchor.UpperLeft,
+                        innerElements.ToArray())));
             DialogGUIBase[] horizontal = new DialogGUIBase[3];
             horizontal[0] = new DialogGUILabel("Processing Science: " + Math.Round(scienceCount, 1));
             horizontal[1] = new DialogGUILabel("|");
