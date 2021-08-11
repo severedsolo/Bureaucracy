@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameData/Bureaucracy/Bureaucracy.version" beforeDir="false" afterPath="$PROJECT_DIR$/GameData/Bureaucracy/Bureaucracy.version" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameData/Bureaucracy/Changelog.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/GameData/Bureaucracy/Changelog.cfg" afterDir="false" />
-    </list>
+    <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,105 +13,64 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Utilities.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/ManagerProgressEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/ResearchBodiesWrapper.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Manager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/TimerScript.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/KACWrapper.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyScenario.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Report.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/KerbalismAPI.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewReport.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/CD473063-D3A2-482F-8D93-D388D0C95035/0c/d3c65851/DialogGUIImage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetReport.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Science/ScienceReport.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityReport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityMenuOverride.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/GameEvents/InternalListeners.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Manager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/ResearchBodiesWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyScenario.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Utilities.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/ManagerProgressEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/TimerScript.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Report.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9577AC7A-62EF-4317-9789-031239BA8798/da/051b26f4/__Error.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/KerbalismAPI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetReport.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Report.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityReport.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/UI/MainUI.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/EventManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/ExplosionEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAReversalEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/MunchiesEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/AliensEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEvents.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/PublicInterestEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/InternalListeners.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewUnhappiness.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/TrainingEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/CurrencyEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/RepDecay.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/Costs.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/QAEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventLoader.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/WageEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/RandomEventBase.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityUpgradeEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/ManagerProgressEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceReport.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Science/ScienceEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Science/ResearchManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/RandomEvents/FireEvent.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/KerbalismAPI.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityMenuOverride.cs" />
-        <option value="$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/AC042918-2297-4A13-8F00-7B85091A10D0/d9/80beb2b3/GameEvents.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/CBKFixer.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Manager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewReport.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/BureaucracyFacility.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/ResearchBodiesWrapper.cs" />
-        <option value="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" />
-      </list>
-    </option>
+    <changedPaths>
+      <option value="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" />
+      <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
+      <option value="$PROJECT_DIR$/Bureaucracy/BankOfKerbin.cs" />
+    </changedPaths>
   </component>
   <component name="ProjectId" id="1VLQxrqy5dDiFJO1fP2ZvjzA70A" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -124,8 +81,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34965035" />
-    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.2999223" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3495212" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TWShift.4" value="true" />
@@ -138,21 +95,31 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
       <method v="2" />
     </configuration>
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -241,11 +208,13 @@
       <workItem from="1590231546273" duration="13273000" />
       <workItem from="1591301303530" duration="3770000" />
       <workItem from="1593251067584" duration="2048000" />
+      <workItem from="1628693583069" duration="4945000" />
+      <workItem from="1628698800278" duration="6258000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
@@ -264,89 +233,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="2297" y="529" width="596" height="517" key="#Attach_to_Unity_Editor" timestamp="1588750218292">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state x="2297" y="529" width="596" height="517" key="#Attach_to_Unity_Editor/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1588750218292" />
-    <state x="2446" y="517" width="424" height="478" key="FileChooserDialogImpl" timestamp="1593251856603">
-      <screen x="1920" y="312" width="1360" height="768" />
-    </state>
-    <state x="2446" y="517" width="424" height="478" key="FileChooserDialogImpl/0.0.1920.1040/1920.312.1360.768@1920.312.1360.768" timestamp="1593251856603" />
-    <state x="2446" y="612" width="424" height="479" key="FileChooserDialogImpl/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1588762284331" />
-    <state width="1318" height="259" key="GridCell.Tab.0.bottom" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.0.center" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.0.center/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.0.left" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.0.left/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.0.right" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.0.right/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.1.bottom" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.1.center" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.1.center/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.1.left" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.1.left/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.1.right" timestamp="1591304281732">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.1.right/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281732" />
-    <state width="1318" height="259" key="GridCell.Tab.2.bottom" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state width="1318" height="259" key="GridCell.Tab.2.center" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.2.center/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state width="1318" height="259" key="GridCell.Tab.2.left" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.2.left/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state width="1318" height="259" key="GridCell.Tab.2.right" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.2.right/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state width="1318" height="259" key="GridCell.Tab.3.bottom" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.3.bottom/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state width="1318" height="259" key="GridCell.Tab.3.center" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.3.center/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state width="1318" height="259" key="GridCell.Tab.3.left" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.3.left/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state width="1318" height="259" key="GridCell.Tab.3.right" timestamp="1591304281733">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="1318" height="259" key="GridCell.Tab.3.right/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1591304281733" />
-    <state x="2104" y="425" key="SettingsEditor" timestamp="1588750476149">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state x="2104" y="425" key="SettingsEditor/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1588750476149" />
-    <state width="680" height="384" key="XDebugger.FullValuePopup" timestamp="1590219992402">
-      <screen x="1920" y="407" width="1360" height="768" />
-    </state>
-    <state width="680" height="384" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.407.1360.768@1920.407.1360.768" timestamp="1590219992402" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -362,32 +248,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Bureaucracy/Utilities.cs</url>
-          <line>93</line>
-          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" initialLine="88">
-            <startOffsets>
-              <option value="3499" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3521" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="336" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Bureaucracy/Utilities.cs</url>
-          <line>104</line>
-          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Utilities.cs" initialLine="99">
-            <startOffsets>
-              <option value="3968" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4025" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="337" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs</url>
@@ -440,6 +300,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="354" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs</url>
+          <line>69</line>
+          <properties documentPath="C:\Users\evilp\Documents\GitHub\Bureaucracy\Bureaucracy\UI\UIController.cs" initialLine="69" containingFunctionPresentation="method 'ActivateUi'">
+            <startOffsets>
+              <option value="2294" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2295" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="355" />
         </line-breakpoint>
         <breakpoint enabled="true" type="DotNet Exception Breakpoints">
           <properties exception="System.Runtime.Remoting.RemotingTimeoutException" isInternal="false" displayValue="RemotingTimeoutException" namespaceName="System.Runtime.Remoting">
