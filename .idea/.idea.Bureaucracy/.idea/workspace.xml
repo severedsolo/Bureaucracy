@@ -71,8 +71,9 @@
       <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" />
-      <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
+      <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
+      <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1VLQxrqy5dDiFJO1fP2ZvjzA70A" />
@@ -216,7 +217,7 @@
       <workItem from="1628714657640" duration="4714000" />
       <workItem from="1628746321313" duration="1871000" />
       <workItem from="1628761324629" duration="168000" />
-      <workItem from="1628774088667" duration="2353000" />
+      <workItem from="1628774088667" duration="6176000" />
     </task>
     <servers />
   </component>

@@ -475,7 +475,6 @@ namespace Bureaucracy
         {
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             dialogElements.Add(new DialogGUILabel("It looks like you have Kerbal Construction Time installed. You should not use KCT's Facility Upgrade and Bureaucracy's Facility Upgrade at the same time. Bad things will happen."));
-            dialogElements.Add(new DialogGUIToggle(() => SettingsClass.Instance.KctError, "Show this again", b => SettingsClass.Instance.KctError = b ));
             dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("KCTError", "", "KCT Detected!", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 400,100), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
