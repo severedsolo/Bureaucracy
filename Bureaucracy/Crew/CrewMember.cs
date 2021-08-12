@@ -39,7 +39,8 @@ namespace Bureaucracy
             {
                 int minTerm = SettingsClass.Instance.MinimumTerm;
                 int maxTerm = SettingsClass.Instance.MaximumTerm;
-                retirementDate = Utilities.Instance.Randomise.Next(minTerm, maxTerm) * FlightGlobals.GetHomeBody().orbit.period + Planetarium.GetUniversalTime();
+                if (SettingsClass.Instance.RetirementEnabled) retirementDate = Utilities.Instance.Randomise.Next(minTerm, maxTerm) * FlightGlobals.GetHomeBody().orbit.period + Planetarium.GetUniversalTime();
+                else retirementDate = -1;
             }
             Debug.Log("[Bureaucracy]: New CrewMember setup: "+kerbalName);
         }
@@ -119,6 +120,8 @@ namespace Bureaucracy
             Name = crewConfig.GetValue("Name");
             double.TryParse(crewConfig.GetValue("Bonus"), out bonusAwaitingPayment);
             double.TryParse(crewConfig.GetValue("RetirementDate"), out retirementDate);
+            if(retirementDate == -1 && SettingsClass.Instance.RetirementEnabled) retirementDate = Utilities.Instance.Randomise.Next(SettingsClass.Instance.MinimumTerm, SettingsClass.Instance.MaximumTerm) * FlightGlobals.GetHomeBody().orbit.period + Planetarium.GetUniversalTime();
+            else if (!SettingsClass.Instance.RetirementEnabled) retirementDate = -1;
             if (!crewConfig.TryGetValue("WageModifier", ref WageModifier)) WageModifier = 1.0f;
             ConfigNode[] unhappyNodes = crewConfig.GetNodes("UNHAPPINESS");
             for (int i = 0; i < unhappyNodes.Length; i++)

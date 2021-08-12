@@ -35,7 +35,13 @@ namespace Bureaucracy
         private PopupDialog dialogWindow;
         private double balance = 0;
         private int playerInput = 0;
-        
+        public static BankOfKerbin Instance;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         private void Start()
         {
             GameEvents.onGUIApplicationLauncherReady.Add(AddToolbarButton);
@@ -98,6 +104,20 @@ namespace Bureaucracy
             return s;
         }
 
+        public void OnSave(ConfigNode cn)
+        {
+            ConfigNode thisNode = new ConfigNode("BankOfKerbin");
+            thisNode.AddValue("Balance", balance);
+            cn.AddNode(thisNode);
+        }
+
+        public void OnLoad(ConfigNode cn)
+        {
+            ConfigNode thisNode = null;
+            cn.TryGetNode("BankOfKerbin", ref thisNode);
+            if (thisNode == null) return;
+            thisNode.TryGetValue("Balance", ref balance);
+        }
         private void OnDisable()
         {
             GameEvents.onGUIApplicationLauncherReady.Remove(AddToolbarButton);

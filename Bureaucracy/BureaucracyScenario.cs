@@ -7,11 +7,13 @@ namespace Bureaucracy
         public override void OnSave(ConfigNode node)
         {
             Bureaucracy.Instance.OnSave(node);
+            BankOfKerbin.Instance.OnSave(node);
         }
 
         public override void OnLoad(ConfigNode node)
         {
             Bureaucracy.Instance.OnLoad(node);
+            BankOfKerbin.Instance.OnLoad(node);
         }
     }
 }
