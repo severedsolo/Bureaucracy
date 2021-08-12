@@ -36,7 +36,6 @@ namespace Bureaucracy
         [UsedImplicitly] public PopupDialog errorWindow;
         private int padding;
         private const int PadFactor = 10;
-        private int startIndex = 0;
 
         private void Awake()
         {
@@ -94,9 +93,9 @@ namespace Bureaucracy
         {
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            innerElements.Add(new DialogGUIContentSizer(ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize, true));
             DialogGUIBase[] horizontal;
-            
-            for (int i = startIndex; i <= CrewManager.Instance.Kerbals.Count; i++)
+            for (int i = 0; i < CrewManager.Instance.Kerbals.Count; i++)
             {
                 KeyValuePair<string, CrewMember> crew = CrewManager.Instance.Kerbals.ElementAt(i);
                 if (crew.Value.CrewReference().rosterStatus != ProtoCrewMember.RosterStatus.Available) continue;
@@ -109,19 +108,11 @@ namespace Bureaucracy
                 innerElements.Add(new DialogGUIHorizontalLayout(horizontal));
             }
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-            vertical.AddChild(new DialogGUIContentSizer(widthMode: ContentSizeFitter.FitMode.Unconstrained, heightMode: ContentSizeFitter.FitMode.MinSize));
             dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, vertical));
             dialogElements.Add(GetBoxes("crew"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new MultiOptionDialog("Bureaucracy", "", "Bureaucracy: Crew Manager", UISkinManager.GetSkin("MainMenuSkin"),
                     new Rect(0.5f, 0.5f, 350, 265), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
-        }
-
-        private void SwitchWindow(int newStartIndex)
-        {
-            startIndex = newStartIndex;
-            crewWindow.Dismiss();
-            Invoke(nameof(NewCrewWindow), 0.1f);
         }
 
         private void NewCrewWindow()
@@ -227,7 +218,6 @@ namespace Bureaucracy
             if (researchWindow != null) researchWindow.Dismiss();
             if (allocationWindow != null) allocationWindow.Dismiss();
             if(crewWindow != null) crewWindow.Dismiss();
-            startIndex = 0;
         }
 
         private PopupDialog DrawMainUi()
@@ -327,6 +317,7 @@ namespace Bureaucracy
             int upgradeCount = 0;
             innerElements.Add(new DialogGUISpace(10));
             float investmentNeeded = 0;
+            innerElements.Add(new DialogGUIContentSizer(ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize, true));
             innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("This Month's Budget: $"+Math.Round(FacilityManager.Instance.ThisMonthsBudget, 0), false)));
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
@@ -340,7 +331,6 @@ namespace Bureaucracy
             }
             if (upgradeCount == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No Facility Upgrades in progress", false)));
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-            vertical.AddChild(new DialogGUIContentSizer(widthMode: ContentSizeFitter.FitMode.Unconstrained, heightMode: ContentSizeFitter.FitMode.MinSize));
             dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, vertical));
             DialogGUIBase[] horizontal = new DialogGUIBase[3];
             horizontal[0] = new DialogGUILabel("Total Investment Needed: $"+investmentNeeded);
@@ -368,11 +358,7 @@ namespace Bureaucracy
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(se.UiName+": "+Math.Round(se.OriginalScience-se.RemainingScience, 1)+"/"+Math.Round(se.OriginalScience, 1), false)));
             }
 
-            dialogElements.Add(
-                new DialogGUIScrollList(new Vector2(300, 300), false, true,
-                    //new DialogGUIScrollList(Vector2.one, false, true,
-                    new DialogGUIVerticalLayout(10, 100, 4, new RectOffset(6, 24, 10, 10), TextAnchor.UpperLeft,
-                        innerElements.ToArray())));
+            dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, new DialogGUIVerticalLayout(10, 100, 4, new RectOffset(6, 24, 10, 10), TextAnchor.UpperLeft, innerElements.ToArray())));
             DialogGUIBase[] horizontal = new DialogGUIBase[3];
             horizontal[0] = new DialogGUILabel("Processing Science: " + Math.Round(scienceCount, 1));
             horizontal[1] = new DialogGUILabel("|");
