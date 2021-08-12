@@ -114,11 +114,7 @@ namespace Bureaucracy
                 new MultiOptionDialog("Bureaucracy", "", "Bureaucracy: Crew Manager", UISkinManager.GetSkin("MainMenuSkin"),
                     new Rect(0.5f, 0.5f, 350, 265), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
         }
-
-        private void NewCrewWindow()
-        {
-            crewWindow = DrawCrewUI();
-        }
+        
         private void TrainKerbal(CrewMember crewMember)
         {
             int newLevel = crewMember.CrewReference().experienceLevel + 1;

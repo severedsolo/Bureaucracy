@@ -90,7 +90,10 @@ namespace Bureaucracy
         {
             int newLevel = CrewReference().experienceLevel + 1;
             KerbalRoster.SetExperienceLevel(CrewReference(), newLevel);
-            CrewReference().SetInactive(newLevel * Utilities.Instance.GetMonthLength());
+            double trainingTime = newLevel * Utilities.Instance.GetMonthLength();
+            CrewReference().SetInactive(trainingTime);
+            Utilities.Instance.NewStockAlarm(Name+" - Training", Name+" has completed their training", trainingTime);
+            Debug.Log("[Bureaucracy]: "+Name+" entered training for "+trainingTime+", new Level: "+newLevel);
         }
 
         public int GetBonus(bool clearBonus)

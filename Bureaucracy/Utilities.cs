@@ -15,23 +15,22 @@ namespace Bureaucracy
         {
             Instance = this;
         }
-        public void NewKacAlarm(string alarmName, double alarmTime)
+        public void NewStockAlarm(string alarmName, string alarmDescription, double alarmTime)
         {
             if (!Bureaucracy.Instance.settings.StopTimeWarp) return;
             AlarmTypeRaw alarmToSet = new AlarmTypeRaw
             {
-                title = "Next Budget",
-                description = alarmName,
+                title = alarmName,
+                description = alarmDescription,
                 actions =
                 {
                     warp = AlarmActions.WarpEnum.KillWarp,
                     message = AlarmActions.MessageEnum.Yes
                 },
-                ut = alarmTime
+                ut = Planetarium.GetUniversalTime() + alarmTime
             };
             AlarmClockScenario.AddAlarm(alarmToSet);
-
-            }
+        }
         
         public double GetGrossBudget()
         {

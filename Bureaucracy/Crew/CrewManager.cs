@@ -166,9 +166,8 @@ namespace Bureaucracy
             CrewMember newCrew = new CrewMember(crewMember.name);
             Kerbals.Add(crewMember.name, newCrew );
             if (!SettingsClass.Instance.AstronautTraining) return;
-            double trainingPeriod = Utilities.Instance.GetMonthLength();
-            crewMember.SetInactive(trainingPeriod);
-            Debug.Log("[Bureaucracy]: New Crewmember added: " + newCrew.Name + ". Training for " + trainingPeriod);
+            newCrew.Train();
+            Debug.Log("[Bureaucracy]: New Crewmember added: " + newCrew.Name);
         }
 
         public void ProcessDeadKerbal(ProtoCrewMember crewMember)
