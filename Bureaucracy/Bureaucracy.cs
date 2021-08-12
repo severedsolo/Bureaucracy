@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -44,10 +45,51 @@ namespace Bureaucracy
         private void Start()
         {
             InternalListeners.OnBudgetAwarded.Add(GeneratePostBudgetReport);
-            KacWrapper.InitKacWrapper();
-            if (SettingsClass.Instance.KctError && Directory.Exists(KSPUtil.ApplicationRootPath + "/GameData/KerbalConstructionTime")) UiController.Instance.errorWindow = UiController.Instance.KctError();
+            if (FireKCTWarning()) UiController.Instance.errorWindow = UiController.Instance.KctError();
         }
-        
+
+        private bool FireKCTWarning()
+        {
+            Debug.Log("[Bureaucracy]: Checking for KCT");
+            //No point going any further if we're not handling facility upgrades
+            if (!SettingsClass.Instance.HandleKscUpgrades)
+            {
+                Debug.Log("[Bureaucracy]: KSC Upgrades are disabled");
+                return false;
+            }
+            //Now let's see if KCT is installed
+            bool kctFound = false;
+            foreach (AssemblyLoader.LoadedAssembly a in AssemblyLoader.loadedAssemblies)
+            {
+                if (!a.name.Equals("KerbalConstructionTime")) continue;
+                kctFound = true;
+                Debug.Log("[Bureaucracy]: KCT found");
+                break;
+            }
+
+            if (!kctFound)
+            {
+                Debug.Log("[Bureaucracy]: KCT not found");
+                return false;
+            }
+            //KCT installed? Let's try loading the settings file.
+            ConfigNode kctNode = ConfigNode.Load(KSPUtil.ApplicationRootPath + "/saves/" + HighLogic.SaveFolder + "/KCT_Settings.cfg");
+            //If it's null, probably first load so the warning needs to fire
+            if (kctNode == null)
+            {
+                Debug.Log("[Bureaucracy]: KCT Node is null. Firing Warning");
+                return true;
+            }
+            //Start drilling down the nodes until we get to the one we want
+            kctNode = kctNode.GetNode("KCT_Preset");
+            kctNode = kctNode.GetNode("KCT_Preset_General");
+            //Finally - let's see if we can get the setting
+            string s = kctNode.GetValue("KSCUpgradeTimes");
+            bool.TryParse(s, out bool b);
+            Debug.Log("[Bureaucracy]: KCT Facility Upgrades Enabled? " + b);
+            return b;
+        }
+
         private void RegisterBureaucracyManagers()
         {
             //Register internal manager classes (and gives me a place to store the references). Expandable.
@@ -55,21 +97,6 @@ namespace Bureaucracy
             registeredManagers.Add(new FacilityManager());
             registeredManagers.Add(new ResearchManager());
             registeredManagers.Add(new CrewManager(HighLogic.CurrentGame.CrewRoster.Crew.ToList()));
-        }
-
-        public void RetryKacAlarm()
-        {
-            //KAC API isn't always ready when we try to add an alarm, so we retry after a few seconds.
-            if (!KacWrapper.AssemblyExists) return;
-            KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;
-            for (int i = 0; i < kacAlarms.Count; i++)
-            {
-                KacWrapper.Kacapi.KacAlarm alarm = kacAlarms.ElementAt(i);
-                if (alarm.Name == "Next Budget") return;
-            }
-
-            double alarmTime = Planetarium.GetUniversalTime() + SettingsClass.Instance.TimeBetweenBudgets * FlightGlobals.GetHomeBody().solarDayLength;
-            Utilities.Instance.NewKacAlarm("Next Budget", alarmTime);
         }
 
         public void SetCalcsDirty()

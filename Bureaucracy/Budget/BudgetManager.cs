@@ -61,20 +61,28 @@ namespace Bureaucracy
         private bool NeedNewKacAlarm()
         {
             if (!SettingsClass.Instance.StopTimeWarp) return false;
-            if (!KacWrapper.AssemblyExists)
+            double UT = Planetarium.GetUniversalTime();
+            AlarmTypeBase alarmCheck = AlarmClockScenario.GetNextAlarm(UT);
+            AlarmTypeBase thisAlarm = alarmCheck;
+            while (true)
             {
-                Debug.Log("[Bureaucracy]: Couldn't find KAC. I'll try again in 1 second");
-                Bureaucracy.Instance.Invoke(nameof(Bureaucracy.Instance.RetryKacAlarm), 1.0f);
-                return false;
+                try
+                {
+                    if (thisAlarm.title.Equals("Next Budget"))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        alarmCheck = thisAlarm;
+                    }
+                    thisAlarm = AlarmClockScenario.GetNextAlarm(alarmCheck.ut);
+                }
+                catch
+                {
+                    return true;
+                }
             }
-            KacWrapper.Kacapi.KacAlarmList kacAlarms = KacWrapper.Kac.Alarms;
-            for (int i = 0; i < kacAlarms.Count; i++)
-            {
-                KacWrapper.Kacapi.KacAlarm alarm = kacAlarms.ElementAt(i);
-                if (alarm.Name == "Next Budget") return false;
-            }
-
-            return true;
         }
 
         public void OnSave(ConfigNode cn)

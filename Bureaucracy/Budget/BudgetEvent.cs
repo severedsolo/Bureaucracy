@@ -14,7 +14,7 @@ namespace Bureaucracy
             CompletionTime = budgetTime;
             Name = "Next Budget";
             ParentManager = manager;
-            if(newKacAlarm) Utilities.Instance.NewKacAlarm("Next Budget", CompletionTime);
+            if(newKacAlarm) Utilities.Instance.NewStockAlarm("Next Budget", "Next Budget", CompletionTime);
             StopTimewarpOnCompletion = true;
             AddTimer();
         }

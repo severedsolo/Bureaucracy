@@ -5,6 +5,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using KSP.UI.Screens;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bureaucracy
 {
@@ -35,7 +36,6 @@ namespace Bureaucracy
         [UsedImplicitly] public PopupDialog errorWindow;
         private int padding;
         private const int PadFactor = 10;
-        private int startIndex = 0;
 
         private void Awake()
         {
@@ -50,7 +50,8 @@ namespace Bureaucracy
 
         public void SetupToolbarButton()
         {
-            if(HighLogic.CurrentGame.Mode == Game.Modes.CAREER) toolbarButton = ApplicationLauncher.Instance.AddModApplication(ToggleUI, ToggleUI, null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.FLIGHT, GameDatabase.Instance.GetTexture("Bureaucracy/Icon", false));
+            //TODO: Rename the icon file
+            if(HighLogic.CurrentGame.Mode == Game.Modes.CAREER) toolbarButton = ApplicationLauncher.Instance.AddModApplication(ToggleUI, ToggleUI, null, null, null, null, ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.FLIGHT, GameDatabase.Instance.GetTexture("Bureaucracy/MainIcon", false));
         }
 
         private void ToggleUI()
@@ -92,16 +93,10 @@ namespace Bureaucracy
         {
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            innerElements.Add(new DialogGUIContentSizer(ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize, true));
             DialogGUIBase[] horizontal;
-            int maxIndex = startIndex + 5;
-            bool newPage = true;
-            for (int i = startIndex; i <= maxIndex; i++)
+            for (int i = 0; i < CrewManager.Instance.Kerbals.Count; i++)
             {
-                if (i >= CrewManager.Instance.Kerbals.Count)
-                {
-                    newPage = false;
-                    break;
-                }
                 KeyValuePair<string, CrewMember> crew = CrewManager.Instance.Kerbals.ElementAt(i);
                 if (crew.Value.CrewReference().rosterStatus != ProtoCrewMember.RosterStatus.Available) continue;
                 if (crew.Value.CrewReference().inactive) continue;
@@ -112,27 +107,14 @@ namespace Bureaucracy
                 horizontal[2] = new DialogGUIButton("Train", () => TrainKerbal(crew.Value), false);
                 innerElements.Add(new DialogGUIHorizontalLayout(horizontal));
             }
-            if(newPage) innerElements.Add(new DialogGUIButton("Next", () => SwitchWindow(maxIndex)));
-            if(startIndex >0) innerElements.Add(new DialogGUIButton("Previous", () => SwitchWindow(startIndex -5)));
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-            dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+            dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, vertical));
             dialogElements.Add(GetBoxes("crew"));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new MultiOptionDialog("Bureaucracy", "", "Bureaucracy: Crew Manager", UISkinManager.GetSkin("MainMenuSkin"),
                     new Rect(0.5f, 0.5f, 350, 265), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"), false);
         }
-
-        private void SwitchWindow(int newStartIndex)
-        {
-            startIndex = newStartIndex;
-            crewWindow.Dismiss();
-            Invoke(nameof(NewCrewWindow), 0.1f);
-        }
-
-        private void NewCrewWindow()
-        {
-            crewWindow = DrawCrewUI();
-        }
+        
         private void TrainKerbal(CrewMember crewMember)
         {
             int newLevel = crewMember.CrewReference().experienceLevel + 1;
@@ -232,7 +214,6 @@ namespace Bureaucracy
             if (researchWindow != null) researchWindow.Dismiss();
             if (allocationWindow != null) allocationWindow.Dismiss();
             if(crewWindow != null) crewWindow.Dismiss();
-            startIndex = 0;
         }
 
         private PopupDialog DrawMainUi()
@@ -260,7 +241,8 @@ namespace Bureaucracy
                 }
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("Net Budget: $"+Utilities.Instance.GetNetBudget("Budget"), false)));
                 DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-                dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+                vertical.AddChild(new DialogGUIContentSizer(widthMode: ContentSizeFitter.FitMode.Unconstrained, heightMode: ContentSizeFitter.FitMode.MinSize));
+                dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, vertical));
                 DialogGUIBase[] horizontal = new DialogGUIBase[6];
                 horizontal[0] = new DialogGUILabel("Allocations: ");
                 horizontal[1] = new DialogGUILabel("Funds: "+fundingAllocation+"%");
@@ -331,6 +313,7 @@ namespace Bureaucracy
             int upgradeCount = 0;
             innerElements.Add(new DialogGUISpace(10));
             float investmentNeeded = 0;
+            innerElements.Add(new DialogGUIContentSizer(ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize, true));
             innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("This Month's Budget: $"+Math.Round(FacilityManager.Instance.ThisMonthsBudget, 0), false)));
             for (int i = 0; i < FacilityManager.Instance.Facilities.Count; i++)
             {
@@ -344,7 +327,7 @@ namespace Bureaucracy
             }
             if (upgradeCount == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No Facility Upgrades in progress", false)));
             DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-            dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, false, vertical));
+            dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, vertical));
             DialogGUIBase[] horizontal = new DialogGUIBase[3];
             horizontal[0] = new DialogGUILabel("Total Investment Needed: $"+investmentNeeded);
             horizontal[1] = new DialogGUILabel("|");
@@ -360,6 +343,7 @@ namespace Bureaucracy
             float scienceCount = 0;
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             List<DialogGUIBase> innerElements = new List<DialogGUIBase>();
+            innerElements.Add(new DialogGUIContentSizer(ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize, true));
             innerElements.Add(new DialogGUISpace(10));
             if(ResearchManager.Instance.ProcessingScience.Count == 0) innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel("No research in progress", false)));
             for (int i = 0; i < ResearchManager.Instance.ProcessingScience.Count; i++)
@@ -369,8 +353,8 @@ namespace Bureaucracy
                 scienceCount += se.RemainingScience;
                 innerElements.Add(new DialogGUIHorizontalLayout(PaddedLabel(se.UiName+": "+Math.Round(se.OriginalScience-se.RemainingScience, 1)+"/"+Math.Round(se.OriginalScience, 1), false)));
             }
-            DialogGUIVerticalLayout vertical = new DialogGUIVerticalLayout(innerElements.ToArray());
-            dialogElements.Add(new DialogGUIScrollList(-Vector2.one, false, false, vertical));
+
+            dialogElements.Add(new DialogGUIScrollList(new Vector2(300, 300), false, true, new DialogGUIVerticalLayout(10, 100, 4, new RectOffset(6, 24, 10, 10), TextAnchor.UpperLeft, innerElements.ToArray())));
             DialogGUIBase[] horizontal = new DialogGUIBase[3];
             horizontal[0] = new DialogGUILabel("Processing Science: " + Math.Round(scienceCount, 1));
             horizontal[1] = new DialogGUILabel("|");
@@ -491,7 +475,6 @@ namespace Bureaucracy
         {
             List<DialogGUIBase> dialogElements = new List<DialogGUIBase>();
             dialogElements.Add(new DialogGUILabel("It looks like you have Kerbal Construction Time installed. You should not use KCT's Facility Upgrade and Bureaucracy's Facility Upgrade at the same time. Bad things will happen."));
-            dialogElements.Add(new DialogGUIToggle(() => SettingsClass.Instance.KctError, "Show this again", b => SettingsClass.Instance.KctError = b ));
             dialogElements.Add(new DialogGUIButton("OK", () => { }, true));
             return PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new MultiOptionDialog("KCTError", "", "KCT Detected!", UISkinManager.GetSkin("MainMenuSkin"), new Rect(0.5f, 0.5f, 400,100), dialogElements.ToArray()), false, UISkinManager.GetSkin("MainMenuSkin"));
         }
