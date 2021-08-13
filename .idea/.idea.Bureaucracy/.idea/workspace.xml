@@ -23,7 +23,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9577AC7A-62EF-4317-9789-031239BA8798/e7/90c53cf0/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9577AC7A-62EF-4317-9789-031239BA8798/e7/90c53cf0/Dictionary`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Crew/CrewReport.cs" root0="FORCE_HIGHLIGHTING" />
@@ -71,10 +71,10 @@
       <option value="$PROJECT_DIR$/Bureaucracy/BureaucracyScenario.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewManager.cs" />
-      <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" />
-      <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" />
       <option value="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" />
+      <option value="$PROJECT_DIR$/Bureaucracy/Utilities.cs" />
+      <option value="$PROJECT_DIR$/Bureaucracy/Crew/CrewMember.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1VLQxrqy5dDiFJO1fP2ZvjzA70A" />
@@ -220,6 +220,7 @@
       <workItem from="1628761324629" duration="168000" />
       <workItem from="1628774088667" duration="6176000" />
       <workItem from="1628785964411" duration="417000" />
+      <workItem from="1628830544207" duration="613000" />
     </task>
     <servers />
   </component>
@@ -1608,12 +1609,12 @@
       </default-breakpoints>
     </breakpoint-manager>
     <watches-manager>
-      <configuration name="WindowsPlayer(DESKTOP-LBJG42E)">
-        <watch expression="CrewManager.Instance.Kerbals.Count" language="C#" />
-      </configuration>
       <configuration name="LinuxPlayer(10.49.10.14)">
         <watch expression="facility.id" language="C#" />
         <watch expression="bf.Name" language="C#" />
+      </configuration>
+      <configuration name="WindowsPlayer(DESKTOP-LBJG42E)">
+        <watch expression="CrewManager.Instance.Kerbals.Count" language="C#" />
       </configuration>
       <configuration name="LinuxPlayer(10.71.10.6)">
         <watch expression="cn.GetValue(&quot;TimeBetweenBudgetsDays&quot;)" language="C#" custom="RiderImportsList:" />

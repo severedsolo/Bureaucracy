@@ -27,7 +27,7 @@ namespace Bureaucracy
                     warp = AlarmActions.WarpEnum.KillWarp,
                     message = AlarmActions.MessageEnum.Yes
                 },
-                ut = Planetarium.GetUniversalTime() + alarmTime
+                ut = alarmTime
             };
             AlarmClockScenario.AddAlarm(alarmToSet);
         }
