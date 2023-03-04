@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 namespace Bureaucracy
 {
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
-    public class ExternalListeners : MonoBehaviour
+    public clasExternalListeners : MonoBehaviour
     {
         private KerbalismApi kerbalism;
         private EventData<List<ScienceSubject>, List<double>> onKerbalismScience;

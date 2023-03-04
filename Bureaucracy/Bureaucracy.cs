@@ -35,6 +35,11 @@ namespace Bureaucracy
         private void Awake()
         {
             //Mod starts here.
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
+            {
+                Destroy(this);
+                return;
+            }
             settings = new SettingsClass();
             RegisterBureaucracyManagers();
             Instance = this;
