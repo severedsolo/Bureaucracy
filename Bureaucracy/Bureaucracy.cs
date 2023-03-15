@@ -176,5 +176,20 @@ namespace Bureaucracy
             }
             InternalListeners.OnBudgetAwarded.Remove(GeneratePostBudgetReport);
         }
+        /*This is a horrible hack but Planetarium.GetUniversalTime() isn't up when the game first loads.
+         So if we can't load the last budget time from the save (ie first install of the mod), we'll get 0 (new game) as a time - even if the time is not actually 0.
+        Bureaucracy will then run budgets in sequence from Y1D1 (timestamp 0). Obviously this is bad for existing saves as Kerbals will retire, and the mod has no business retroactively running.
+        So wait 1 second to give Planetarium.GetUniversalTime() to return a sensible value. If it's still 0 this is probably a new game. If not, we should have the right timestamp.
+        This obviously leads to another issue where the first budget will be 30 days after whenever the player installed the mod, but better that than running 5 million budgets.
+        */
+        public void YieldAndCreateBudgetOnNewGame()
+        {
+            Invoke(nameof(NewGameBudget), 1.0f);
+        }
+
+        public void NewGameBudget()
+        {
+            BudgetManager.Instance.CreateNewBudget();
+        }
     }
 }

@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +27,10 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9577ac7a62ef43179789031239ba87983e2400/26/4d0253bb/__Error.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/be370b73275e49439ea5e41ceef6700fa4ae00/cc/3f2c89a7/MessageSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -228,7 +233,7 @@
       <workItem from="1628785964411" duration="417000" />
       <workItem from="1628830544207" duration="613000" />
       <workItem from="1677948580740" duration="5503000" />
-      <workItem from="1678895020863" duration="3740000" />
+      <workItem from="1678895020863" duration="11300000" />
     </task>
     <servers />
   </component>
@@ -305,6 +310,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="354" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs</url>
+          <line>12</line>
+          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" initialLine="12" containingFunctionPresentation="constructor 'BudgetEvent'">
+            <startOffsets>
+              <option value="284" />
+            </startOffsets>
+            <endOffsets>
+              <option value="340" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="364" />
         </line-breakpoint>
         <breakpoint enabled="true" type="DotNet Exception Breakpoints">
           <properties exception="System.Runtime.Remoting.RemotingTimeoutException" isInternal="false" displayValue="RemotingTimeoutException" namespaceName="System.Runtime.Remoting">
@@ -1651,6 +1669,10 @@
         <watch expression="e.title" language="C#" custom="RiderImportsList:" />
         <watch expression="e.acceptString" language="C#" custom="RiderImportsList:" />
         <watch expression="ResearchManager.Instance.scienceMultiplier" language="C#" custom="RiderImportsList:" />
+      </configuration>
+      <configuration name="LinuxPlayer(192.168.0.20)">
+        <watch expression="Bureaucracy.Instance" language="C#" />
+        <watch expression="Planetarium.GetUniversalTime()" language="C#" />
       </configuration>
       <configuration name="LinuxPlayer(10.21.10.6)">
         <watch expression="KacWrapper.AssemblyExists" language="C#" custom="RiderImportsList:" />

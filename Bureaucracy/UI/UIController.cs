@@ -45,6 +45,10 @@ namespace Bureaucracy
                 return;
             }
             Instance = this;
+        }
+
+        private void Start()
+        {
             SetAllocation("Budget", "40");
             SetAllocation("Research", "30");
             SetAllocation("Construction", "30");
