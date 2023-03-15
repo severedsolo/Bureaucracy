@@ -9,10 +9,10 @@ using JetBrains.Annotations;
 namespace Bureaucracy
 {
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
-    public clasExternalListeners : MonoBehaviour
+    public class ExternalListeners : MonoBehaviour
     {
-        private KerbalismApi kerbalism;
         private EventData<List<ScienceSubject>, List<double>> onKerbalismScience;
+        private bool eventsRegistered = false;
 
         private void Awake()
         {
@@ -23,6 +23,61 @@ namespace Bureaucracy
         private void Start()
         {
             Debug.Log("[Bureaucracy]: Registering Events");
+            //Handle game state changes so mod can active/deactivate as necessary when player switches saves.
+            GameEvents.onGameNewStart.Add(OnNewGame);
+            GameEvents.onGameStateLoad.Add(OnGameLoaded);
+            GameEvents.onGameSceneSwitchRequested.Add(OnSceneSwitch);
+            RegisterEvents();
+        }
+
+        private bool ShouldRegisterEvents()
+        {
+            return !eventsRegistered && HighLogic.CurrentGame.Mode == Game.Modes.CAREER;
+        }
+
+        private void OnSceneSwitch(GameEvents.FromToAction<GameScenes, GameScenes> sceneData)
+        {
+            if (sceneData.to != GameScenes.MAINMENU || !eventsRegistered) return;
+            UnregisterEvents();
+        }
+
+        private void UnregisterEvents()
+        {
+            if (!eventsRegistered) return;
+            Debug.Log("[Bureaucracy]: Unregistering Events");
+            GameEvents.OnVesselRollout.Remove(AddLaunch);
+            GameEvents.Contract.onOffered.Remove(OnContractOffered);
+            GameEvents.onFacilityContextMenuSpawn.Remove(OnFacilityContextMenuSpawn);
+            GameEvents.OnScienceRecieved.Remove(OnScienceReceived);
+            GameEvents.OnCrewmemberHired.Remove(OnCrewMemberHired);
+            GameEvents.onKerbalStatusChanged.Remove(PotentialKerbalDeath);
+            GameEvents.onGUIAstronautComplexSpawn.Remove(AstronautComplexSpawned);
+            GameEvents.onGUIAstronautComplexDespawn.Remove(AstronautComplexDespawned);
+            Debug.Log("[Bureaucracy] Unregistered Stock Events");
+            FlightTrackerApi.OnFlightTrackerUpdated.Remove(HandleRecovery);
+            Debug.Log("[Bureaucracy] Unregistered Flight Tracker Event");
+            if (onKerbalismScience == null) return;
+            KerbalismApi.UnsuppressKerbalismScience();
+            onKerbalismScience.Remove(OnKerbalismScienceReceived);
+            eventsRegistered = false;
+            Debug.Log("[Bureaucracy]: Unregistered Kerbalism Event");
+        }
+
+        private void OnGameLoaded(ConfigNode data)
+        {
+            if(!ShouldRegisterEvents()) return;
+            RegisterEvents();
+        }
+
+        private void OnNewGame()
+        {
+            if (!ShouldRegisterEvents()) return;
+            RegisterEvents();
+        }
+
+        private void RegisterEvents()
+        {
+            if (eventsRegistered) return;
             GameEvents.OnVesselRollout.Add(AddLaunch);
             GameEvents.Contract.onOffered.Add(OnContractOffered);
             GameEvents.onFacilityContextMenuSpawn.Add(OnFacilityContextMenuSpawn);
@@ -34,14 +89,23 @@ namespace Bureaucracy
             Debug.Log("[Bureaucracy]: Stock Events Registered");
             FlightTrackerApi.OnFlightTrackerUpdated.Add(HandleRecovery);
             Debug.Log("[Bureaucracy]: FlightTracker Events Registered");
-            kerbalism = new KerbalismApi();
-            if (SettingsClass.Instance.HandleScience && kerbalism.ActivateKerbalismInterface())
+            if (SettingsClass.Instance.HandleScience && KerbalismApi.Available())
             {
                 onKerbalismScience = GameEvents.FindEvent<EventData<List<ScienceSubject>, List<double>>>("onSubjectsReceived");
-                if (onKerbalismScience == null) return;
-                onKerbalismScience.Add(OnKerbalismScienceReceived);
-                Debug.Log("[Bureaucracy]: Kerbalism Event Registered");
+                if (onKerbalismScience != null && KerbalismApi.SuppressKerbalismScience())
+                {
+                    onKerbalismScience.Add(OnKerbalismScienceReceived);
+                    Debug.Log("[Bureaucracy]: Taking over control of Science from Kerbalism");
+                }
+                //Give control back to Kerbalism in case API just failed to work for some reason.
+                else
+                {
+                    Debug.Log("[Bureaucracy]: Failed to take control of science for Kerbalism");
+                    KerbalismApi.UnsuppressKerbalismScience();
+                }
             }
+
+            eventsRegistered = true;
             Debug.Log("[Bureaucracy]: All Events Successfully Registered");
         }
 
@@ -134,21 +198,7 @@ namespace Bureaucracy
 
         private void OnDisable()
         {
-            Debug.Log("[Bureaucracy]: Unregistering Events");
-            GameEvents.OnVesselRollout.Remove(AddLaunch);
-            GameEvents.Contract.onOffered.Remove(OnContractOffered);
-            GameEvents.onFacilityContextMenuSpawn.Remove(OnFacilityContextMenuSpawn);
-            GameEvents.OnScienceRecieved.Remove(OnScienceReceived);
-            GameEvents.OnCrewmemberHired.Remove(OnCrewMemberHired);
-            GameEvents.onKerbalStatusChanged.Remove(PotentialKerbalDeath);
-            GameEvents.onGUIAstronautComplexSpawn.Remove(AstronautComplexSpawned);
-            GameEvents.onGUIAstronautComplexDespawn.Remove(AstronautComplexDespawned);
-            Debug.Log("[Bureaucracy] Unregistered Stock Events");
-            FlightTrackerApi.OnFlightTrackerUpdated.Remove(HandleRecovery);
-            Debug.Log("[Bureaucracy] Unregistered Flight Tracker Event");
-            if (onKerbalismScience == null) return;
-            onKerbalismScience.Remove(OnKerbalismScienceReceived);
-            Debug.Log("[Bureaucracy]: Unregistered Kerbalism Event");
+            UnregisterEvents();
         }
     }
 }

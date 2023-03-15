@@ -16,7 +16,11 @@ namespace Bureaucracy
 
         private void Awake()
         {
-            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) Destroy(this);
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
+            {
+                Destroy(this);
+                return;
+            }
             Instance = this;
         }
 

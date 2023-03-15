@@ -39,6 +39,11 @@ namespace Bureaucracy
 
         private void Awake()
         {
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER)
+            {
+                Destroy(this);
+                return;
+            }
             Instance = this;
             SetAllocation("Budget", "40");
             SetAllocation("Research", "30");

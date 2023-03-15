@@ -9,14 +9,11 @@ namespace Bureaucracy
     public class ContractInterceptor : MonoBehaviour
     {
         public static ContractInterceptor Instance;
+
         protected void Awake()
         {
-            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) Destroy(this);
-            else
-            {
-                DontDestroyOnLoad(this);
-                Instance = this;
-            }
+            DontDestroyOnLoad(this);
+            Instance = this;
         }
 
         public void OnContractOffered(Contract contract)
@@ -39,11 +36,6 @@ namespace Bureaucracy
             if (contract.ReputationCompletion < 1) contract.ReputationCompletion = 1;
             contract.FundsAdvance = 0;
             contract.FundsCompletion = 0;
-        }
-
-        public void OnDisable()
-        {
-            GameEvents.Contract.onOffered.Remove(OnContractOffered);
         }
     }
 }

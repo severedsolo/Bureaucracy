@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace Bureaucracy
 {
-    internal class KerbalismApi
+    internal static class KerbalismApi
     {
-        private static bool available;
         private static Type kerbalismApi;
-        private FieldInfo addScienceBlocker;
-        private FieldInfo enableEvent;
+        private static FieldInfo addScienceBlocker;
+        private static FieldInfo enableEvent;
 
-        private bool Available()
+        public static bool Available()
         {
+            //As Bureaucracy should only run in Career mode just return false if not in Career.
+            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER) return false;
             Debug.Log("[Bureaucracy]: Attempting to find Kerbalism");
             //Borrowed from Kerbalism.Contracts
             foreach (AssemblyLoader.LoadedAssembly a in AssemblyLoader.loadedAssemblies)
             {
-                if (kerbalismApi != null && addScienceBlocker != null && enableEvent != null) return true;
                 // name will be "Kerbalism" for debug builds,
                 // and "Kerbalism18" or "Kerbalism16_17" for releases
                 // there also is a KerbalismBootLoader, possibly a KerbalismContracts and other mods
@@ -28,23 +28,31 @@ namespace Bureaucracy
                 Debug.Log("Found KERBALISM API in " + a.name + ": " + kerbalismApi);
                 if (kerbalismApi != null)
                 {
+                    Debug.Log("[Bureuacracy] Found Kerbalism. Setting Field Instances");
                     addScienceBlocker = kerbalismApi.GetField("preventScienceCrediting", BindingFlags.Public | BindingFlags.Static);
                     enableEvent = kerbalismApi.GetField("subjectsReceivedEventEnabled", BindingFlags.Public | BindingFlags.Static);
+                    return true;
                 }
-                available = kerbalismApi != null;
             }
-            Debug.Log("[Bureaucracy]: Kerbalism found: " + available);
-            return available;
+            Debug.Log("[Bureaucracy]: Failed to find Kerbalism API");
+            return false;
         }
 
-        public bool ActivateKerbalismInterface()
+        public static bool SuppressKerbalismScience()
         {
-            if (!Available()) return false;
             if (addScienceBlocker == null || enableEvent == null) return false;
             addScienceBlocker.SetValue(null, true);
             enableEvent.SetValue(null, true);
             Debug.Log("[Bureaucracy]: Kerbalism Science Suppressed");
             return (bool) enableEvent.GetValue(kerbalismApi);
+        }
+
+        public static void UnsuppressKerbalismScience()
+        {
+            if (addScienceBlocker == null || enableEvent == null) return;
+            addScienceBlocker.SetValue(null, false);
+            enableEvent.SetValue(null, false);
+            Debug.Log("[Bureaucracy]: Kerbalism Science Unsuppressed");
         }
     }
 }
