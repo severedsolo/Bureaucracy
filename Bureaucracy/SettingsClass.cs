@@ -220,6 +220,7 @@ namespace Bureaucracy
             cn.SetValue("BaseStrikesBeforeKerbalQuits", BaseStrikesToQuit, true);
             cn.SetValue("StrikeMemoryMonths", StrikeMemory, true);
             cn.SetValue("DeadKerbalRepPenaltyPercent", DeadKerbalPenalty, true);
+            cn.SetValue("SuppressMessages", SuppressMessages, true);
             cn.Save(path);
             Debug.Log("[Bureaucracy]: Settings Saved");
         }
