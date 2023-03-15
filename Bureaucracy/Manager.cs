@@ -20,11 +20,12 @@ namespace Bureaucracy
             timeElapsed /= FlightGlobals.GetHomeBody().solarDayLength;
             return timeElapsed;
         }
-        public void MakeReport() 
-        {                
+        public void MakeReport()
+        {
+            if (SettingsClass.Instance.SuppressMessages) return;
             Report r = GetReport();
             MessageSystem.Message message = new MessageSystem.Message(r.ReportTitle, r.ReportBody(), MessageSystemButton.MessageButtonColor.BLUE, MessageSystemButton.ButtonIcons.MESSAGE);
-            MessageSystem.Instance.AddMessage(message); 
+            MessageSystem.Instance.AddMessage(message);
         }
 
         public virtual void UnregisterEvents() { Debug.Log("[Bureaucracy]: No Events to Unregister for "+Name); }

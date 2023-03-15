@@ -44,9 +44,10 @@ namespace Bureaucracy
         public double RetirementExtensionFactor = 0.33f;
         public int StrikeMemory = 6;
         public int DeadKerbalPenalty = 25;
+        public bool SuppressMessages = false;
         private readonly string defaultPath;
-        private const string SettingsVersion = "1.4.0.1";
-        private const string PreviousVersion = "1.1";
+        private const string SettingsVersion = "1.5.2";
+        private const string PreviousVersion = "1.4.0.1";
         private readonly string savePath;
 
         public SettingsClass()
@@ -88,6 +89,7 @@ namespace Bureaucracy
                 Debug.Log("[Bureaucracy]: Settings are not compatible with this version of Bureaucracy. Aborting Load");
                 return;
             }
+
             bool.TryParse(cn.GetValue("AutoBalanceSettings"), out autoBalanceSettings);
             bool.TryParse(cn.GetValue("HandleScience"), out HandleScience);
             bool.TryParse(cn.GetValue("ShowKCTWarning"), out KctError);
@@ -120,24 +122,25 @@ namespace Bureaucracy
             int.TryParse(cn.GetValue("BaseStrikesBeforeKerbalQuits"), out BaseStrikesToQuit);
             int.TryParse(cn.GetValue("StrikeMemoryMonths"), out StrikeMemory);
             int.TryParse(cn.GetValue("DeadKerbalRepPenaltyPercent"), out DeadKerbalPenalty);
-            if (saveVersion == "1.4.0.1")
+            bool.TryParse(cn.GetValue("RetirementEnabled"), out RetirementEnabled);
+            double.TryParse(cn.GetValue("RetirementExtensionFactor"), out RetirementExtensionFactor);
+            int.TryParse(cn.GetValue("MinimumTerm"), out MinimumTerm);
+            int.TryParse(cn.GetValue("MaximumTerm"), out MaximumTerm);
+            int.TryParse(cn.GetValue("BaseTrainingFee"), out BaseTrainingFee);
+            int.TryParse(cn.GetValue("ObservatoryCost"), out ObservatoryCost);
+            if (saveVersion == "1.5.2")
             {
-                bool.TryParse(cn.GetValue("RetirementEnabled"), out RetirementEnabled);
-                double.TryParse(cn.GetValue("RetirementExtensionFactor"), out RetirementExtensionFactor);
-                int.TryParse(cn.GetValue("MinimumTerm"), out MinimumTerm);
-                int.TryParse(cn.GetValue("MaximumTerm"), out MaximumTerm);
-                int.TryParse(cn.GetValue("BaseTrainingFee"), out BaseTrainingFee);
-                int.TryParse(cn.GetValue("ObservatoryCost"), out ObservatoryCost);
+                bool.TryParse(cn.GetValue("SuppressMessages"), out SuppressMessages);
             }
             if (RefreshBudget())
             {
                 TimerScript.Instance.RemoveTimer(BudgetManager.Instance.NextBudget);
                 BudgetManager.Instance.NextBudget = null;
-                BudgetManager.Instance.NextBudget = new BudgetEvent(Planetarium.GetUniversalTime()+TimeBetweenBudgets*FlightGlobals.GetHomeBody().solarDayLength, BudgetManager.Instance, true);
+                BudgetManager.Instance.NextBudget = new BudgetEvent(Planetarium.GetUniversalTime() + TimeBetweenBudgets * FlightGlobals.GetHomeBody().solarDayLength, BudgetManager.Instance, true);
             }
 
             if (autoBalanceSettings) BalanceSettings();
-            if(saveVersion != SettingsVersion) OnSave(defaultPath); 
+            if (saveVersion != SettingsVersion) OnSave(defaultPath);
             Debug.Log("[Bureaucracy]: Settings Loaded");
         }
 

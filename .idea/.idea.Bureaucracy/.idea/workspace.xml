@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9443f7e6-72af-4f0d-a9ef-cb7899d5c46e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/BankOfKerbin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/BankOfKerbin.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/ContractInterceptor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Crew/AstronautComplexOverride.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/GameEvents/ExternalListeners.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/KerbalismAPI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/KerbalismAPI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/TimerScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Manager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +26,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/be370b73275e49439ea5e41ceef6700fa4ae00/cc/3f2c89a7/MessageSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetReport.cs" root0="FORCE_HIGHLIGHTING" />
@@ -233,7 +228,7 @@
       <workItem from="1628785964411" duration="417000" />
       <workItem from="1628830544207" duration="613000" />
       <workItem from="1677948580740" duration="5503000" />
-      <workItem from="1678895020863" duration="2772000" />
+      <workItem from="1678895020863" duration="3740000" />
     </task>
     <servers />
   </component>
