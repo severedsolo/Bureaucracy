@@ -46,7 +46,7 @@ namespace Bureaucracy
         public int DeadKerbalPenalty = 25;
         public bool SuppressMessages = false;
         private readonly string defaultPath;
-        private const string SettingsVersion = "1.5.2";
+        private const string SettingsVersion = "1.6";
         private const string PreviousVersion = "1.4.0.1";
         private readonly string savePath;
 
