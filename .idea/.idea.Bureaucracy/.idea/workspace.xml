@@ -8,8 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bureaucracy/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/Bureaucracy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/SettingsClass.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameData/Bureaucracy/Bureaucracy.version" beforeDir="false" afterPath="$PROJECT_DIR$/GameData/Bureaucracy/Bureaucracy.version" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameData/Bureaucracy/Changelog.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/GameData/Bureaucracy/Changelog.cfg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +32,14 @@
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9577ac7a62ef43179789031239ba87983e2400/26/4d0253bb/__Error.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/be370b73275e49439ea5e41ceef6700fa4ae00/08/79841f6b/KSPLog.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/be370b73275e49439ea5e41ceef6700fa4ae00/cc/3f2c89a7/MessageSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -236,6 +243,7 @@
       <workItem from="1628830544207" duration="613000" />
       <workItem from="1677948580740" duration="5503000" />
       <workItem from="1678895020863" duration="11300000" />
+      <workItem from="1679000658330" duration="6426000" />
     </task>
     <servers />
   </component>
@@ -314,17 +322,56 @@
           <option name="timeStamp" value="354" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs</url>
-          <line>12</line>
-          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetEvent.cs" initialLine="12" containingFunctionPresentation="constructor 'BudgetEvent'">
+          <url>file://$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs</url>
+          <line>87</line>
+          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Budget/BudgetManager.cs" initialLine="88" containingFunctionPresentation="method 'OnSave'">
             <startOffsets>
-              <option value="284" />
+              <option value="3016" />
             </startOffsets>
             <endOffsets>
-              <option value="340" />
+              <option value="3067" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="364" />
+          <option name="timeStamp" value="377" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bureaucracy/UI/UIController.cs</url>
+          <line>409</line>
+          <properties documentPath="$PROJECT_DIR$/Bureaucracy/UI/UIController.cs" initialLine="409" containingFunctionPresentation="method 'ValidateAllocations'">
+            <startOffsets>
+              <option value="22071" />
+            </startOffsets>
+            <endOffsets>
+              <option value="22127" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="382" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs</url>
+          <line>82</line>
+          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" initialLine="82" containingFunctionPresentation="method 'OnLoad'">
+            <startOffsets>
+              <option value="3194" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3245" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="383" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs</url>
+          <line>106</line>
+          <properties documentPath="$PROJECT_DIR$/Bureaucracy/Facilities/FacilityManager.cs" initialLine="106" containingFunctionPresentation="method 'OnSave'">
+            <startOffsets>
+              <option value="4316" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4367" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="385" />
         </line-breakpoint>
         <breakpoint enabled="true" type="DotNet Exception Breakpoints">
           <properties exception="System.Runtime.Remoting.RemotingTimeoutException" isInternal="false" displayValue="RemotingTimeoutException" namespaceName="System.Runtime.Remoting">
@@ -1674,7 +1721,12 @@
       </configuration>
       <configuration name="LinuxPlayer(192.168.0.20)">
         <watch expression="Bureaucracy.Instance" language="C#" />
+        <watch expression="manager.FundingAllocation" language="C#" />
         <watch expression="Planetarium.GetUniversalTime()" language="C#" />
+        <watch expression="FundingAllocation" language="C#" />
+        <watch expression="(int)(manager.FundingAllocation*100)" language="C#" />
+        <watch expression="nextBudgetTime" language="C#" />
+        <watch expression="FacilityManager.Instance.FundingAllocation" language="C#" />
       </configuration>
       <configuration name="LinuxPlayer(10.21.10.6)">
         <watch expression="KacWrapper.AssemblyExists" language="C#" custom="RiderImportsList:" />

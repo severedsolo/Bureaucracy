@@ -48,8 +48,7 @@ namespace Bureaucracy
             double nextBudgetTime = GetNextBudgetTime();
             if (managerNode != null)
             {
-                int.TryParse(managerNode.GetValue("FundingAllocation"), out int i);
-                FundingAllocation = i;
+                float.TryParse(managerNode.GetValue("FundingAllocation"), out FundingAllocation);
                 double.TryParse(managerNode.GetValue("nextBudget"), out nextBudgetTime);
                 CreateNewBudget(nextBudgetTime);
             }

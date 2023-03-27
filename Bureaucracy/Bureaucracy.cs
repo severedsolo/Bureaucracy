@@ -133,7 +133,6 @@ namespace Bureaucracy
             ResearchManager.Instance.OnLoad(node);
             CrewManager.Instance.OnLoad(node);
             RandomEventLoader.Instance.OnLoad(node);
-            UiController.Instance.OnLoad(node);
             node.TryGetValue("existingSave", ref existingSave);
             node.TryGetValue("lastProgressUpdate", ref lastProgressUpdate);
             if(progressEvent == null) progressEvent = new ManagerProgressEvent();
@@ -150,7 +149,6 @@ namespace Bureaucracy
             ResearchManager.Instance.OnSave(node);
             CrewManager.Instance.OnSave(node);
             RandomEventLoader.Instance.OnSave(node);
-            UiController.Instance.OnSave(node);
             node.SetValue("existingSave", existingSave, true);
             node.SetValue("lastProgressUpdate", lastProgressUpdate, true);
             Debug.Log("[Bureaucracy]: OnSave Complete");
